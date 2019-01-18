@@ -9,7 +9,7 @@
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -21,7 +21,7 @@
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
     <style>
     .login {
-        background: url("http://localhost/freya-trucks/public/img/photohome.jpg") no-repeat center center fixed; 
+        background: url("http://localhost/freya-hotel/public/img/photohome.jpg") no-repeat center center fixed; 
         opacity: 0.9;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -73,7 +73,7 @@
                   <br />
 
                   <div>
-                    <h1><i class="fa fa-leaf"></i> Freya Trucks</h1>
+                    <h1><i class="fa fa-leaf"></i> Freya Hotel</h1>
                     <p>©<?php echo date('Y'); ?> Todos los derechos reservados<br />Amadeus Soluciones</p>
                   </div>
                 </div>
