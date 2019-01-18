@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="input-group">
                                 <div></div>
                                 <span class="input-group-btn">
-                                    <a class="btn btn-success btn-service" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
+                                    <a class="btn btn-info btn-service" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
                                 </span>
                             </div>
                         </div>
@@ -117,8 +117,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         if ($list_service != FALSE){
                                             foreach ($list_service as $row_list){
                                                 ?>
-                                                <tr style="background-color: #2A3F54;">
-                                                    <td class="center green"><?php echo $row_list['descServicio']; ?></td>
+                                                <tr style="background-color: #FFF;">
+                                                    <td class="center"><?php echo $row_list['descServicio']; ?></td>
                                                     <td class="center red"><?php echo $this->jasr->toHours($row_list['tiempoAtencion'],''); ?> min.</td>
                                                     <td class="center red">$<?php echo number_format($row_list['valorServicio'],0,',','.'); ?></td>
                                                     <td class="center blue"><?php echo $row_list['descGrupoServicio']; ?></td>

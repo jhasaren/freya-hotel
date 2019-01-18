@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h3>Usuarios</h3>
                         <?php if ($this->MRecurso->validaRecurso(6)){ /*Agregar Empleados*/ ?>
                         <span class="input-group-btn">
-                            <a class="btn btn-success btn-empleado" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</a>
+                            <a class="btn btn-info btn-empleado" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</a>
                         </span>
                         <?php } ?>
                     </div>
@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div></div>
                                 <?php if ($this->MRecurso->validaRecurso(3)){ /*Agregar clientes*/ ?>
                                 <span class="input-group-btn">
-                                    <a class="btn btn-success btn-cliente" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Cliente</a>
+                                    <a class="btn btn-info btn-cliente" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Cliente</a>
                                 </span>
                                 <?php } ?>
                             </div>
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div></div>
                                 <?php if ($this->MRecurso->validaRecurso(16)){ /*Agregar Proveedor*/ ?>
                                 <span class="input-group-btn">
-                                    <a class="btn btn-success btn-proveedor" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</a>
+                                    <a class="btn btn-info btn-proveedor" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</a>
                                 </span>
                                 <?php } ?>
                             </div>
@@ -133,8 +133,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                                 <tr>
                                                     <td class="center"><?php echo $row_list['nombre_usuario']." [ID. ".$row_list['idUsuario']."]"; ?></td>
-                                                    <td class="center"><?php echo $row_list['numCelular']; ?></td>
-                                                    <td class="center"><?php echo $row_list['descTipoUsuario']; ?></td>
+                                                    <td class="center green"><?php echo $row_list['numCelular']; ?></td>
+                                                    <td class="center blue"><?php echo $row_list['descTipoUsuario']; ?></td>
                                                     <td class="center"><?php echo $row_list['descTipoProveedor']; ?></td>
                                                     <td class="center">
                                                         <?php if ($row_list['activo'] == 'S') { ?>

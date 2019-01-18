@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php
                                         foreach ($detalleResolucion as $row_res){
                                             ?>
-                                            <tr style="background-color: #2A3F54;">
+                                            <tr style="background-color: #A0D1CD;">
                                                 <td class="center green"><?php echo $row_res['resolucionExpide']; ?></td>
                                                 <td class="center"><?php echo $row_res['fechaRango']; ?></td>
                                                 <td class="center green"><?php echo $row_res['inicio']."-".$row_res['final']; ?></td>

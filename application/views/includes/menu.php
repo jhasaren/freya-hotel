@@ -36,7 +36,7 @@
                 </li>-->
                 <li>
                     <a href="<?php echo base_url().'index.php/CSale/boards/2'; ?>">
-                        <i class="fa fa-usd"></i> Facturacion
+                        <i class="fa fa-bed"></i> Habitación
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-usd"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -50,7 +50,7 @@
                 <?php if ($this->MRecurso->validaRecurso(1)){ /*Servicios*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CService'; ?>">
-                        <i class="fa fa-star-half-o"></i> Servicios
+                        <i class="fa fa-diamond"></i> Servicios
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-star-half-o"></i> Platos <span class="fa fa-chevron-down"></span></a>
@@ -63,7 +63,7 @@
                 <?php if ($this->MRecurso->validaRecurso(2)){ /*Productos*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CProduct'; ?>">
-                        <i class="fa fa-shopping-cart"></i> Productos
+                        <i class="fa fa-coffee"></i> Productos
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-shopping-cart"></i> Productos <span class="fa fa-chevron-down"></span></a>
@@ -77,7 +77,7 @@
                 <?php if ($this->MRecurso->validaRecurso(7)){ /*Usuarios*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CUser'; ?>">
-                        <i class="fa fa-users"></i> Usuarios
+                        <i class="fa fa-user-plus"></i> Usuarios
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
@@ -90,7 +90,7 @@
                 <?php if ($this->MRecurso->validaRecurso(8)){ /*Recibos*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CReport/module/reportPayment'; ?>">
-                        <i class="fa fa-clone"></i> Recibos
+                        <i class="fa fa-book"></i> Recibos
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-clone"></i>Recibos <span class="fa fa-chevron-down"></span></a>
@@ -106,7 +106,7 @@
                 <?php if ($this->MRecurso->validaRecurso(10)){ /*Reportes*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CReport/module/reportSedes'; ?>">
-                        <i class="fa fa-bar-chart-o"></i> Reportes
+                        <i class="fa fa-folder-open"></i> Reportes
                     </a>
                 </li>
 <!--                <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>

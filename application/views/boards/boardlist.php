@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="input-group">
                                 <div></div>
                                 <span class="input-group-btn">
-                                    <a class="btn btn-success btn-board" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
+                                    <a class="btn btn-info btn-board" href="#"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
                                 </span>
                                 <span class="input-group-btn">
                                     <a class="btn btn-info" href="<?php echo base_url().'index.php/CSale/boards/2'; ?>"><i class="glyphicon glyphicon-th"></i> Ver Tablero</a>
@@ -118,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         if ($list_board != FALSE){
                                             foreach ($list_board as $row_list){
                                                 ?>
-                                                <tr style="background-color: #2A3F54;">
+                                                <tr style="background-color: #FFF;">
                                                     <td class="center green"><?php echo $row_list['idMesa']; ?></td>
                                                     <td class="center green"><?php echo $row_list['nombreMesa']; ?></td>
                                                     <td class="center blue"><?php echo $row_list['descTipoMesa']; ?></td>
