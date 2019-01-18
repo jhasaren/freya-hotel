@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Mesas</h3>
+                        <h3>Habitaciones</h3>
                     </div>
 
                     <div class="title_right">
@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Actualizar Mesa [ID:<?php echo $id; ?>]</h2>
+                                <h2>Actualizar Habitación [ID:<?php echo $id; ?>]</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -109,11 +109,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <form role="form" name="form_board_edit" action="<?php echo base_url() . 'index.php/CBoard/updboard'; ?>" method="post" autocomplete="off">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="Nombre">Nombre Mesa</label>
-                                            <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameboard" name="nameboard" placeholder="Nombre de la Mesa" value="<?php echo $data_board->nombreMesa; ?>" required="">
+                                            <label for="Nombre">Nombre</label>
+                                            <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameboard" name="nameboard" placeholder="Nombre de la Habitacion" value="<?php echo $data_board->nombreMesa; ?>" required="">
                                         </div>
                                         <div class="form-group">
-                                            <label for="GrupoServicio">Tipo de Mesa</label>
+                                            <label for="GrupoServicio">Tipo</label>
                                             <input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $data_board->descTipoMesa; ?>" disabled="">
                                         </div>
                                             <?php

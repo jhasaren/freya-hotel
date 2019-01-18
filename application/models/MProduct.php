@@ -204,7 +204,7 @@ class MProduct extends CI_Model {
     public function create_product($name,$valor,$distributionproduct,$stock,$unidosis,$typeproduct,$costo,$undmedida,$groupservice) {
         
         /*Setea usuario de conexion - Auditoria BD*/
-        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
         
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
@@ -274,7 +274,7 @@ class MProduct extends CI_Model {
     public function update_product($idproduct,$name,$valor,$procent_empleado,$stock,$unidosis,$valueState,$costo) {
         
         /*Setea usuario de conexion - Auditoria BD*/
-        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
         
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();

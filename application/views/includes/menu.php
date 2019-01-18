@@ -36,7 +36,7 @@
                 </li>-->
                 <li>
                     <a href="<?php echo base_url().'index.php/CSale/boards/2'; ?>">
-                        <i class="fa fa-usd"></i> Ventas
+                        <i class="fa fa-usd"></i> Facturacion
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-usd"></i> Ventas <span class="fa fa-chevron-down"></span></a>
@@ -50,7 +50,7 @@
                 <?php if ($this->MRecurso->validaRecurso(1)){ /*Servicios*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CService'; ?>">
-                        <i class="fa fa-star-half-o"></i> Plato Fuerte
+                        <i class="fa fa-star-half-o"></i> Servicios
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-star-half-o"></i> Platos <span class="fa fa-chevron-down"></span></a>
@@ -63,7 +63,7 @@
                 <?php if ($this->MRecurso->validaRecurso(2)){ /*Productos*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CProduct'; ?>">
-                        <i class="fa fa-shopping-cart"></i> Productos/<br />Ingredientes
+                        <i class="fa fa-shopping-cart"></i> Productos
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-shopping-cart"></i> Productos <span class="fa fa-chevron-down"></span></a>

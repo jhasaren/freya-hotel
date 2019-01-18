@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Platos Fuertes</h3>
+                        <h3>Servicios</h3>
                     </div>
 
                     <div class="title_right">
@@ -93,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Listado en la Carta</h2>
+                                <h2>Listado</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -162,7 +162,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form role="form" name="form_service" action="<?php echo base_url() . 'index.php/CService/addservice'; ?>" method="post" autocomplete="off">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Agregar Plato Fuerte</h3> 
+                            <h3>Agregar Servicio</h3> 
                             <?php 
                             //echo "Lista Servicios->".$this->cache->memcached->get('memcached2')."<br />"; 
                             //echo "Tipo Servicio->".$this->cache->memcached->get('memcached'); 
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameservice" name="nameservice" placeholder="Nombre del Plato" required="">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameservice" name="nameservice" placeholder="Descripcion del servicio" required="">
                             </div>
                             <div class="form-group">
                                 <label for="TiempoAtencion">Tiempo de Preparación</label>

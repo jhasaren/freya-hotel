@@ -133,7 +133,7 @@ class MBoard extends CI_Model {
     public function create_board($name,$type) {
         
         /*Setea usuario de conexion - Auditoria BD*/
-        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
         
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();

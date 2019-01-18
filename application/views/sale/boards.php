@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -51,13 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Mesas</h3>
+                        <h3>Habitaciones</h3>
                         <span class="label label-warning">
                             <a href="<?php echo base_url().'index.php/CSale/pendientespago'; ?>">Ver Cuentas x Cobrar</a>
                         </span>
-                        <span class="label label-info">
-                            <a href="<?php echo base_url().'index.php/CSale/resetconsecutivoturno'; ?>">Reiniciar Consecutivo Turno</a>
-                        </span>
+                        <!--<span class="label label-info">
+                            <a href="<?php //echo base_url().'index.php/CSale/resetconsecutivoturno'; ?>">Reiniciar Consecutivo Turno</a>
+                        </span>-->
                         <br /><br />
                     </div>
 
@@ -140,63 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <!--**********************************************-->
                                 <hr />
                                 <!--************************DOMICILIO**********************-->
-                                <div class="row">
-                                    <?php 
-                                    if ($list_board['domicilio'] != FALSE){
-                                        foreach ($list_board['domicilio'] as $row_list_dom){
-                                            if ($row_list_dom['idEstadoRecibo'] == 2){ /*liquidado*/
-                                                
-                                                $color = "#F3BEB5"; /*mesa ocupada en proceso pago - rojo*/
-                                                $flag = $row_list_dom['idVenta'];
-                                                $ocupation = "PENDIENTE PAGO";
-                                                
-                                            } else {
-                                                
-                                                if ($row_list_dom['idEstadoRecibo'] == 4){ /*proceso liquidacion*/ 
-                                                
-                                                    $color = "#A8DFED"; /*mesa ocupada en pedido - azul*/
-                                                    $flag = $row_list_dom['idVenta'];
-                                                    $ocupation = "OCUPADA EN PEDIDO";
-                                                    
-                                                } else {
-                                                    
-                                                    $color = "#CBEDA8"; /*mesa libre - verde*/
-                                                    $flag = 0;
-                                                    $ocupation = "LIBRE";
-                                                    
-                                                }
-                                            }
-                                            ?>
-                                            <div class="col-sm-2">
-                                                <div class="do-item do-item-circle do-circle">
-                                                    <!--http://placehold.it/261x261-->
-                                                    <img src="<?php echo base_url().'public/img/261x261D.jpg'; ?>" class="do-item do-circle">
-                                                    <div class="do-info-wrap do-circle" style="background-color: <?php echo $color; ?>">
-                                                        <a href="<?php echo base_url().'index.php/CSale/createsale/'.$row_list_dom['idMesa'].'/'.$flag; ?>">
-                                                        <div class="do-info">
-                                                            <div class="do-info-front do-circle">
-                                                                <center>
-                                                                    <h3 style="color: #000"><?php echo $row_list_dom['nombreMesa']; ?></h3>
-                                                                </center>
-                                                            </div>
-                                                            <div class="do-info-back do-circle">
-                                                                <h3><?php echo $ocupation; ?></h3>
-                                                                <div>
-                                                                    <span class="label label-info">                        
-                                                                        <?php echo $row_list['time']; ?>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
+                                
                                 <!--**********************************************-->
                         </div>
                         <!--<center>

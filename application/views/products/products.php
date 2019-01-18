@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Productos/Ingredientes</h3>
+                        <h3>Productos</h3>
                     </div>
 
                     <div class="title_right">
@@ -166,7 +166,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form role="form" name="form_service" action="<?php echo base_url() . 'index.php/CProduct/addproduct'; ?>" method="post" autocomplete="off">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Agregar Producto/Ingrediente</h3>
+                            <h3>Agregar Producto</h3>
                             <?php
                             //echo "Lista productos->".$this->cache->memcached->get('memcached3')."<br />";
                             //echo "Tipo Productos->".$this->cache->memcached->get('memcached4');

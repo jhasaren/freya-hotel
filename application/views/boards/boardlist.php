@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Trucks</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Lista de Mesas</h3>
+                        <h3>Lista de Habitaciones</h3>
                     </div>
 
                     <div class="title_right">
@@ -151,14 +151,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /page content -->
         
-        <!--Modal - Agregar Mesa-->
+        <!--Modal - Agregar habitacion-->
         <div class="modal fade" id="myModal-board" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-board" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form role="form" name="form_board" action="<?php echo base_url() . 'index.php/CBoard/addboard'; ?>" method="post" autocomplete="off">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Agregar Mesa</h3>
+                            <h3>Agregar Habitación</h3>
                             <?php
                             //echo "Lista productos->".$this->cache->memcached->get('memcached3')."<br />";
                             //echo "Tipo Productos->".$this->cache->memcached->get('memcached4');
@@ -167,11 +167,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="Nombre">Nombre Mesa</label>
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameboard" name="nameboard" placeholder="Mesa" maxlength="40" required="">
+                                <label for="Nombre">Nombre</label>
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameboard" name="nameboard" placeholder="Habitacion" maxlength="40" required="">
                             </div>
                             <div class="form-group">
-                                <label for="TipoMesa">Tipo de Mesa</label>
+                                <label for="TipoMesa">Tipo de Habitación</label>
                                 <select class="form-control" name="typeboard">
                                     <?php
                                     foreach ($list_type_board as $row) {

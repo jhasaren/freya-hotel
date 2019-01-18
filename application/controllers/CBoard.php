@@ -2,7 +2,7 @@
 /**************************************************************************
 * Nombre de la Clase: CBoard
 * Version: 1.2.0
-* Descripcion: Es el controlador para gestionar el Modulo de Gestion Mesas
+* Descripcion: Es el controlador para gestionar el Modulo de Gestion Habitación
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
 * Fecha Creacion: 22/09/2018
@@ -88,7 +88,7 @@ class CBoard extends CI_Controller {
         
     /**************************************************************************
      * Nombre del Metodo: addboard
-     * Descripcion: Crear Mesa
+     * Descripcion: Crear Habitación
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 22/09/2018, Ultima modificacion: 
      **************************************************************************/
@@ -116,13 +116,13 @@ class CBoard extends CI_Controller {
 
                         if ($registerData == TRUE){
 
-                            $info['message'] = 'Mesa creada Exitosamente';
+                            $info['message'] = 'Habitación creada Exitosamente';
                             $info['alert'] = 1;
                             $this->module($info);
 
                         } else {
 
-                            $info['message'] = 'No fue posible crear la Mesa';
+                            $info['message'] = 'No fue posible crear la Habitación';
                             $info['alert'] = 2;
                             $this->module($info);
 
@@ -130,7 +130,7 @@ class CBoard extends CI_Controller {
                         
                     } else {
 
-                        $info['message'] = 'No fue posible agregar la Mesa. Nombre incorrecto.';
+                        $info['message'] = 'No fue posible agregar la Habitación. Nombre incorrecto.';
                         $info['alert'] = 2;
                         $this->module($info);
 

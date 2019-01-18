@@ -195,7 +195,7 @@ class CSale extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: boards
-     * Descripcion: visualiza el estado de las mesas
+     * Descripcion: visualiza el estado de las habitaciones
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 22/09/2018, Ultima modificacion: 
      **************************************************************************/
@@ -205,7 +205,7 @@ class CSale extends CI_Controller {
             
             if ($this->MRecurso->validaRecurso(9)){
                 
-                if ($type == 2){ /*tablero de mesas*/
+                if ($type == 2){ /*tablero de habitaciones*/
                     
                     /*Consulta Modelo para obtener listado de disponibilidad de mesas*/
                     $listBoards = $this->MSale->list_board_sale();

@@ -1801,12 +1801,13 @@ class MSale extends CI_Model {
      **************************************************************************/
     public function list_board_sale() {
                 
-        /*Recupera la disponibilidad de mesas en la sede*/
-        /*SITIO*/
+        /*Recupera la disponibilidad de habitaciones en la sede*/
+        /*TODAS*/
         $query = $this->db->query("SELECT
                                 m.idMesa,
                                 m.nombreMesa,
                                 m.activo,
+                                m.idTipoMesa,
                                 t.descTipoMesa,
                                 m.idVenta,
                                 v.idEstadoRecibo,
@@ -1817,35 +1818,15 @@ class MSale extends CI_Model {
                                 WHERE
                                 m.activo = 'S'
                                 AND m.idSede = ".$this->session->userdata('sede')."
-                                AND m.idTipoMesa = 1
-                                ORDER BY 2 ASC");
-        
-        /*DOMICILIO*/
-        $query2 = $this->db->query("SELECT
-                                m.idMesa,
-                                m.nombreMesa,
-                                m.activo,
-                                t.descTipoMesa,
-                                m.idVenta,
-                                v.idEstadoRecibo,
-                                DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time
-                                FROM mesas m
-                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
-                                LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
-                                WHERE
-                                m.activo = 'S'
-                                AND m.idSede = ".$this->session->userdata('sede')."
-                                AND m.idTipoMesa = 2
-                                ORDER BY 2 ASC");
+                                ORDER BY 3 ASC");
 
-        if ($query->num_rows() == 0 && $query2->num_rows() == 0) {
+        if ($query->num_rows() == 0) {
 
             return false;
 
         } else {
             
             $dataBoard['sitio'] = $query->result_array();
-            $dataBoard['domicilio'] = $query2->result_array();
             
             return $dataBoard;
 
