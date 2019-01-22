@@ -244,6 +244,34 @@ class MSale extends CI_Model {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: placas_in_list
+     * Descripcion: Obtiene los vehiculos registrados para la venta
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 22/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function placas_in_list() {
+                
+        /*Recupera los vehiculos de la venta*/
+        $query = $this->db->query("SELECT
+                                    id,
+                                    idVenta,
+                                    placa,
+                                    tipoVehiculo
+                                    FROM venta_vehiculo
+                                    WHERE idVenta = ".$this->session->userdata('idSale')."");
+
+        if ($query->num_rows() == 0) {
+
+            return false;
+
+        } else {
+
+            return $query->result_array();
+
+        }
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: product_in_list
      * Descripcion: Obtiene los Productos en lista para liquidar
      * Autor: jhonalexander90@gmail.com
@@ -801,35 +829,72 @@ class MSale extends CI_Model {
                    }
                    /*****************************************************************/
                     
-                } else { /*adicional en la venta*/
+                } else { 
                     
-                    /*Setea usuario de conexion - Auditoria BD*/
-                    //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
-                    
-                    $this->db->trans_strict(TRUE);
-                    $this->db->trans_start();
-                    $this->db->query("INSERT INTO item_venta_elimina(
-                                        idVenta,
-                                        idRegistroDetalle,
-                                        motivoElimina,
-                                        fechaElimina,
-                                        idEmpleadoSolicita
-                                    ) VALUES (
-                                        ".$this->session->userdata('idSale').",
-                                        ".$idRegistro.",
-                                        '".$motivo."',
-                                        NOW(),
-                                        ".$this->session->userdata('userid').")");
-                    
-                    $this->db->query("DELETE
-                                    FROM venta_detalle 
-                                    WHERE idRegistroDetalle = ".$idRegistro."
-                                    and idVenta = ".$this->session->userdata('idSale')."");
-                    $this->db->trans_complete();
-                    $this->db->trans_off();
+                    if ($type == 3) { /*adicional en la venta*/
+                        
+                        /*Setea usuario de conexion - Auditoria BD*/
+                        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
 
-                    return TRUE;
+                        $this->db->trans_strict(TRUE);
+                        $this->db->trans_start();
+                        $this->db->query("INSERT INTO item_venta_elimina(
+                                            idVenta,
+                                            idRegistroDetalle,
+                                            motivoElimina,
+                                            fechaElimina,
+                                            idEmpleadoSolicita
+                                        ) VALUES (
+                                            ".$this->session->userdata('idSale').",
+                                            ".$idRegistro.",
+                                            '".$motivo."',
+                                            NOW(),
+                                            ".$this->session->userdata('userid').")");
 
+                        $this->db->query("DELETE
+                                        FROM venta_detalle 
+                                        WHERE idRegistroDetalle = ".$idRegistro."
+                                        and idVenta = ".$this->session->userdata('idSale')."");
+                        $this->db->trans_complete();
+                        $this->db->trans_off();
+
+                        return TRUE;
+
+                    } else {
+                        
+                        if ($type == 4) { /*vehiculo en la venta*/
+                        
+                            /*Setea usuario de conexion - Auditoria BD*/
+                            //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+
+                            $this->db->trans_strict(TRUE);
+                            $this->db->trans_start();
+                            $this->db->query("INSERT INTO item_venta_elimina(
+                                                idVenta,
+                                                idRegistroDetalle,
+                                                motivoElimina,
+                                                fechaElimina,
+                                                idEmpleadoSolicita
+                                            ) VALUES (
+                                                ".$this->session->userdata('idSale').",
+                                                ".$idRegistro.",
+                                                '".$motivo." - PLACA',
+                                                NOW(),
+                                                ".$this->session->userdata('userid').")");
+
+                            $this->db->query("DELETE
+                                            FROM venta_vehiculo 
+                                            WHERE id = ".$idRegistro."
+                                            and idVenta = ".$this->session->userdata('idSale')."");
+                            $this->db->trans_complete();
+                            $this->db->trans_off();
+
+                            return TRUE;
+
+                        }
+                        
+                    }
+                    
                 }
                 
             }
@@ -846,7 +911,7 @@ class MSale extends CI_Model {
      * Nombre del Metodo: cancel_data_sale
      * Descripcion: Cancela la venta y libera el recibo
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 06/04/2017, Ultima modificacion: 22/01/2019
      **************************************************************************/
     public function cancel_data_sale() {
         
@@ -861,12 +926,20 @@ class MSale extends CI_Model {
                                 WHERE m.idVenta = ".$this->session->userdata('idSale')."");
         $result = $query->row();
         
-        if ($result->forma_pago == 0 && $result->productos == 0 ) {
+        if ($result->forma_pago == 0 && $result->productos == 0) {
         
             if ($result->nroRecibo != 0){
 
                 $this->db->query("DELETE
                                 FROM venta_detalle 
+                                WHERE idVenta = ".$this->session->userdata('idSale')."");
+                
+                $this->db->query("DELETE
+                                FROM venta_vehiculo 
+                                WHERE idVenta = ".$this->session->userdata('idSale')."");
+                
+                $this->db->query("DELETE
+                                FROM venta_huesped
                                 WHERE idVenta = ".$this->session->userdata('idSale')."");
 
                 $this->db->query("DELETE
@@ -900,6 +973,14 @@ class MSale extends CI_Model {
 
                 $this->db->query("DELETE
                                 FROM venta_detalle 
+                                WHERE idVenta = ".$this->session->userdata('idSale')."");
+                
+                $this->db->query("DELETE
+                                FROM venta_vehiculo 
+                                WHERE idVenta = ".$this->session->userdata('idSale')."");
+                
+                $this->db->query("DELETE
+                                FROM venta_huesped
                                 WHERE idVenta = ".$this->session->userdata('idSale')."");
 
                 $this->db->query("DELETE
@@ -948,6 +1029,19 @@ class MSale extends CI_Model {
                                 idUsuarioCliente = ".$idusuario."
                                 WHERE
                                 idVenta = ".$idventa."");
+        
+        $query2 = $this->db->query("INSERT INTO
+                                venta_huesped (
+                                idVenta,
+                                idUsuarioHuesped,
+                                fechaRegistra,
+                                idUsuarioRegistra
+                                ) VALUES (
+                                ".$idventa.",
+                                ".$idusuario.",
+                                NOW(),
+                                ".$this->session->userdata('userid')."
+                                )");
 
         $this->db->trans_complete();
         $this->db->trans_off();
@@ -969,6 +1063,43 @@ class MSale extends CI_Model {
         }
         
     }
+    
+    
+    /**************************************************************************
+     * Nombre del Metodo: add_plate
+     * Descripcion: Registra placa de vehiculo a la venta
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 22/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function add_plate($placa,$idventa,$tipo) {
+        
+        $this->db->trans_start();
+        $query = $this->db->query("INSERT INTO
+                                venta_vehiculo (
+                                idVenta, 
+                                placa, 
+                                tipoVehiculo
+                                ) VALUES (
+                                ".$idventa.",
+                                '".$placa."',
+                                '".$tipo."'
+                                )");
+
+        $this->db->trans_complete();
+        $this->db->trans_off();
+        
+        if ($this->db->trans_status() === FALSE){
+
+            return false;
+
+        } else {
+                        
+            return true;
+
+        }
+        
+    }
+    
     
     /**************************************************************************
      * Nombre del Metodo: add_empleado_sale

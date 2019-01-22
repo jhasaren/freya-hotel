@@ -289,7 +289,7 @@ class MUser extends CI_Model {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 24/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function create_user($name,$lastname,$identificacion,$direccion,$celular,$email,$tipo,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,$tproveedor) {
+    public function create_user($name,$lastname,$identificacion,$direccion,$celular,$email,$tipo,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,$tproveedor,$fechaNace) {
             
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
@@ -305,7 +305,8 @@ class MUser extends CI_Model {
                                     idTipoUsuario,
                                     activo,
                                     fechaRegistro,
-                                    idSede
+                                    idSede,
+                                    fechaNacimiento
                                     ) VALUES (
                                     1,
                                     ".$identificacion.",
@@ -317,7 +318,8 @@ class MUser extends CI_Model {
                                     ".$tipo.",
                                     'S',
                                     NOW(),
-                                    '".$sede."'
+                                    '".$sede."',
+                                    '".$fechaNace."'
                                     )");
 
         $query2 = $this->db->query("INSERT INTO
@@ -412,7 +414,7 @@ class MUser extends CI_Model {
                 $this->db->trans_strict(TRUE);
                 $this->db->trans_start();
                 $this->db->query("CREATE USER '".$identificacion."' IDENTIFIED BY 'Jh4s4r3n2020'");
-                $this->db->query("GRANT SELECT,INSERT,UPDATE,DELETE ON freyatrucks.* TO '".$identificacion."'");
+                $this->db->query("GRANT SELECT,INSERT,UPDATE,DELETE ON freyahotel.* TO '".$identificacion."'");
                 $this->db->query("FLUSH PRIVILEGES");
                 $this->db->trans_complete();
                 $this->db->trans_off();

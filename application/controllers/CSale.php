@@ -73,13 +73,14 @@ class CSale extends CI_Controller {
                 $listUserSale = $this->MSale->list_users_sale(); /*Consulta Modelo para obtener lista de usuarios*/
                 //$listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Servicios*/
                 $listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Productos Internos*/
-                $listEmpleadoSale = $this->MSale->list_empleado_sale(); /*Consulta Modelo para obtener lista de Empleados*/
+                //$listEmpleadoSale = $this->MSale->list_empleado_sale(); /*Consulta Modelo para obtener lista de Empleados*/
                 $listProductSale = $this->MSale->list_product_sale(); /*Consulta Modelo para obtener lista de Productos*/
                 //$listProductInterno = $this->MSale->list_product_int(); /*Consulta Modelo para obtener lista de Productos de Consumo Interno*/
                 $receiptSale = $this->MPrincipal->rango_recibos(1);  /*Consulta el Modelo Cantidad de recibos disponibles*/
                 
                 $clientInList = $this->MSale->client_in_list(); /*datos del cliente agregados a la venta*/
-                $serviceInList = $this->MSale->service_in_list(); /*lista de servicios agregados a la venta*/
+                //$serviceInList = $this->MSale->service_in_list(); /*lista de servicios agregados a la venta*/
+                $plateInList = $this->MSale->placas_in_list(); /*lista vehiculos agregados a la venta*/
                 $productInList = $this->MSale->product_in_list(); /*lista de productos agregados a la venta*/
                 $adicionalInList = $this->MSale->adicional_in_list(); /*lista cargos adicionales agregados a la venta*/
                 $consumoInList = $this->MSale->consumo_in_list(); /*lista consumo interno agregados a la venta*/
@@ -88,11 +89,12 @@ class CSale extends CI_Controller {
                 /*Retorna a la vista con los datos obtenidos*/
                 $info['list_user'] = $listUserSale;
                 $info['list_service'] = $listServiceSale;
-                $info['list_empleado'] = $listEmpleadoSale;
+                //$info['list_empleado'] = $listEmpleadoSale;
                 $info['list_product'] = $listProductSale;
                 //$info['list_interno'] = $listProductInterno;
                 $info['clientInList'] = $clientInList;
-                $info['serviceInList'] = $serviceInList;
+                //$info['serviceInList'] = $serviceInList;
+                $info['plateInList'] = $plateInList;
                 $info['productInList'] = $productInList;
                 $info['adicionalInList'] = $adicionalInList;
                 $info['consumoInList'] = $consumoInList;
@@ -131,7 +133,9 @@ class CSale extends CI_Controller {
                     /*Consulta Modelo para crear el id de venta*/
                     $createSale = $this->MSale->create_sale($this->session->userdata('userid'),$board);
                     /*Envia datos al modelo para el registro del Cliente por Default*/
-                    $this->MSale->add_user('999999',$this->session->userdata('idSale'));
+                    //$this->MSale->add_user('999999',$this->session->userdata('idSale'));
+                    /*Envia datos al modelo para el registro del empleado Default*/
+                    $this->MSale->add_empleado_sale($this->session->userdata('userid'),$this->session->userdata('idSale'));
                     
                     if ($createSale == TRUE){
 
@@ -865,6 +869,73 @@ class CSale extends CI_Controller {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: addvehiculosale
+     * Descripcion: Agregar Vehiculo a la venta
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 22/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function addvehiculosale(){
+        
+        if ($this->session->userdata('validated')) {
+        
+            /*valida que la peticion http sea POST*/
+            if (!$this->input->post()){
+
+                $this->module($info);
+
+            } else {
+
+                if ($this->MRecurso->validaRecurso(9)){
+                
+                    /*Captura Variables*/
+                    $placa = $this->input->post('placa');
+                    $tipoVehiculo = $this->input->post('tipovehiculo');
+                    $idventa = $this->session->userdata('idSale'); 
+
+                    if ($this->jasr->validaTipoString($placa,11)){ /*Valida placa del vehiculo*/
+
+                        /*Envia datos al modelo para el registro*/
+                        $registerData = $this->MSale->add_plate($placa,$idventa,$tipoVehiculo);
+
+                        if ($registerData == TRUE){
+
+                            $info['idmessage'] = 1;
+                            $info['message'] = "Vehiculo Agregado Exitosamente";
+                            $this->module($info);
+
+                        } else {
+
+                            $info['idmessage'] = 2;
+                            $info['message'] = "No fue posible agregar el Vehiculo";
+                            $this->module($info);
+
+                        }
+
+                    } else {
+
+                        $info['message'] = 'La placa del vehículo no es valida.';
+                        $info['alert'] = 2;
+                        $this->module($info);
+
+                    }
+                
+                } else {
+                    
+                    show_404();
+                    
+                }
+                
+            }
+        
+        } else {
+            
+            $this->index();
+            
+        }
+        
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: addempleadosale
      * Descripcion: Agregar Empleado a la venta
      * Autor: jhonalexander90@gmail.com
@@ -1381,9 +1452,11 @@ class CSale extends CI_Controller {
                     $identificacion = $this->input->post('identificacion');
                     $direccion = strtoupper($this->input->post('direccion'));
                     $celular = $this->input->post('celular');
-                    $email = $this->input->post('email');    
-                    $diacumple = $this->input->post('diacumple');
-                    $mescumple = $this->input->post('mescumple');
+                    $email = $this->input->post('email'); 
+                    $date = new DateTime($this->input->post('fechanace')); 
+                    $fechaNace = $date->format('Y-m-d'); 
+                    $diacumple = $date->format('d');
+                    $mescumple = $date->format('m');
                     $contrasena = $this->input->post('contrasena');
                     $rol = $this->input->post('rol');
 
@@ -1403,10 +1476,10 @@ class CSale extends CI_Controller {
                                         if ($tipo === 'cliente'){
 
                                             /*Envia datos al modelo para el registro*/
-                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$this->session->userdata('sede'),0,NULL);
+                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$this->session->userdata('sede'),0,NULL,$fechaNace);
                                             if ($registerData == TRUE){
 
-                                                /*aagrega usuario a la venta*/
+                                                /*agrega usuario a la venta*/
                                                 $registerUserSale = $this->MSale->add_user($identificacion,$this->session->userdata('idSale'));
 
                                                 if ($registerUserSale != FALSE){

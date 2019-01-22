@@ -22,6 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
     
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
+    
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
 
@@ -167,8 +170,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <ul class="bs-glyphicons-list">
                                                     <li>
                                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                                        <span class="glyphicon-class" style="font-size: 14px;">Cliente</span>
+                                                        <span class="glyphicon-class" style="font-size: 14px;">Huéspedes</span>
                                                         <div>-<?php echo $clientInList->idUsuario.'-'; ?></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="animated flipInY col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                                        <a class="btn-saleempleado" href="#">
+                                            <div class="bs-glyphicons">
+                                                <ul class="bs-glyphicons-list">
+                                                    <li>
+                                                        <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+                                                        <span class="glyphicon-class" style="font-size: 14px;">
+                                                            Vehículos
+                                                            <div></div>
+                                                        </span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -179,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <div class="bs-glyphicons">
                                                 <ul class="bs-glyphicons-list">
                                                     <li>
-                                                        <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                                                        <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
                                                         <span class="glyphicon-class" style="font-size: 14px;">Alojamiento</span>
                                                     </li>
                                                 </ul>
@@ -219,21 +237,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <span class="glyphicon-class" style="font-size: 14px;">
                                                             Servicio/Descuento
                                                             <div><?php echo ($porcenInList->porcenServicio*100)."% / ".($porcenInList->porcenDescuento*100)."%"; ?></div>
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="animated flipInY col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                                        <a class="btn-saleempleado" href="#">
-                                            <div class="bs-glyphicons">
-                                                <ul class="bs-glyphicons-list">
-                                                    <li>
-                                                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-                                                        <span class="glyphicon-class" style="font-size: 14px;">
-                                                            Empleado
-                                                            <div>-<?php echo $porcenInList->idEmpleadoAtiende.'-'; ?></div>
                                                         </span>
                                                     </li>
                                                 </ul>
@@ -410,6 +413,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                     <?php } ?>
+                                    <?php if ($plateInList != NULL){ ?>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title" style="background-color: #E8E792; color: black;">
+                                                <h2>Vehiculos Registrados</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Placa</th>
+                                                            <th>Tipo</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        foreach ($plateInList as $row_plate_in){
+                                                            ?>
+                                                            <tr>
+                                                                <th scope="row"><?php echo $row_plate_in['id']; ?></th>
+                                                                <td><?php echo $row_plate_in['placa']; ?></td>
+                                                                <td><?php echo $row_plate_in['tipoVehiculo']; ?></td>
+                                                                <td>
+                                                                <?php 
+                                                                if ($porcenInList->idEstadoRecibo != 8) {
+                                                                    echo "<a class='btn-saleitemdel' data-rel='".$row_plate_in['id']."' data-rel2='4' href='#'><i class='glyphicon glyphicon-remove red'></i></a>";
+                                                                } 
+                                                                ?>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -429,14 +474,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /page content -->
         
-        <!--Modal - Cliente-->
+        <!--Modal - Huespedes-->
         <div class="modal fade" id="myModal-c" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-c" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form role="form" name="form_client_sale" action="<?php echo base_url() . 'index.php/CSale/addusersale'; ?>" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Cliente</h3>
+                            <h3>Huéspedes</h3>
 
                             <a class="btn-newcliente" href="#">
                                 <i class="glyphicon glyphicon-plus-sign blue"></i>
@@ -465,33 +510,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         
-        <!--Modal - empleado-->
+        <!--Modal - vehiculos-->
         <div class="modal fade" id="myModal-em" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-em" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_empleado_sale" action="<?php echo base_url() . 'index.php/CSale/addempleadosale'; ?>" method="post">
+                    <form role="form" name="form_empleado_sale" action="<?php echo base_url() . 'index.php/CSale/addvehiculosale'; ?>" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Empleado</h3>
+                            <h3>Vehículo</h3>
                         </div>
                         <div class="modal-body">
-                            <?php if ($this->session->userdata('sempleado') != NULL) { ?>
-                                <div class="alert alert-info">
-                                    Esta venta tiene asociado el Empleado Nro. Identificación: <?php echo $this->session->userdata('sempleado'); ?>
-                                </div>
-                            <?php } ?>
-                            <label class="control-label" for="select">Seleccione el Empleado</label>
+                            <label class="control-label" for="select">Digite la Placa</label>
                             <div class="controls">
-                                <select class="select2_single form-control" id="idempleadoventa" name="idempleadoventa" data-rel="chosen">
-                                    <?php
-                                    foreach ($list_empleado as $row_empleado) {
-                                        ?>
-                                        <option value="<?php echo $row_empleado['idUsuario']; ?>" <?php if ($row_empleado['idUsuario'] == $this->session->userdata('sempleado')){ echo "selected"; }  ?>><?php echo $row_empleado['idUsuario'] . ' | ' . $row_empleado['nombre_usuario']; ?></option>
-                                        <?php
-                                    }
-                                    ?>
+                                <input class="select2_single form-control" type="text" name="placa" id="placa" onblur="this.value = this.value.toUpperCase()" autocomplete="Off" required="" />
+                            </div>
+                            <br />
+                            <label class="control-label" for="select">Seleccione el Tipo de Vehículo</label>
+                            <div class="controls">
+                                <select class="select2_single form-control" id="idempleadoventa" name="tipovehiculo" data-rel="chosen">
+                                    <option value="AUTOMOVIL" >AUTOMOVIL</option>
+                                    <option value="MOTOCICLETA" >MOTOCICLETA</option>
+                                    <option value="CAMIONETA" >CAMIONETA</option>
+                                    <option value="BUSETA" >BUSETA</option>
                                 </select>
                             </div>
+                            <br />
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
@@ -727,33 +770,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="identificacion">Nro. Identificación</label>
-                                <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Documento Cliente" required="">
+                                <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Documento Cliente" autocomplete="Off" required="">
                             </div>
                             <div class="form-group">
                                 <label for="Nombre">Cliente</label>
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameclient" name="nameclient" placeholder="Nombres" required="">
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="lastnameclient" name="lastnameclient" placeholder="Apellidos" required="">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameclient" name="nameclient" placeholder="Nombres" autocomplete="Off" required="">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="lastnameclient" name="lastnameclient" placeholder="Apellidos" autocomplete="Off" required="">
                             </div>
                             <div class="form-group">
+                                <label for="fechanace">Fecha de Nacimiento</label>
+                                <input type="text" name="fechanace" required="" class="form-control has-feedback-left" id="single_cal5" value="<?php echo $fechaIni; ?>" placeholder="Fecha Nacimiento" aria-describedby="inputSuccess2Status" readonly="">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                <br />
                                 <label for="datoscontacto">Datos de Contacto</label>
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="direccion" name="direccion" placeholder="Direccion" >
-                                <input type="text" class="form-control" id="celular" name="celular" placeholder="Telefono Fijo/Celular" >
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico" >
-                                <input type="number" class="form-control" id="diacumple" name="diacumple" placeholder="Dia Cumpleaños" min="1" max="31" required="" >
-                                <select class="form-control" name="mescumple">
-                                    <option value="1">Enero</option>
-                                    <option value="2">Febrero</option>
-                                    <option value="3">Marzo</option>
-                                    <option value="4">Abril</option>
-                                    <option value="5">Mayo</option>
-                                    <option value="6">Junio</option>
-                                    <option value="7">Julio</option>
-                                    <option value="8">Agosto</option>
-                                    <option value="9">Septiembre</option>
-                                    <option value="10">Octubre</option>
-                                    <option value="11">Noviembre</option>
-                                    <option value="12">Diciembre</option>
-                                </select>
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="direccion" name="direccion" placeholder="Direccion" autocomplete="Off" >
+                                <input type="text" class="form-control" id="celular" name="celular" placeholder="Telefono Fijo/Celular" autocomplete="Off" >
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico" autocomplete="Off" >
+                                <br />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -784,6 +818,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.js'; ?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url().'public/gentelella/build/js/custom.js'; ?>"></script><!--Minificar-->
+    
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/moment/min/moment.min.js'; ?>"></script>
+    <script src="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js'; ?>"></script>
     
     <!-- jQuery autocomplete -->
     <script src="<?php echo base_url().'public/gentelella/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js'; ?>"></script>

@@ -101,6 +101,13 @@ class Jasr {
             return preg_match($reg, $dato);
 
         }
+        
+        if ($type == 11){
+            /*3 primeras letras, luego entre 2 y 3 digitos - placa*/ 
+            $reg = "/^[A-Z]{3}\d[A-Z0-9]{1,2}+$/";
+            return preg_match($reg, $dato);
+
+        }
 
     }
     

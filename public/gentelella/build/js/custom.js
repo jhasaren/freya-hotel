@@ -2005,7 +2005,22 @@ function init_daterangepicker_single_call() {
     }, function (start, end, label) {
         console.log(start.toISOString(), end.toISOString(), label);
     });
-
+    $('#single_cal5').daterangepicker({
+        singleDatePicker: true,
+        singleClasses: "picker_5",
+        showDropdowns: true,
+        minYear: 1975
+    }, function (start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+    });
+    $('#single_cal6').daterangepicker({
+        singleDatePicker: true,
+        singleClasses: "picker_6",
+        showDropdowns: true,
+        minYear: 1975
+    }, function (start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+    });
 
 }
 

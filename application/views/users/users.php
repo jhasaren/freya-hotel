@@ -28,6 +28,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'; ?>" rel="stylesheet">
     <link href="<?php echo base_url().'public/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css'; ?>" rel="stylesheet">
     
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
+    
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
 
@@ -197,25 +200,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="lastnameclient1" name="lastnameclient" placeholder="Apellidos" maxlength="90" required="">
                             </div>
                             <div class="form-group">
+                                <label for="fechanace">Fecha de Nacimiento</label>
+                                <input type="text" name="fechanace" required="" class="form-control has-feedback-left" id="single_cal5" value="<?php echo $fechaIni; ?>" placeholder="Fecha Nacimiento" aria-describedby="inputSuccess2Status" readonly="">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                <br />
                                 <label for="datoscontacto">Datos de Contacto</label>
                                 <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="direccion1" name="direccion" placeholder="Direccion" maxlength="90" >
                                 <input type="text" class="form-control" id="celular1" name="celular" placeholder="Telefono Fijo/Celular" maxlength="35" >
                                 <input type="email" class="form-control" id="email1" name="email" placeholder="Correo Electronico" maxlength="40" >
-                                <input type="tel" class="form-control" id="diacumple1" name="diacumple" placeholder="Dia Cumpleaños" min="1" max="31" required="" pattern="\d*">
-                                <select class="form-control" name="mescumple">
-                                     <option value="1">Enero</option>
-                                     <option value="2">Febrero</option>
-                                     <option value="3">Marzo</option>
-                                     <option value="4">Abril</option>
-                                     <option value="5">Mayo</option>
-                                     <option value="6">Junio</option>
-                                     <option value="7">Julio</option>
-                                     <option value="8">Agosto</option>
-                                     <option value="9">Septiembre</option>
-                                     <option value="10">Octubre</option>
-                                     <option value="11">Noviembre</option>
-                                     <option value="12">Diciembre</option>
-                                </select>
+                                <br />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -314,25 +308,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="lastnameclient3" name="lastnameclient" placeholder="Apellidos" maxlength="90" required="">
                             </div>
                             <div class="form-group">
+                                <label for="fechanace">Fecha de Nacimiento</label>
+                                <input type="text" name="fechanace" required="" class="form-control has-feedback-left" id="single_cal6" value="<?php echo $fechaIni; ?>" placeholder="Fecha Nacimiento" aria-describedby="inputSuccess2Status" readonly="">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                <br />
                                 <label for="datoscontacto">Datos de Contacto</label>
                                 <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="direccion3" name="direccion" placeholder="Direccion" maxlength="90" >
                                 <input type="text" class="form-control" id="celular3" name="celular" placeholder="Telefono Fijo/Celular" maxlength="35" >
                                 <input type="email" class="form-control" id="email3" name="email" placeholder="Correo Electronico" maxlength="40" >
-                                <input type="tel" class="form-control" id="diacumple3" name="diacumple" placeholder="Dia Cumpleaños" min="1" max="31" required="" pattern="\d*">
-                                <select class="form-control" name="mescumple">
-                                     <option value="1">Enero</option>
-                                     <option value="2">Febrero</option>
-                                     <option value="3">Marzo</option>
-                                     <option value="4">Abril</option>
-                                     <option value="5">Mayo</option>
-                                     <option value="6">Junio</option>
-                                     <option value="7">Julio</option>
-                                     <option value="8">Agosto</option>
-                                     <option value="9">Septiembre</option>
-                                     <option value="10">Octubre</option>
-                                     <option value="11">Noviembre</option>
-                                     <option value="12">Diciembre</option>
-                                </select>
+                                <br />
                             </div>
                             <div class="form-group">
                                 <label for="rol">Rol</label>
@@ -376,6 +361,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.js'; ?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url().'public/gentelella/build/js/custom.js'; ?>"></script><!--Minificar--> 
+    
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/moment/min/moment.min.js'; ?>"></script>
+    <script src="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js'; ?>"></script>
     
     <!-- Datatables -->
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js'; ?>"></script>

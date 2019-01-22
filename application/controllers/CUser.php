@@ -118,8 +118,10 @@ class CUser extends CI_Controller {
                     $direccion = strtoupper($this->input->post('direccion'));
                     $celular = $this->input->post('celular');
                     $email = $this->input->post('email');    
-                    $diacumple = $this->input->post('diacumple');
-                    $mescumple = $this->input->post('mescumple');
+                    $date = new DateTime($this->input->post('fechanace')); 
+                    $fechaNace = $date->format('Y-m-d'); 
+                    $diacumple = $date->format('d');
+                    $mescumple = $date->format('m');
                     $contrasena = $this->input->post('contrasena');
                     $rol = $this->input->post('rol');
                     $dataSede = explode('|', $this->input->post('sede'));
@@ -143,7 +145,7 @@ class CUser extends CI_Controller {
                                         if ($tipo === 'cliente'){
 
                                             /*Envia datos al modelo para el registro*/
-                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$sede,$horario,null);
+                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$sede,$horario,null,$fechaNace);
                                             if ($registerData == TRUE){
 
                                                 $info['message'] = 'Usuario registrado Exitosamente';
@@ -204,7 +206,7 @@ class CUser extends CI_Controller {
                                                 if ($this->jasr->validaTipoString($contrasena,8)){
 
                                                     /*Envia datos al modelo para el registro*/
-                                                    $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,1,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,null);
+                                                    $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,1,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,null,$fechaNace);
                                                     if ($registerData == TRUE){
 
                                                         $info['message'] = 'Usuario registrado Exitosamente';
