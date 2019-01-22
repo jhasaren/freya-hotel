@@ -177,24 +177,22 @@ class MSale extends CI_Model {
 
         } else {
         
-            /*Recupera los servicios creados*/
+            /*Recupera los productos creados como INTERNO*/
             $query = $this->db->query("SELECT
-                                    s.idServicio,
-                                    g.descGrupoServicio,
-                                    s.descServicio,
-                                    s.valorServicio,
-                                    (s.valorServicio * s.distribucion) as valorEmpleado,
-                                    (SELECT count(1) FROM
-                                    productos_servicio ps
-                                    JOIN stock_productos ss ON ss.idProducto = ps.idProducto
-                                    WHERE ps.idServicio = s.idServicio
-                                    AND ss.disponibles = 0) as agotado
-                                    FROM
-                                    servicios s
-                                    JOIN grupo_servicio g ON g.idGrupoServicio = s.idGrupoServicio
+                                    p.idProducto,
+                                    p.descProducto,
+                                    p.valorProducto,
+                                    p.distribucionProducto as valorEmpleado,
+                                    g.descGrupoServicio
+                                    FROM productos p
+                                    JOIN grupo_servicio g ON g.idGrupoServicio = p.idGrupoServicio
+                                    JOIN stock_productos s ON s.idProducto = p.idProducto
                                     WHERE
-                                    s.activo = 'S'
-                                    ORDER BY 3");
+                                    p.activo = 'S'
+                                    AND p.idTipoProducto = 1
+                                    AND p.idSede = ".$this->session->userdata('sede')."
+                                    AND s.disponibles <> 0
+                                    ORDER BY 2");
             
             $this->cache->memcached->save('mListServiceSale', $query->result_array(), 180); /*3 minutos en Memoria*/
             $this->cache->memcached->save('memcached12', 'real', 30);
@@ -704,7 +702,7 @@ class MSale extends CI_Model {
                     }
                     
                     /*Setea usuario de conexion - Auditoria BD*/
-                    $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                    //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
                     
                     $this->db->trans_strict(TRUE);
                     $this->db->trans_start();
@@ -774,7 +772,7 @@ class MSale extends CI_Model {
                         }
                         
                         /*Setea usuario de conexion - Auditoria BD*/
-                        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
                         
                         $this->db->trans_strict(TRUE);
                         $this->db->trans_start();
@@ -806,7 +804,7 @@ class MSale extends CI_Model {
                 } else { /*adicional en la venta*/
                     
                     /*Setea usuario de conexion - Auditoria BD*/
-                    $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                    //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
                     
                     $this->db->trans_strict(TRUE);
                     $this->db->trans_start();
@@ -1811,7 +1809,8 @@ class MSale extends CI_Model {
                                 t.descTipoMesa,
                                 m.idVenta,
                                 v.idEstadoRecibo,
-                                DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time
+                                DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
+                                m.caracteristicas
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta

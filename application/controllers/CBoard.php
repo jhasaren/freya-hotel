@@ -108,11 +108,42 @@ class CBoard extends CI_Controller {
                     /*Captura Variables*/
                     $name = strtoupper($this->input->post('nameboard'));
                     $type = $this->input->post('typeboard');
+                    $car1 = $this->input->post('car1'); /*1 cama doble*/
+                    $car2 = $this->input->post('car2'); /*1 cama sencilla*/
+                    $car3 = $this->input->post('car3'); /*2 camas doble*/
+                    $car4 = $this->input->post('car4'); /*2 camas sencilla*/
+                    $car5 = $this->input->post('car5'); /*calefaccion*/
 
                     if ($this->jasr->validaTipoString($name,1)){
                         
+                        $caracteristicas = NULL;
+                        if ($car1 == 'on'){ 
+                            /*1 cama doble*/
+                            $caracteristicas = $caracteristicas."| 1CD "; 
+                        } 
+                        
+                        if ($car2 == 'on'){ 
+                            /*1 cama sencilla*/
+                            $caracteristicas = $caracteristicas."| 1CS "; 
+                        } 
+                        
+                        if ($car3 == 'on'){ 
+                            /*2 camas doble*/
+                            $caracteristicas = $caracteristicas."| 2CD "; 
+                        } 
+                        
+                        if ($car4 == 'on'){ 
+                            /*2 camas sencilla*/
+                            $caracteristicas = $caracteristicas."| 2CS "; 
+                        } 
+                        
+                        if ($car5 == 'on'){ 
+                            /*calefaccion*/
+                            $caracteristicas = $caracteristicas."| CLF "; 
+                        } 
+                        
                         /*Envia datos al modelo para el registro*/
-                        $registerData = $this->MBoard->create_board($name,$type);
+                        $registerData = $this->MBoard->create_board($name,$type,$caracteristicas);
 
                         if ($registerData == TRUE){
 

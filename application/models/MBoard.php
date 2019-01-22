@@ -130,7 +130,7 @@ class MBoard extends CI_Model {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 25/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function create_board($name,$type) {
+    public function create_board($name,$type,$caracteristicas) {
         
         /*Setea usuario de conexion - Auditoria BD*/
         //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
@@ -142,12 +142,14 @@ class MBoard extends CI_Model {
                                     nombreMesa,
                                     activo,
                                     idSede,
-                                    idTipoMesa
+                                    idTipoMesa,
+                                    caracteristicas
                                     ) VALUES (
                                     '".$name."',
                                     'S',
                                     ".$this->session->userdata('sede').",
-                                    ".$type."
+                                    ".$type.",
+                                    '".$caracteristicas."'
                                     )");
 
         $this->db->trans_complete();

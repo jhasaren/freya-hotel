@@ -86,23 +86,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         foreach ($list_board['sitio'] as $row_list){
                                             if ($row_list['idEstadoRecibo'] == 2){ /*liquidado*/
                                                 
-                                                $color = "#F3BEB5"; /*mesa ocupada en proceso pago - rojo*/
+                                                $color = "#A8DFED"; /*mesa ocupada en proceso pago - azul*/
                                                 $flag = $row_list['idVenta'];
-                                                $ocupation = "PENDIENTE PAGO";
+                                                $ocupation = "OCUPADA";
+                                                $caracteristicas = $row_list['caracteristicas'];
                                                 
                                             } else {
                                                 
                                                 if ($row_list['idEstadoRecibo'] == 4){ /*proceso liquidacion*/ 
                                                 
-                                                    $color = "#A8DFED"; /*mesa ocupada en pedido - azul*/
+                                                    $color = "#F3BEB5"; /*mesa ocupada en pedido - rojo*/
                                                     $flag = $row_list['idVenta'];
-                                                    $ocupation = "OCUPADA EN PEDIDO";
+                                                    $ocupation = "OCUPADA SIN LIQUIDAR";
+                                                    $caracteristicas = $row_list['caracteristicas'];
                                                     
                                                 } else {
                                                     
                                                     $color = "#CBEDA8"; /*mesa libre - verde*/
                                                     $flag = 0;
                                                     $ocupation = "LIBRE";
+                                                    $caracteristicas = $row_list['caracteristicas'];
                                                     
                                                 }
                                             }
@@ -117,6 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="do-info-front do-circle">
                                                                     <center>
                                                                         <h3 style="color: #000"><?php echo $row_list['nombreMesa']; ?></h3>
+                                                                        <?php echo $caracteristicas; ?>
                                                                     </center>
                                                                 </div>
                                                                 <div class="do-info-back do-circle">

@@ -180,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <ul class="bs-glyphicons-list">
                                                     <li>
                                                         <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                                                        <span class="glyphicon-class" style="font-size: 14px;">Plato Fuerte</span>
+                                                        <span class="glyphicon-class" style="font-size: 14px;">Alojamiento</span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -192,7 +192,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <ul class="bs-glyphicons-list">
                                                     <li>
                                                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                                                        <span class="glyphicon-class" style="font-size: 14px;">Producto</span>
+                                                        <span class="glyphicon-class" style="font-size: 14px;">Productos</span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -283,7 +283,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title" style="background-color: #89e0e0; color: black;">
-                                                <h2>Plato Fuerte</h2>
+                                                <h2>Servicios</h2>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
@@ -328,7 +328,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title" style="background-color: #5ec0ff; color: black;">
-                                                <h2>Productos</h2>
+                                                <h2>Tarifas Cargadas</h2>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
@@ -506,36 +506,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal fade" id="myModal-s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-s" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_service_sale" action="<?php echo base_url() . 'index.php/CSale/addservicesale'; ?>" method="post">
+                    <form role="form" name="form_service_sale" action="<?php echo base_url() . 'index.php/CSale/addproductsale'; ?>" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Plato Fuerte</h3>
+                            <h3>Alojamiento</h3>
                         </div>
                         <div class="modal-body">
                             <div class="controls">
                                 <label class="control-label" for="select">Escriba parte del nombre y seleccione de la lista</label>
                                 <div class="controls">
-                                    <input class="select2_single form-control" type="text" name="idservice" id="idservice" required="" />
+                                    <input class="select2_single form-control" type="text" name="idproducto" id="idservice" required="" />
                                 </div>
                                 <br />
                             </div>
-                            <!--<label class="control-label" for="selectError">Empleado</label>-->
-                            <!--<div class="controls">
-                                <select class="select2_single form-control" id="idempleado" name="idempleado" data-rel="chosen">
-                                    <?php
-                                    /*
-                                    foreach ($list_empleado as $row_empleado) {
-                                        ?>
-                                        <option value="<?php echo $row_empleado['idUsuario']; ?>"><?php echo $row_empleado['idUsuario'] . ' | ' . $row_empleado['nombre_usuario']; ?></option>
-                                        <?php
-                                    }
-                                     */
-                                    ?>
-                                </select>
-                            </div>-->
                             <input type="hidden" class="form-control" id="idempleado_ser" name="idempleado" value="<?php echo $this->session->userdata('userid'); ?>">
                             <br />
-                            <label class="control-label" for="selectError">Cantidad</label>
+                            <label class="control-label" for="selectError">Cantidad de Noches</label>
                             <div class="controls">
                                 <select class="select2_single form-control" id="cantidad_ser" name="cantidad" data-rel="chosen">
                                     <option value="1">1</option>
@@ -544,6 +530,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
+                            </div>
+                            <br />
+                            <label class="control-label" for="selectError">CheckIn</label>
+                            <div class="controls">
+                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
+                            </div>
+                            <br />
+                            <label class="control-label" for="selectError">CheckOut</label>
+                            <div class="controls">
+                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
                             </div>
                             <br />
                         </div>
@@ -573,20 +569,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <br />
                             </div>
-                            <!--<label class="control-label" for="selectError">Empleado</label>-->
-                            <!--<div class="controls">
-                                <select class="select2_single form-control" id="idempleado" name="idempleado" data-rel="chosen">
-                                    <?php
-                                    /*
-                                    foreach ($list_empleado as $row_empleado) {
-                                        ?>
-                                        <option value="<?php echo $row_empleado['idUsuario']; ?>"><?php echo $row_empleado['idUsuario'] . ' | ' . $row_empleado['nombre_usuario']; ?></option>
-                                        <?php
-                                    }
-                                    */
-                                    ?>
-                                </select>
-                            </div>-->
                             <input type="hidden" class="form-control" id="idempleado_pr" name="idempleado" value="<?php echo $this->session->userdata('userid'); ?>">
                             <br />
                             <label class="control-label" for="cantidad">Cantidad</label>
@@ -720,7 +702,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label class="control-label" for="Porcentaje">Servicio Voluntario (%)</label>
                             <input type="tel" class="form-control" id="porcen_servicio" name="porcen_servicio" placeholder="Servicio" value="<?php if ($porcenInList->porcenServicio == 0){ echo $this->config->item('procen_servicio'); } else { echo $porcenInList->porcenServicio*100; } ?>" required="" autocomplete="off" <?php echo $stateInput; ?> pattern="\d*">
                             <br />
-                            <label class="control-label" for="Porcentaje">Descuento (%) *Solo aplicable a Plato Fuerte</label>
+                            <label class="control-label" for="Porcentaje">Descuento (%) *Solo aplicable para tarifa de Alojamiento</label>
                             <input type="tel" class="form-control" id="procentaje" name="procentaje" placeholder="Descuento" value="<?php if ($porcenInList->porcenDescuento !== NULL){ echo $porcenInList->porcenDescuento*100; } else { echo 0; } ?>" required="" autocomplete="off" <?php echo $stateInput; ?> pattern="\d*">
                             <br />
                         </div>
@@ -820,7 +802,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         foreach ($list_service as $row_service) {
             if ($row_service['agotado'] < 1){
                 ?>
-                { value: '<?php echo $row_service['idServicio']." | ".$row_service['valorServicio']." | ".$row_service['descGrupoServicio']." | ".$row_service['descServicio']; ?>' },
+                { value: '<?php echo $row_service['idProducto']." | ".$row_service['valorProducto']." | ".$row_service['descGrupoServicio']." | ".$row_service['descProducto']; ?>' },
                 <?php 
             }
         } 

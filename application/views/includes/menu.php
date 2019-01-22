@@ -47,23 +47,23 @@
                 </li>-->
                 <?php } ?>
                 
-                <?php if ($this->MRecurso->validaRecurso(1)){ /*Servicios*/ ?>
-                <li>
-                    <a href="<?php echo base_url().'index.php/CService'; ?>">
+                <?php //if ($this->MRecurso->validaRecurso(1)){ /*Servicios*/ ?>
+                <!--<li>
+                    <a href="<?php //echo base_url().'index.php/CService'; ?>">
                         <i class="fa fa-diamond"></i> Servicios
                     </a>
-                </li>
+                </li>-->
                 <!--<li><a><i class="fa fa-star-half-o"></i> Platos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="<?php // echo base_url().'index.php/CService'; ?>">Lista de Servicios</a></li>
                     </ul>
                 </li>-->
-                <?php } ?>
+                <?php //} ?>
                 
                 <?php if ($this->MRecurso->validaRecurso(2)){ /*Productos*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CProduct'; ?>">
-                        <i class="fa fa-coffee"></i> Productos
+                        <i class="fa fa-diamond"></i> Tarifas
                     </a>
                 </li>
                 <!--<li><a><i class="fa fa-shopping-cart"></i> Productos <span class="fa fa-chevron-down"></span></a>

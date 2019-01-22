@@ -158,7 +158,7 @@ class CProduct extends CI_Controller {
 
                     if ($this->jasr->validaTipoString($name,1)){
 
-                        if ($this->jasr->validaTipoString($valor,2) && $this->jasr->validaTipoString($stock,2) && $this->jasr->validaTipoString($unidosis,2) && $this->jasr->validaTipoString($costo,2)){
+                        if ($this->jasr->validaTipoString($valor,2) && $this->jasr->validaTipoString($stock,10) && $this->jasr->validaTipoString($unidosis,2) && $this->jasr->validaTipoString($costo,2)){
 
                             if ($this->jasr->validaTipoString($distributionproduct,3)){
 

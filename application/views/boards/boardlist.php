@@ -28,6 +28,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'; ?>" rel="stylesheet">
     <link href="<?php echo base_url().'public/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css'; ?>" rel="stylesheet">
     
+    <!-- iCheck -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/iCheck/skins/flat/green.css'; ?>" rel="stylesheet">
+    
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
 
@@ -182,6 +185,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     ?>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="detalleMesa">Caracteristicas</label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="car1" >
+                                    1 Cama Doble
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="car2" >
+                                    1 Cama Sencilla
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="car3" >
+                                    2 Camas Doble
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="car4" >
+                                    2 Camas Sencilla
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="car5" >
+                                    Calefacción
+                                </label>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
@@ -224,6 +255,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net-buttons/js/buttons.print.min.js'; ?>"></script>
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js'; ?>"></script>
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'; ?>"></script>
+    
+    <!-- iCheck -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/iCheck/icheck.min.js'; ?>"></script>
     
   </body>
 </html>

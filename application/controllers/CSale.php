@@ -71,7 +71,8 @@ class CSale extends CI_Controller {
             if ($this->MRecurso->validaRecurso(9)){
 
                 $listUserSale = $this->MSale->list_users_sale(); /*Consulta Modelo para obtener lista de usuarios*/
-                $listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Servicios*/
+                //$listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Servicios*/
+                $listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Productos Internos*/
                 $listEmpleadoSale = $this->MSale->list_empleado_sale(); /*Consulta Modelo para obtener lista de Empleados*/
                 $listProductSale = $this->MSale->list_product_sale(); /*Consulta Modelo para obtener lista de Productos*/
                 //$listProductInterno = $this->MSale->list_product_int(); /*Consulta Modelo para obtener lista de Productos de Consumo Interno*/
@@ -745,7 +746,7 @@ class CSale extends CI_Controller {
                             
                         } else {
                             
-                            if (($pagavalor+$valuePayFormas) < $totalPago){ /*si el pago parcial es menor que la totalidad de lo que debe pagar*/
+                            if (($pagavalor+$valuePayFormas) <= $totalPago){ /*si el pago parcial es menor que la totalidad de lo que debe pagar*/
                             
                                 /*Enviar al modelo para registrar pago*/
                                 $registerPay = $this->MSale->pay_register_sale($formaPago,$pagavalor,$refPago,$mixpayment);

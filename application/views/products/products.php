@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Productos</h3>
+                        <h3>Tarifas</h3>
                     </div>
 
                     <div class="title_right">
@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Detalle de Productos</h2>
+                                <h2>Detalle de Tarifas</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -166,7 +166,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form role="form" name="form_service" action="<?php echo base_url() . 'index.php/CProduct/addproduct'; ?>" method="post" autocomplete="off">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Agregar Producto</h3>
+                            <h3>Agregar Tarifa</h3>
                             <?php
                             //echo "Lista productos->".$this->cache->memcached->get('memcached3')."<br />";
                             //echo "Tipo Productos->".$this->cache->memcached->get('memcached4');
@@ -176,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
-                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameproduct" name="nameproduct" placeholder="Descripcion del Producto" required="">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameproduct" name="nameproduct" placeholder="Descripcion de Tarifa" required="">
                             </div>
                             <div class="form-group">
                                 <label for="costoProducto">Costo ($)</label>
@@ -208,7 +208,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="tel" class="form-control" id="unidosis" name="unidosis" placeholder="Unidosis de consumo" required="" pattern="\d*">
                             </div>
                             <div class="form-group">
-                                <label for="GrupoServicio">Tipo de Producto</label>
+                                <label for="GrupoServicio">Tipo de Tarifa</label>
                                 <select class="form-control" name="typeproduct">
                                     <?php
                                     foreach ($list_type as $row) {

@@ -94,6 +94,13 @@ class Jasr {
             $reg = "/^[0-9]{1,20}+$/";
             return preg_match($reg, $dato);
         }
+        
+        if ($type == 10){
+            /* Numeros de 1 a 10 digitos */
+            $reg = "/^[0-9]{1,10}+$/";
+            return preg_match($reg, $dato);
+
+        }
 
     }
     
