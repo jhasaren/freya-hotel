@@ -30,7 +30,7 @@ class MAuditoria extends CI_Model {
         $config['hostname'] = '192.168.1.65';
         $config['username'] = $username;
         $config['password'] = 'Jh4s4r3n2020';
-        $config['database'] = 'freyatrucks';
+        $config['database'] = 'freyahotel';
         $config['dbdriver'] = "mysqli";
         $config['dbprefix'] = "";
         $config['pconnect'] = FALSE;

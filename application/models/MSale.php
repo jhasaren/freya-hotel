@@ -730,7 +730,7 @@ class MSale extends CI_Model {
                     }
                     
                     /*Setea usuario de conexion - Auditoria BD*/
-                    //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                    $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
                     
                     $this->db->trans_strict(TRUE);
                     $this->db->trans_start();
@@ -800,7 +800,7 @@ class MSale extends CI_Model {
                         }
                         
                         /*Setea usuario de conexion - Auditoria BD*/
-                        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
                         
                         $this->db->trans_strict(TRUE);
                         $this->db->trans_start();
@@ -834,7 +834,7 @@ class MSale extends CI_Model {
                     if ($type == 3) { /*adicional en la venta*/
                         
                         /*Setea usuario de conexion - Auditoria BD*/
-                        //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                        $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
 
                         $this->db->trans_strict(TRUE);
                         $this->db->trans_start();
@@ -865,7 +865,7 @@ class MSale extends CI_Model {
                         if ($type == 4) { /*vehiculo en la venta*/
                         
                             /*Setea usuario de conexion - Auditoria BD*/
-                            //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+                            $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
 
                             $this->db->trans_strict(TRUE);
                             $this->db->trans_start();
