@@ -71,7 +71,8 @@ class MSale extends CI_Model {
             
             /*Registra el id de venta como variable de sesion*/
             $datos_session = array(
-                'idSale' => $idSale
+                'idSale' => $idSale,
+                'idMesa' => $board
             );
             
             $this->session->set_userdata($datos_session);
@@ -150,6 +151,40 @@ class MSale extends CI_Model {
                                 JOIN tipo_identificacion t ON t.idTipoDocumento = a.idTipoDocumento
                                 WHERE
                                 v.idVenta = ".$this->session->userdata('idSale')."");
+
+        if ($query->num_rows() == 0) {
+
+            return false;
+
+        } else {
+            
+            return $query->row();
+
+        }
+        
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: info_mesa
+     * Descripcion: Obtiene los datos de la mesa/habitacion
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 23/01/2019, Ultima modificacion:
+     **************************************************************************/
+    public function info_mesa($mesa) {
+                                
+        /*Recupera los datos registrados*/
+        $query = $this->db->query("SELECT
+                                m.idMesa,
+                                m.nombreMesa,
+                                m.idTipoMesa,
+                                t.descTipoMesa,
+                                m.caracteristicas,
+                                m.idEstadoMesa,
+                                te.descEstadoMesa
+                                FROM mesas m
+                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
+                                WHERE m.idMesa = ".$mesa."");
 
         if ($query->num_rows() == 0) {
 
@@ -1131,7 +1166,7 @@ class MSale extends CI_Model {
                                        ".$this->session->userdata('userid')."
                                        )");
         }
-        
+                
         $this->db->trans_complete();
         $this->db->trans_off();
         
@@ -1569,77 +1604,7 @@ class MSale extends CI_Model {
                 
                     $this->cache->memcached->delete('mClientInList');
                     return true;
-                    
-                    /*
-                     * ******************************************************
-                     * INVENTARIO DE PRODUCTOS
-                     * ******************************************************
-                     */
-                    /*Recupera los productos en la lista de venta*/
-//                    $query1 = $this->db->query("SELECT
-//                                            v.idProducto,
-//                                            v.cantidad
-//                                            FROM
-//                                            venta_detalle v
-//                                            JOIN productos p ON p.idProducto = v.idProducto
-//                                            WHERE
-//                                            v.idVenta = ".$this->session->userdata('idSale')."");
-//
-//                    /*Recupera los productos de los servicios en la lista de venta*/
-//                    $query2 = $this->db->query("SELECT
-//                                                ps.idServicio,
-//                                                ps.idProducto,
-//                                                p.descProducto,
-//                                                (SELECT
-//                                                sum(v.cantidad)
-//                                                FROM venta_detalle v
-//                                                WHERE v.idVenta = ".$this->session->userdata('idSale')."
-//                                                AND v.idServicio = ps.idServicio) as cantidad
-//                                                FROM productos_servicio ps
-//                                                JOIN productos p ON p.idProducto = ps.idProducto
-//                                                WHERE ps.idServicio IN (
-//                                                    SELECT
-//                                                    idServicio
-//                                                    FROM venta_detalle v
-//                                                    WHERE idVenta = ".$this->session->userdata('idSale')."
-//                                                    AND idServicio IS NOT NULL
-//                                                )");
-//
-//                    $this->cache->memcached->delete('mClientInList');
-//
-//                    if ($query1->num_rows() == 0 && $query2->num_rows() == 0) {
-//
-//                        return true;
-//
-//                    } else {
-//
-//                        /*Query1 - Productos en la venta*/
-//                        $productsSale = $query1->result_array(); /*devuelve registros de productos en la venta*/
-//                        if ($productsSale != FALSE){
-//                            foreach ($productsSale as $productCantidad){
-//
-//                                /*Actualiza el stock de cada producto*/
-//                                $this->stock_min($productCantidad['idProducto'], $productCantidad['cantidad']);
-//
-//                            }
-//                        }
-//
-//                        /*Query2 - Productos en el servicio*/
-//                        $productsService = $query2->result_array(); /*devuelve registros de productos del servicio*/
-//                        if ($productsService != FALSE){
-//                            foreach ($productsService as $productCantidadServ){
-//
-//                                /*Actualiza el stock de cada producto*/
-//                                $this->stock_min($productCantidadServ['idProducto'], $productCantidadServ['cantidad']);
-//
-//                            }
-//                        }
-//
-//                        $this->cache->memcached->delete('mDetailResol');
-//                        return true;
-//
-//                    }
-                
+                                    
                 }
                 
             } else {
@@ -1698,6 +1663,36 @@ class MSale extends CI_Model {
             
         }
 
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: upd_estado_mesa
+     * Descripcion: Actualiza estado de una mesa/habitacion
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 23/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function upd_estado_mesa($idMesa,$estado) {
+                
+        $this->db->trans_start();
+        $this->db->query("UPDATE
+                        mesas SET
+                        idEstadoMesa = ".$estado."
+                        WHERE
+                        idMesa = ".$idMesa."
+                        ");
+        $this->db->trans_complete();
+        $this->db->trans_off();
+        
+        if ($this->db->trans_status() === FALSE){
+
+            return false;
+
+        } else {
+            
+            return true;
+            
+        }
+        
     }
     
     /**************************************************************************
@@ -2035,9 +2030,12 @@ class MSale extends CI_Model {
                                 m.idVenta,
                                 v.idEstadoRecibo,
                                 DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
-                                m.caracteristicas
+                                m.caracteristicas,
+                                m.idEstadoMesa,
+                                te.descEstadoMesa
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
                                 LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
                                 WHERE
                                 m.activo = 'S'

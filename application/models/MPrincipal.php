@@ -457,7 +457,8 @@ class MPrincipal extends CI_Model {
                                 m.porcenDescuento,
                                 (m.valorLiquida*m.porcenServicio) as popina_servicio,
                                 m.porcenServicio,
-                                m.idEmpleadoAtiende
+                                m.idEmpleadoAtiende,
+                                m.idMesa
                                 FROM venta_maestro m
                                 JOIN app_usuarios a ON a.idUsuario = m.idUsuarioCliente
                                 WHERE

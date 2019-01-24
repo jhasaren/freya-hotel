@@ -84,27 +84,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php 
                                     if ($list_board['sitio'] != FALSE){
                                         foreach ($list_board['sitio'] as $row_list){
-                                            if ($row_list['idEstadoRecibo'] == 2){ /*liquidado*/
+                                            if ($row_list['idEstadoMesa'] == 1){ /*ocupada*/
                                                 
-                                                $color = "#A8DFED"; /*mesa ocupada en proceso pago - azul*/
+                                                $color = "#F3BEB5"; /*mesa ocupada en proceso pago - azul*/
                                                 $flag = $row_list['idVenta'];
-                                                $ocupation = "OCUPADA";
+                                                $ocupation = $row_list['descEstadoMesa'];
                                                 $caracteristicas = $row_list['caracteristicas'];
                                                 
                                             } else {
                                                 
-                                                if ($row_list['idEstadoRecibo'] == 4){ /*proceso liquidacion*/ 
+                                                if ($row_list['idEstadoMesa'] == 3){ /*proceso limpieza*/ 
                                                 
-                                                    $color = "#F3BEB5"; /*mesa ocupada en pedido - rojo*/
-                                                    $flag = $row_list['idVenta'];
-                                                    $ocupation = "OCUPADA SIN LIQUIDAR";
+                                                    $color = "#A8DFED"; /*mesa ocupada en pedido - azul*/
+                                                    $flag = 0;
+                                                    $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
                                                     
                                                 } else {
                                                     
                                                     $color = "#CBEDA8"; /*mesa libre - verde*/
                                                     $flag = 0;
-                                                    $ocupation = "LIBRE";
+                                                    $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
                                                     
                                                 }
@@ -147,16 +147,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 
                                 <!--**********************************************-->
                         </div>
-                        <!--<center>
-                            <p class="center-block download-buttons">
-                                <a href="<?php //echo base_url() . 'index.php/CSale/canceldatasale'; ?>" class="btn btn-default btn-lg">
-                                    <i class="glyphicon glyphicon-remove red"></i> Eliminar
-                                </a>
-                                <a href="<?php //echo base_url() . 'index.php/CSale/liquidasale'; ?>" class="btn btn-success btn-lg">
-                                    <i class="glyphicon glyphicon-barcode glyphicon-white"></i> Liquidar
-                                </a>
-                            </p>
-                        </center>-->
                     </div>
                 </div>
             </div>

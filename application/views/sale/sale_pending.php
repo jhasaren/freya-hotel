@@ -127,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <td class="center blue">$<?php echo number_format($row_liquidado['valorLiquida']+$row_liquidado['popina_servicio'],0,',','.'); ?></td>
                                                     <td class="center"><?php echo $row_liquidado['nombreCliente']."<br />[CC ".$row_liquidado['idUsuarioCliente']."]"."<br />[Tel. ".$row_liquidado['numCelular']."]"; ?></td>
                                                     <td class="center">
-                                                        <a class="btn btn-default btn-sm" href="<?php echo base_url().'index.php/CSale/restoresale/'.$row_liquidado['idVenta'].'/'.$row_liquidado['idUsuarioCliente'].'/'.$row_liquidado['porcenDescuento'].'/'.$row_liquidado['porcenServicio'].'/'.$row_liquidado['idEmpleadoAtiende']; ?>">
+                                                        <a class="btn btn-default btn-sm" href="<?php echo base_url().'index.php/CSale/restoresale/'.$row_liquidado['idVenta'].'/'.$row_liquidado['idUsuarioCliente'].'/'.$row_liquidado['porcenDescuento'].'/'.$row_liquidado['porcenServicio'].'/'.$row_liquidado['idEmpleadoAtiende'].'/'.$row_liquidado['idMesa']; ?>">
                                                             <i class="glyphicon glyphicon-cog"></i>
                                                             Recuperar
                                                         </a>

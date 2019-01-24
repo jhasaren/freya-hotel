@@ -117,6 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <input type="hidden" class="form-control" id="saldopay" name="saldopay" value="<?php echo $message-$pagado; ?>" >
                                             <input type="hidden" class="form-control" id="porcServiceVenta" name="porcServiceVenta" value="<?php echo $this->session->userdata('sservicio'); ?>" >
                                             <input type="hidden" class="form-control" id="recibo" name="recibo" value="<?php echo $nrorecibo; ?>" >
+                                            <input type="hidden" class="form-control" id="idmesa" name="idmesa" value="<?php echo $detalleRecibo['general']->idMesa; ?>" >
 
                                             <select class="form-control" name="formapago">
                                                 <?php

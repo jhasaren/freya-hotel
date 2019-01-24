@@ -154,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>ID:<?php echo $this->session->userdata('idSale'); ?></h2>
+                                <h2>ID:<?php echo $this->session->userdata('idSale')." - ".$data_mesa->nombreMesa." - ".$data_mesa->descTipoMesa." ".$data_mesa->caracteristicas." - ".$data_mesa->descEstadoMesa; ?></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -164,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <?php if ($porcenInList->idEstadoRecibo != 8) { ?>
+                                <?php if (($porcenInList->idEstadoRecibo != 8) && ($data_mesa->idEstadoMesa != 3)) { ?>
                                 <div class="row">
                                     <div class="animated flipInY col-lg-2 col-md-2 col-sm-2 col-xs-6"> 
                                         <a class="btn-saleclient" href="#">
@@ -269,14 +269,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <ul class="bs-glyphicons-list">
                                                     <li>
                                                         <p class="center-block download-buttons">
+                                                            <?php if (($porcenInList->idEstadoRecibo == 8)) { ?>
                                                             <a href="<?php echo base_url() . 'index.php/CSale/liquidasale'; ?>" class="btn btn-success btn-lg">
                                                                 <i class="glyphicon glyphicon-barcode glyphicon-white"></i> Liquidar
                                                             </a>
-                                                            <?php if ($porcenInList->idEstadoRecibo != 8) { ?>
-                                                            <a href="<?php echo base_url() . 'index.php/CSale/canceldatasale'; ?>" class="btn btn-default btn-lg">
-                                                                <i class="glyphicon glyphicon-remove red"></i> Eliminar
-                                                            </a>
-                                                            <?php } ?>
+                                                            <?php 
+                                                            } else { 
+                                                                if (($data_mesa->idEstadoMesa == 3) && ($porcenInList->idEstadoRecibo != 8)){
+                                                                ?>
+                                                                <a href="<?php echo base_url() . 'index.php/CSale/enableboard/'.$data_mesa->idMesa; ?>" class="btn btn-default btn-lg">
+                                                                    <i class="glyphicon glyphicon-check red"></i> Habilitar
+                                                                </a>
+                                                                <?php 
+                                                                } else {
+                                                                    ?>
+                                                                    <a href="<?php echo base_url() . 'index.php/CSale/liquidasale'; ?>" class="btn btn-success btn-lg">
+                                                                        <i class="glyphicon glyphicon-barcode glyphicon-white"></i> Liquidar
+                                                                    </a>
+                                                                    <a href="<?php echo base_url() . 'index.php/CSale/canceldatasale'; ?>" class="btn btn-default btn-lg">
+                                                                        <i class="glyphicon glyphicon-remove red"></i> Eliminar
+                                                                    </a>
+                                                                    <?php
+                                                                }
+                                                            } 
+                                                            ?>
                                                         </p>
                                                     </li>
                                                 </ul>

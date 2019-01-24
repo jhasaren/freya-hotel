@@ -78,6 +78,7 @@ class CSale extends CI_Controller {
                 $listTypeDoc = $this->MUser->type_doc_list(); /*Consulta Modelo para obtener lista de tipo documento*/
                 //$listProductInterno = $this->MSale->list_product_int(); /*Consulta Modelo para obtener lista de Productos de Consumo Interno*/
                 $receiptSale = $this->MPrincipal->rango_recibos(1);  /*Consulta el Modelo Cantidad de recibos disponibles*/
+                $dataMesa = $this->MSale->info_mesa($this->session->userdata('idMesa'));  /*Consulta el Modelo Informacion de la mesa*/
                 
                 $clientInList = $this->MSale->client_in_list(); /*datos del cliente agregados a la venta*/
                 if ($this->session->userdata('sclient') != NULL){
@@ -103,6 +104,8 @@ class CSale extends CI_Controller {
                 $info['consumoInList'] = $consumoInList;
                 $info['porcenInList'] = $porcenInList;
                 $info['receiptSale'] = $receiptSale;
+                $info['list_product'] = $listProductSale;
+                $info['data_mesa'] = $dataMesa;
                 $this->load->view('sale/sale',$info);
             
             } else {
@@ -154,7 +157,8 @@ class CSale extends CI_Controller {
                     
                     /*Registra el id de venta de la mesa como variable de sesion*/
                     $datos_session = array(
-                        'idSale' => $flagBoard
+                        'idSale' => $flagBoard,
+                        'idMesa' => $board
                     );
                     $this->session->set_userdata($datos_session);
                     
@@ -489,7 +493,7 @@ class CSale extends CI_Controller {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 06/04/2017, Ultima modificacion: 
      **************************************************************************/
-    public function restoresale($idVenta,$usuario,$porcent,$porcentServ,$idEmpleado) {
+    public function restoresale($idVenta,$usuario,$porcent,$porcentServ,$idEmpleado,$board) {
         
         if ($this->session->userdata('validated')) {
             
@@ -498,6 +502,7 @@ class CSale extends CI_Controller {
                 /*Setea variables de sesion*/
                 $datos_session = array(
                     'idSale' => $idVenta,
+                    'idMesa' => $board,
                     'sclient' => $usuario,
                     'sdescuento' => ($porcent*100),
                     'sservicio' => ($porcentServ*100),
@@ -540,9 +545,13 @@ class CSale extends CI_Controller {
                 
                 if ($updrecibo == TRUE){
                 
+                    /*Actualiza estado de la mesa*/
+                    $updMesaEstado = $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'),3); /*Limpieza*/
+                    
                     $this->session->unset_userdata('sclient');
                     $this->session->unset_userdata('sempleado');
                     $this->session->unset_userdata('idSale'); 
+                    $this->session->unset_userdata('idMesa'); 
                     $this->session->unset_userdata('sdescuento');
                     $this->session->unset_userdata('sservicio');
 
@@ -584,9 +593,13 @@ class CSale extends CI_Controller {
 
                 if ($deldata == TRUE){
 
+                    /*Envia al modelo para habilitar la mesa/habitacion*/
+                    $enable = $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'), 2);
+                    
                     $this->session->unset_userdata('sclient'); 
                     $this->session->unset_userdata('sempleado');
                     $this->session->unset_userdata('idSale'); 
+                    $this->session->unset_userdata('idMesa'); 
                     $this->session->unset_userdata('sdescuento');
                     $this->session->unset_userdata('sservicio');
 
@@ -596,6 +609,46 @@ class CSale extends CI_Controller {
 
                     $info['idmessage'] = 2;
                     $info['message'] = "No es posible cancelar la venta. Elimine primero todos los conceptos de la venta. Si la venta ya registra un Pago Parcial debe anular el recibo";
+                    $this->module($info);
+
+                }
+            
+            } else {
+                
+                show_404();
+                
+            }
+            
+        } else {
+            
+            show_404();
+            
+        }
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: enableboard
+     * Descripcion: Habilita una mesa/habitacion
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 23/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function enableboard($board) {
+        
+        if ($this->session->userdata('validated')) {
+            
+            if ($this->MRecurso->validaRecurso(9)){
+                
+                /*Envia al modelo para habilitar la mesa/habitacion*/
+                $enable = $this->MSale->upd_estado_mesa($board, 2);
+
+                if ($enable == TRUE){
+
+                    $this->boards(2);
+
+                } else {
+
+                    $info['idmessage'] = 2;
+                    $info['message'] = "No es posible habilitar la habitacion. Consulte con el administrador";
                     $this->module($info);
 
                 }
@@ -643,6 +696,7 @@ class CSale extends CI_Controller {
                         $recibo = $this->input->post('recibo'); /*numero de recibo*/
                         $formaPago = $this->input->post('formapago'); /*tipo de forma de pago*/
                         $mixpayment = $this->input->post('mixpayment'); /*si el pago es parcial (pago mixto)*/
+                        $mesa = $this->input->post('idmesa'); /*id de la ubicacion (habitacion)*/
                         
                         if ($mixpayment != 'on'){
                         
@@ -659,6 +713,9 @@ class CSale extends CI_Controller {
 
                                 if ($registerPay == TRUE){
 
+                                    /*Actualiza estado de la mesa*/
+                                    $updMesaEstado = $this->MSale->upd_estado_mesa($mesa,3); /*Limpieza*/
+                                    
                                     /*Obtiene datos del cliente*/
                                     $datosCliente = $this->MUser->get_user($this->session->userdata('sclient')); 
 
@@ -702,6 +759,7 @@ class CSale extends CI_Controller {
                                     $this->session->unset_userdata('sclient'); 
                                     $this->session->unset_userdata('sempleado');
                                     $this->session->unset_userdata('idSale'); 
+                                    $this->session->unset_userdata('idMesa');
                                     $this->session->unset_userdata('sdescuento');
                                     $this->session->unset_userdata('sservicio');
 
@@ -734,7 +792,7 @@ class CSale extends CI_Controller {
                                 $registerPay = $this->MSale->pay_register_sale($formaPago,$pagavalor,$refPago,$mixpayment);
 
                                 if ($registerPay){
-
+                                    
                                     $this->liquidasale();
 
                                 } else {
@@ -811,6 +869,8 @@ class CSale extends CI_Controller {
 
                         if ($registerData == TRUE){
 
+                            $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'),1); /*estado mesa ocupada*/
+                            
                             $info['idmessage'] = 1;
                             $info['message'] = "Cliente Agregado Exitosamente";
                             $this->module($info);
