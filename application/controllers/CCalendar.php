@@ -64,7 +64,7 @@ class CCalendar extends CI_Controller {
         
         if ($this->session->userdata('validated')) {
             
-            if ($this->MRecurso->validaRecurso(12)){
+            if ($this->MRecurso->validaRecurso(12)){ /*Agendas*/
 
                 /*Consulta Modelo para obtener listado de Sedes*/
                 $listSede = $this->MUser->list_sedes();

@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Agendamiento</h3>
+                        <h3>Reservas</h3>
                     </div>
 
                     <div class="title_right">
@@ -57,6 +57,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="input-group">
                                 <div></div>
                                 <span class="input-group-btn">
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-info" href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>"><i class="glyphicon glyphicon-th"></i> Ver Reservas</a>
+                                    </span>
                                 </span>
                             </div>
                         </div>
@@ -91,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Reservar Cita</h2>
+                                <h2>Reservar Habitación</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>

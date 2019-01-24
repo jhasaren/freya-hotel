@@ -1122,7 +1122,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addproductsale
      * Descripcion: Agregar Producto a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/03/2017, Ultima modificacion: 24/01/2019
      **************************************************************************/
     public function addproductsale(){
         
@@ -1148,6 +1148,19 @@ class CSale extends CI_Controller {
                     //$valueTotal = $valueProducto = $varprod[1]*$cantidad;
                     $valueTotal = $valueProducto*$cantidad;
                     $idempleado = $this->input->post('idempleado');
+                    $typeReg = $this->input->post('typeReg'); /*0-alojamiento, 1-producto*/
+                                        
+                    $dateIn = new DateTime($this->input->post('checkin')); 
+                    $checkIN = $dateIn->format('Y-m-d H:i:s'); 
+                    
+                    $dateOut = new DateTime($this->input->post('checkout')); 
+                    $checkOUT = $dateOut->format('Y-m-d H:i:s');
+                    
+                    log_message("DEBUG", "*********************************************************");
+                    log_message("DEBUG", "Dias->".$cantidad);
+                    log_message("DEBUG", $checkIN);
+                    log_message("DEBUG", $checkOUT);
+                    log_message("DEBUG", "*********************************************************");
 
                     if ($this->jasr->validaTipoString($cantidad,2)){
                         
@@ -1162,13 +1175,13 @@ class CSale extends CI_Controller {
                             if ($registerData == TRUE){
 
                                 $info['idmessage'] = 1;
-                                $info['message'] = "Producto de Venta Agregado Exitosamente";
+                                $info['message'] = "Concepto cargado Agregado Exitosamente";
                                 $this->module($info);
 
                             } else {
 
                                 $info['idmessage'] = 2;
-                                $info['message'] = "No fue posible agegar el Producto de venta";
+                                $info['message'] = "No fue posible agregar el concepto a la venta";
                                 $this->module($info);
 
                             }
@@ -1176,7 +1189,7 @@ class CSale extends CI_Controller {
                         } else {
                             
                             $info['idmessage'] = 2;
-                            $info['message'] = "No fue posible agregar el Producto. Los datos no son correctos";
+                            $info['message'] = "No fue posible agregar el Concepto. Los datos no son correctos";
                             $this->module($info);
                             
                         }
@@ -1184,7 +1197,7 @@ class CSale extends CI_Controller {
                     } else {
 
                         $info['idmessage'] = 2;
-                        $info['message'] = "No fue posible agegar el Producto a la venta. Cantidad incorrecta";
+                        $info['message'] = "No fue posible agegar el Concepto a la venta. Cantidad incorrecta";
                         $this->module($info);
 
                     }

@@ -93,14 +93,6 @@
                         <i class="fa fa-book"></i> Recibos
                     </a>
                 </li>
-                <!--<li><a><i class="fa fa-clone"></i>Recibos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="<?php // echo base_url().'index.php/CReceipt'; ?>">Lista Resoluciones</a></li>
-                        <?php // if ($this->MRecurso->validaRecurso(4)){ /*Recibos Pagados*/ ?>
-                        <li><a href="<?php // echo base_url().'index.php/CReport/module/reportPayment'; ?>">Recibos Pagados</a></li>
-                        <?php // } ?>
-                    </ul>
-                </li>-->
                 <?php } ?>
                 
                 <?php if ($this->MRecurso->validaRecurso(10)){ /*Reportes*/ ?>
@@ -109,29 +101,24 @@
                         <i class="fa fa-folder-open"></i> Reportes
                     </a>
                 </li>
-<!--                <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <?php // if ($this->MRecurso->validaRecurso(13)){ /*Ingresos por Sede*/ ?>
-                        <li><a href="<?php // echo base_url().'index.php/CReport/module/reportSedes'; ?>">Ingresos General</a></li>
-                        <li><a href="<?php // echo base_url().'index.php/CReport/module/reportGastos'; ?>">Registro de Gastos</a></li>
-                        <li><a href="<?php // echo base_url().'index.php/CReport/module/reportGYP'; ?>">Estado G&P</a></li>
-                        <li><a href="<?php // echo base_url().'index.php/CReport/module/reportNomina'; ?>">Liquidar Nómina</a></li>
-                        <?php //} ?>
-                    </ul>
-                </li>-->
                 <?php } ?>
                 
-                <?php if ($this->MRecurso->validaRecurso(12)){ /*Agendas*/ ?>
-                <li><a><i class="fa fa-calendar-check-o"></i> Agendas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <?php if ($this->MRecurso->validaRecurso(14)) { /*Mis Citas - Cliente*/ ?>
-                        <li><a href="<?php echo base_url().'index.php/CCalendar/listevent/cliente'; ?>">Mis Citas</a></li>
-                        <?php } ?>
-                        <?php if ($this->MRecurso->validaRecurso(15)) { /*Citas Sede - Superadmin*/ ?>
-                        <li><a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">Citas Reservadas</a></li>
-                        <?php } ?>
-                        <li><a href="<?php echo base_url().'index.php/CCalendar'; ?>">Reservar Cita</a></li>
-                    </ul>
+                <?php if ($this->MRecurso->validaRecurso(12)){ /*Reservas*/ ?>
+                <li>
+                    <a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">
+                        <i class="fa fa-calendar-check-o"></i> Reservas
+                    </a>
+                    
+                    <!--<a><i class="fa fa-calendar-check-o"></i> Reservas <span class="fa fa-chevron-down"></span></a>-->
+                    <!--<ul class="nav child_menu">-->
+                        <?php //if ($this->MRecurso->validaRecurso(140)) { /*Mis Citas - Cliente*/ ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/cliente'; ?>">Mis Citas</a></li>-->
+                        <?php //} ?>
+                        <?php //if ($this->MRecurso->validaRecurso(155)) { /*Citas Sede - Superadmin*/ ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/sede'; ?>">Citas Reservadas</a></li>-->
+                        <?php //} ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar'; ?>">Reservar Cita</a></li>-->
+                    <!--</ul>-->
                 </li>
                 <?php } ?>
                 

@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Gestión Centro de Belleza</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Agendamiento</h3>
+                        <h3>Reservas</h3>
                     </div>
 
                     <div class="title_right">
@@ -60,6 +60,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="input-group">
                                 <div></div>
                                 <span class="input-group-btn">
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-info" href="<?php echo base_url().'index.php/CCalendar'; ?>"><i class="glyphicon glyphicon-th"></i> Reservar</a>
+                                    </span>
                                 </span>
                             </div>
                         </div>
@@ -88,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Citas Reservadas</h2>
+                                <h2>Control de Reservas</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>

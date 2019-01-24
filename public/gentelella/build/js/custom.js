@@ -187,6 +187,29 @@ $(document).ready(function () {
 
 // Modal - jasanchez
 $(document).ready(function () {
+    $("#cantidad_ser").change(function () {
+        var night = $(this).val();
+        
+        if (night){
+            entrega = new Date();
+            entrega.setHours(15,0,0);
+            entrega.setDate(entrega.getDate() + parseInt(night));
+            
+            console.log(entrega.getFullYear()+"-"+(entrega.getMonth()+1)+"-"+entrega.getDate());
+            
+            $("#checkout").val(entrega.getFullYear()+"-"+(entrega.getMonth()+1)+"-"+entrega.getDate() + " " + entrega.getHours() + ":0" + entrega.getMinutes() + ":0" + entrega.getSeconds());
+        }
+        /*if ($(this).val() == 'S') {
+            $("#valor_tarifa").val("");
+            $("#valor_tarifa").attr("readonly", "readonly");
+            $("#increm_calendarioA").removeAttr("disabled");
+        } else {
+            $("#valor_tarifa").val("");
+            $("#valor_tarifa").removeAttr("readonly");
+            $("#increm_calendarioA").attr("disabled", "disabled");
+        }*/
+    }).trigger("change");
+    
     /*Modal - Cambio de Clave*/
     $('.btn-changepass').click(function (e) {
         e.preventDefault();
@@ -254,7 +277,7 @@ $(document).ready(function () {
         
         //to have your input focused every your modal open
         $('#myModal-em').on("shown.bs.modal", function() {
-            $('#idempleadoventa').focus();
+            $('#placa').focus();
         });
 
         //to open the modal when document is ready

@@ -584,26 +584,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <br />
                             </div>
                             <input type="hidden" class="form-control" id="idempleado_ser" name="idempleado" value="<?php echo $this->session->userdata('userid'); ?>">
+                            <input type="hidden" class="form-control" id="typeReg" name="typeReg" value="0"> <!--Alojamiento-->
                             <br />
                             <label class="control-label" for="selectError">Cantidad de Noches</label>
                             <div class="controls">
-                                <select class="select2_single form-control" id="cantidad_ser" name="cantidad" data-rel="chosen">
+                                <select class="select2_single form-control" id="cantidad_ser" name="cantidad" data-rel="chosen" required="">
+                                    <option value=""></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                 </select>
                             </div>
                             <br />
                             <label class="control-label" for="selectError">CheckIn</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
+                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" readonly="" />
                             </div>
                             <br />
                             <label class="control-label" for="selectError">CheckOut</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
+                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
                             </div>
                             <br />
                         </div>
@@ -634,6 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <br />
                             </div>
                             <input type="hidden" class="form-control" id="idempleado_pr" name="idempleado" value="<?php echo $this->session->userdata('userid'); ?>">
+                            <input type="hidden" class="form-control" id="typeReg" name="typeReg" value="1"> <!--Producto-->
                             <br />
                             <label class="control-label" for="cantidad">Cantidad</label>
                             <select class="select2_single form-control" id="cantidad_pr" name="cantidad" data-rel="chosen">
