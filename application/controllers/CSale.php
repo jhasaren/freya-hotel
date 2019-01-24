@@ -75,11 +75,14 @@ class CSale extends CI_Controller {
                 $listServiceSale = $this->MSale->list_service_sale(); /*Consulta Modelo para obtener lista de Productos Internos*/
                 //$listEmpleadoSale = $this->MSale->list_empleado_sale(); /*Consulta Modelo para obtener lista de Empleados*/
                 $listProductSale = $this->MSale->list_product_sale(); /*Consulta Modelo para obtener lista de Productos*/
+                $listTypeDoc = $this->MUser->type_doc_list(); /*Consulta Modelo para obtener lista de tipo documento*/
                 //$listProductInterno = $this->MSale->list_product_int(); /*Consulta Modelo para obtener lista de Productos de Consumo Interno*/
                 $receiptSale = $this->MPrincipal->rango_recibos(1);  /*Consulta el Modelo Cantidad de recibos disponibles*/
                 
                 $clientInList = $this->MSale->client_in_list(); /*datos del cliente agregados a la venta*/
-                //$serviceInList = $this->MSale->service_in_list(); /*lista de servicios agregados a la venta*/
+                if ($this->session->userdata('sclient') != NULL){
+                    $huespedInList = $this->MSale->huesped_in_list(); /*lista de huespedes agregados a la habitacion*/
+                }
                 $plateInList = $this->MSale->placas_in_list(); /*lista vehiculos agregados a la venta*/
                 $productInList = $this->MSale->product_in_list(); /*lista de productos agregados a la venta*/
                 $adicionalInList = $this->MSale->adicional_in_list(); /*lista cargos adicionales agregados a la venta*/
@@ -90,10 +93,10 @@ class CSale extends CI_Controller {
                 $info['list_user'] = $listUserSale;
                 $info['list_service'] = $listServiceSale;
                 //$info['list_empleado'] = $listEmpleadoSale;
-                $info['list_product'] = $listProductSale;
-                //$info['list_interno'] = $listProductInterno;
+                $info['list_document'] = $listTypeDoc;
+                $info['list_interno'] = $listProductInterno;
                 $info['clientInList'] = $clientInList;
-                //$info['serviceInList'] = $serviceInList;
+                $info['huespedInList'] = $huespedInList;
                 $info['plateInList'] = $plateInList;
                 $info['productInList'] = $productInList;
                 $info['adicionalInList'] = $adicionalInList;
@@ -158,32 +161,7 @@ class CSale extends CI_Controller {
                     $this->module($info);
                     
                 }
-                
-                /*Valida si ya existe un id de venta registrado en la sesion*/
-                //if ($this->session->userdata('idSale') == NULL){
-
-                    /*Consulta Modelo para crear el id de venta*/
-                    //$createSale = $this->MSale->create_sale($this->session->userdata('userid'));
-                    
-                    /*Envia datos al modelo para el registro del Cliente por Default*/
-                    //$this->MSale->add_user('999999',$this->session->userdata('idSale'));
-
-                    //if ($createSale == TRUE){
-
-                        //$this->module($info);
-
-                    //} else {
-
-                        //show_404();
-
-                    //}
-
-                //} else {
-
-                    //$this->module($info);
-
-                //}
-            
+                            
             } else {
                 
                 show_404();
@@ -821,6 +799,7 @@ class CSale extends CI_Controller {
                     $dataUsuario = explode('|', $this->input->post('idcliente'));
                     $idusuario = $dataUsuario[1];
                     $idventa = $this->session->userdata('idSale'); 
+                    $principal = $this->input->post('huesped_principal'); 
 
                     /*Valida si el usuario/cliente existe*/
                     $validateClient = $this->MUser->verify_user($idusuario);
@@ -828,7 +807,7 @@ class CSale extends CI_Controller {
                     if ($validateClient != FALSE){
 
                         /*Envia datos al modelo para el registro*/
-                        $registerData = $this->MSale->add_user($idusuario,$idventa);
+                        $registerData = $this->MSale->add_user($idusuario,$idventa,$principal);
 
                         if ($registerData == TRUE){
 
@@ -1449,9 +1428,11 @@ class CSale extends CI_Controller {
                     /*Captura Variables*/
                     $name = strtoupper($this->input->post('nameclient'));
                     $lastname = strtoupper($this->input->post('lastnameclient'));
+                    $tipodoc = $this->input->post('typedoc');
                     $identificacion = $this->input->post('identificacion');
                     $direccion = strtoupper($this->input->post('direccion'));
                     $celular = $this->input->post('celular');
+                    $principal = $this->input->post('huesped_principal');
                     $email = $this->input->post('email'); 
                     $date = new DateTime($this->input->post('fechanace')); 
                     $fechaNace = $date->format('Y-m-d'); 
@@ -1476,11 +1457,11 @@ class CSale extends CI_Controller {
                                         if ($tipo === 'cliente'){
 
                                             /*Envia datos al modelo para el registro*/
-                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$this->session->userdata('sede'),0,NULL,$fechaNace);
+                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$this->session->userdata('sede'),0,NULL,$fechaNace,$tipodoc);
                                             if ($registerData == TRUE){
 
                                                 /*agrega usuario a la venta*/
-                                                $registerUserSale = $this->MSale->add_user($identificacion,$this->session->userdata('idSale'));
+                                                $registerUserSale = $this->MSale->add_user($identificacion,$this->session->userdata('idSale'),$principal);
 
                                                 if ($registerUserSale != FALSE){
 

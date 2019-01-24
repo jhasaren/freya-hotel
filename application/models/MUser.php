@@ -37,6 +37,7 @@ class MUser extends CI_Model {
         
             /*Recupera los usuarios creados*/
             $query = $this->db->query("SELECT
+                                    td.descDocumento,
                                     a.idUsuario,
                                     concat(a.nombre,' ',a.apellido) as nombre_usuario,
                                     t.descTipoUsuario,
@@ -47,6 +48,7 @@ class MUser extends CI_Model {
                                     FROM
                                     app_usuarios a
                                     JOIN tipo_usuario t ON t.idTipoUsuario = a.idTipoUsuario
+                                    JOIN tipo_identificacion td ON td.idTipoDocumento = a.idTipoDocumento
                                     LEFT JOIN usuario_tipo_proveedor tp ON tp.idUsuario = a.idUsuario
                                     LEFT JOIN tipo_proveedor tpr ON tpr.idTipoProveedor = tp.idTipoProveedor");
 
@@ -284,12 +286,39 @@ class MUser extends CI_Model {
     
     
     /**************************************************************************
+     * Nombre del Metodo: type_doc_list
+     * Descripcion: Obtiene los tipos de documento del sistema
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 23/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function type_doc_list() {
+                
+        /*Recupera los tipos de documentos*/
+        $query = $this->db->query("SELECT
+                                t.idTipoDocumento,
+                                t.descDocumento
+                                FROM 
+                                tipo_identificacion t");
+
+        if ($query->num_rows() == 0) {
+
+            return false;
+
+        } else {
+
+            return $query->result_array();
+
+        }
+    }
+    
+    
+    /**************************************************************************
      * Nombre del Metodo: create_user
      * Descripcion: Registra un Usuario Cliente/Empleado en BD
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 24/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function create_user($name,$lastname,$identificacion,$direccion,$celular,$email,$tipo,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,$tproveedor,$fechaNace) {
+    public function create_user($name,$lastname,$identificacion,$direccion,$celular,$email,$tipo,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,$tproveedor,$fechaNace,$tipodoc) {
             
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
@@ -308,7 +337,7 @@ class MUser extends CI_Model {
                                     idSede,
                                     fechaNacimiento
                                     ) VALUES (
-                                    1,
+                                    ".$tipodoc.",
                                     ".$identificacion.",
                                     '".$name."',
                                     '".$lastname."',

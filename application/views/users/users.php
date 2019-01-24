@@ -123,6 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <table id="datatable-buttons" class="table table-striped table-bordered">
                                     <thead>
                                         <th>Nombre</th>
+                                        <th>Identificación</th>
                                         <th>Telefono</th>
                                         <th>Tipo</th>
                                         <th>Categoria</th>
@@ -135,7 +136,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             foreach ($list_user as $row_list){
                                                 ?>
                                                 <tr>
-                                                    <td class="center"><?php echo $row_list['nombre_usuario']." [ID. ".$row_list['idUsuario']."]"; ?></td>
+                                                    <td class="center"><?php echo $row_list['nombre_usuario']; ?></td>
+                                                    <td class="center blue"><?php echo $row_list['descDocumento']." ".$row_list['idUsuario']; ?></td>
                                                     <td class="center green"><?php echo $row_list['numCelular']; ?></td>
                                                     <td class="center blue"><?php echo $row_list['descTipoUsuario']; ?></td>
                                                     <td class="center"><?php echo $row_list['descTipoProveedor']; ?></td>
@@ -191,7 +193,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="identificacion">Nro. Identificación</label>
+                                <label for="identificacion">Tipo de Documento</label>
+                                <select class="form-control" name="typedoc">
+                                    <?php
+                                    foreach ($list_document as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['idTipoDocumento']; ?>"><?php echo $row['descDocumento']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
                                 <input type="number" class="form-control" id="identificacion1" name="identificacion" placeholder="Documento Cliente" min="1" max="99999999999" required="">
                             </div>
                             <div class="form-group">
@@ -245,7 +256,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="identificacion">Nro. Identificación</label>
+                                <label for="identificacion">Tipo de Documento</label>
+                                <select class="form-control" name="typedoc">
+                                    <?php
+                                    foreach ($list_document as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['idTipoDocumento']; ?>"><?php echo $row['descDocumento']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
                                 <input type="number" class="form-control" id="identificacion2" name="identificacion" placeholder="Documento Proveedor" min="1" max="99999999999" required="">
                             </div>
                             <div class="form-group">
@@ -295,7 +315,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="identificacion">Nro. Identificación</label>
+                                <label for="TipoDoc">Tipo de Documento</label>
+                                <select class="form-control" name="typedoc">
+                                    <?php
+                                    foreach ($list_document as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['idTipoDocumento']; ?>"><?php echo $row['descDocumento']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <!--<label for="identificacion">Nro. Identificación</label>-->
                                 <input type="number" class="form-control" id="identificacion3" name="identificacion" placeholder="Documento Empleado" min="1" max="99999999999" required="">
                                 <br />
                                 <label for="Contrasena">Contraseña</label>

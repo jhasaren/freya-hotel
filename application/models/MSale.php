@@ -130,20 +130,24 @@ class MSale extends CI_Model {
      * Nombre del Metodo: client_in_list
      * Descripcion: Obtiene los datos del Cliente agregado en la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 05/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 05/04/2017, Ultima modificacion: 23/01/2019
      **************************************************************************/
     public function client_in_list() {
                                 
         /*Recupera los usuarios creados*/
         $query = $this->db->query("SELECT
+                                t.descDocumento,
                                 a.idUsuario,
                                 concat(a.nombre,' ',a.apellido) as nombre_usuario,
                                 a.numCelular,
                                 a.direccion,
-                                a.email
+                                a.email,
+                                a.fechaNacimiento,
+                                Floor(DATEDIFF(CURRENT_DATE, STR_TO_DATE(a.fechaNacimiento, '%Y-%m-%d'))/365) AS edad
                                 FROM
                                 venta_maestro v
                                 JOIN app_usuarios a ON a.idUsuario = v.idUsuarioCliente
+                                JOIN tipo_identificacion t ON t.idTipoDocumento = a.idTipoDocumento
                                 WHERE
                                 v.idVenta = ".$this->session->userdata('idSale')."");
 
@@ -152,7 +156,7 @@ class MSale extends CI_Model {
             return false;
 
         } else {
-
+            
             return $query->row();
 
         }
@@ -209,6 +213,7 @@ class MSale extends CI_Model {
         }
     }
     
+        
     /**************************************************************************
      * Nombre del Metodo: service_in_list
      * Descripcion: Obtiene los servicios en lista para liquidar
@@ -231,6 +236,44 @@ class MSale extends CI_Model {
                                 JOIN servicios s ON s.idServicio = v.idServicio
                                 WHERE
                                 v.idVenta = ".$this->session->userdata('idSale')."");
+
+        if ($query->num_rows() == 0) {
+
+            return false;
+
+        } else {
+
+            return $query->result_array();
+
+        }
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: huesped_in_list
+     * Descripcion: Obtiene los huespedes de la habitacion
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 23/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function huesped_in_list() {
+                
+        /*Recupera los huespedes de la habitacion*/
+        $query = $this->db->query("SELECT
+                                    v.id,
+                                    v.idVenta,
+                                    t.descDocumento,
+                                    v.idUsuarioHuesped,
+                                    a.nombre,
+                                    a.apellido,
+                                    a.numCelular,
+                                    a.direccion,
+                                    a.email,
+                                    a.fechaNacimiento,
+                                    Floor(DATEDIFF(CURRENT_DATE, STR_TO_DATE(a.fechaNacimiento, '%Y-%m-%d'))/365) AS edad
+                                    FROM venta_huesped v
+                                    JOIN app_usuarios a ON a.idUsuario = v.idUsuarioHuesped
+                                    JOIN tipo_identificacion t ON t.idTipoDocumento = a.idTipoDocumento 
+                                    WHERE v.idVenta = ".$this->session->userdata('idSale')."
+                                    AND v.idUsuarioHuesped NOT IN (".$this->session->userdata('sclient').")");
 
         if ($query->num_rows() == 0) {
 
@@ -891,6 +934,39 @@ class MSale extends CI_Model {
 
                             return TRUE;
 
+                        } else {
+                            
+                            if ($type == 5) { /*huesped en la venta*/
+                        
+                                /*Setea usuario de conexion - Auditoria BD*/
+                                $this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
+
+                                $this->db->trans_strict(TRUE);
+                                $this->db->trans_start();
+                                $this->db->query("INSERT INTO item_venta_elimina(
+                                                    idVenta,
+                                                    idRegistroDetalle,
+                                                    motivoElimina,
+                                                    fechaElimina,
+                                                    idEmpleadoSolicita
+                                                ) VALUES (
+                                                    ".$this->session->userdata('idSale').",
+                                                    ".$idRegistro.",
+                                                    '".$motivo." - HUESPED',
+                                                    NOW(),
+                                                    ".$this->session->userdata('userid').")");
+
+                                $this->db->query("DELETE
+                                                FROM venta_huesped
+                                                WHERE id = ".$idRegistro."
+                                                and idVenta = ".$this->session->userdata('idSale')."");
+                                $this->db->trans_complete();
+                                $this->db->trans_off();
+
+                                return TRUE;
+
+                            }
+                            
                         }
                         
                     }
@@ -1021,28 +1097,41 @@ class MSale extends CI_Model {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 26/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function add_user($idusuario,$idventa) {
+    public function add_user($idusuario,$idventa,$principal) {
         
         $this->db->trans_start();
-        $query = $this->db->query("UPDATE
-                                venta_maestro SET
-                                idUsuarioCliente = ".$idusuario."
-                                WHERE
-                                idVenta = ".$idventa."");
         
-        $query2 = $this->db->query("INSERT INTO
-                                venta_huesped (
-                                idVenta,
-                                idUsuarioHuesped,
-                                fechaRegistra,
-                                idUsuarioRegistra
-                                ) VALUES (
-                                ".$idventa.",
-                                ".$idusuario.",
-                                NOW(),
-                                ".$this->session->userdata('userid')."
-                                )");
-
+        if ($principal == 'on'){
+            $query = $this->db->query("UPDATE
+                                    venta_maestro SET
+                                    idUsuarioCliente = ".$idusuario."
+                                    WHERE
+                                    idVenta = ".$idventa."");
+        }
+        
+        $query_valida = $this->db->query("SELECT
+                                count(1) as cantidad
+                                FROM
+                                venta_huesped vh
+                                WHERE vh.idVenta = ".$idventa."
+                                AND vh.idUsuarioHuesped = ".$idusuario."");
+        $result = $query_valida->row();
+        
+        if ($result->cantidad == 0) {
+            $query2 = $this->db->query("INSERT INTO
+                                       venta_huesped (
+                                       idVenta,
+                                       idUsuarioHuesped,
+                                       fechaRegistra,
+                                       idUsuarioRegistra
+                                       ) VALUES (
+                                       ".$idventa.",
+                                       ".$idusuario.",
+                                       NOW(),
+                                       ".$this->session->userdata('userid')."
+                                       )");
+        }
+        
         $this->db->trans_complete();
         $this->db->trans_off();
         
@@ -1052,12 +1141,17 @@ class MSale extends CI_Model {
 
         } else {
             
-            /*Setea el usuario como variable de sesion*/
-            $datos_session = array(
-                'sclient' => $idusuario
-            );
+            if ($principal == 'on'){
+                
+                /*Setea el usuario como variable de sesion*/
+                $datos_session = array(
+                    'sclient' => $idusuario
+                );
+
+                $this->session->set_userdata($datos_session);
+                
+            }
             
-            $this->session->set_userdata($datos_session);
             return true;
 
         }

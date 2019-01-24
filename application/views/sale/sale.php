@@ -21,6 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/iCheck/skins/flat/green.css'; ?>" rel="stylesheet">
     
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
@@ -250,14 +252,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-10 col-sm-10 col-xs-10">
                                         <div class="x_panel" style="background-color: #81a4ba;">
                                             <div class="x_title" style="color: white;">
-                                                <h2>Info. Cliente</h2>
+                                                <h2>Info. Huésped Principal</h2>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content" style="color: white;">
-                                                Nombre: <?php echo $clientInList->nombre_usuario; ?><br />
-                                                Dirección: <?php echo $clientInList->direccion; ?> | 
-                                                Telefono: <?php echo $clientInList->numCelular; ?> |
-                                                Email: <?php echo $clientInList->email; ?>
+                                                <B>Identificación</B>: <?php echo $clientInList->descDocumento." ".$clientInList->idUsuario; ?> | <B>Nombre</B>: <?php echo $clientInList->nombre_usuario; ?> | <B>Edad</B>: <?php echo $clientInList->edad; ?> años<br />
+                                                <B>Dirección</B>: <?php echo $clientInList->direccion; ?> | 
+                                                <B>Telefono</B>: <?php echo $clientInList->numCelular; ?> |
+                                                <B>Email</B>: <?php echo $clientInList->email; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -282,37 +284,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </a>
                                     </div>
                                     <?php //} ?>
-                                    <?php if ($serviceInList != NULL){ ?>
+                                    <?php if ($huespedInList != NULL){ ?>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title" style="background-color: #89e0e0; color: black;">
-                                                <h2>Servicios</h2>
+                                                <h2>Huéspedes</h2>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th>Id</th>
+                                                            <th>Identificacion</th>
                                                             <th>Nombre</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Valor</th>
+                                                            <th>Datos</th>
+                                                            <th>Edad</th>
                                                             <th>Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        foreach ($serviceInList as $row_service_in){
+                                                        foreach ($huespedInList as $row_huesped_in){
                                                             ?>
                                                             <tr>
-                                                                <th scope="row"><?php echo $row_service_in['idRegistroDetalle']; ?></th>
-                                                                <td><?php echo $row_service_in['descServicio']; ?></td>
-                                                                <td><?php echo $row_service_in['cantidad']; ?></td>
-                                                                <td>$<?php echo number_format($row_service_in['valor'],0,',','.'); ?></td>
+                                                                <th scope="row"><?php echo $row_huesped_in['descDocumento']." ".$row_huesped_in['idUsuarioHuesped']; ?></th>
+                                                                <td><?php echo $row_huesped_in['nombre']." ".$row_huesped_in['apellido']; ?></td>
+                                                                <td><?php echo $row_huesped_in['direccion']."<br />Tel: ".$row_huesped_in['numCelular']."<br />".$row_huesped_in['email']; ?></td>
+                                                                <td><?php echo $row_huesped_in['edad']; ?></td>
                                                                 <td>
                                                                     <?php 
                                                                     if ($porcenInList->idEstadoRecibo != 8) {
-                                                                        echo "<a class='btn-saleitemdel' data-rel='".$row_service_in['idRegistroDetalle']."' data-rel2='1' href='#'><i class='glyphicon glyphicon-remove red'></i></a>";
+                                                                        echo "<a class='btn-saleitemdel' data-rel='".$row_huesped_in['id']."' data-rel2='5' href='#'><i class='glyphicon glyphicon-remove red'></i></a>";
                                                                     } 
                                                                     ?>
                                                                 </td>
@@ -416,7 +418,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php if ($plateInList != NULL){ ?>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="x_panel">
-                                            <div class="x_title" style="background-color: #E8E792; color: black;">
+                                            <div class="x_title" style="background-color: #aadc7b; color: black;">
                                                 <h2>Vehiculos Registrados</h2>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -482,7 +484,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                             <h3>Huéspedes</h3>
-
                             <a class="btn-newcliente" href="#">
                                 <i class="glyphicon glyphicon-plus-sign blue"></i>
                                 Registrar Nuevo
@@ -492,7 +493,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-body">
                             <?php if ($this->session->userdata('sclient') != NULL) { ?>
                                 <div class="alert alert-info">
-                                    Esta venta tiene asociado el cliente Nro. Identificación: <?php echo $clientInList->idUsuario; ?>
+                                    Esta venta tiene como Principal el cliente Nro. Identificación: <?php echo $clientInList->idUsuario; ?>
                                 </div>
                             <?php } ?>
                             <label class="control-label" for="select">Escriba parte del nombre y seleccione de la lista</label>
@@ -500,6 +501,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input class="select2_single form-control" type="text" name="idcliente" id="idcliente" required="" />
                             </div>
                             <br />
+                            <label>
+                                <input type="checkbox" class="flat" name="huesped_principal" >
+                                Principal
+                            </label>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
@@ -545,7 +550,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         
-        <!--Modal - Servicio-->
+        <!--Modal - Alojamiento-->
         <div class="modal fade" id="myModal-s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-s" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -648,22 +653,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <br />
                             <label class="control-label" for="valorCargo">Valor ($)</label>
                             <input type="tel" class="form-control" id="valorCargo" name="valorCargo" required="" autocomplete="off" pattern="\d*">
-                            <!--<label class="control-label" for="porcentEmpleado">Porcentaje Empleado (%)</label>-->
                             <input type="hidden" class="form-control" id="porcentEmpleado" name="porcentEmpleado" value="0">
-                            <!--<label class="control-label" for="selectError">Empleado</label>-->
-                            <!--<div class="controls">
-                                <select class="select2_single form-control" id="idempleado" name="idempleado" data-rel="chosen">
-                                    <?php
-                                    /*
-                                    foreach ($list_empleado as $row_empleado) {
-                                        ?>
-                                        <option value="<?php echo $row_empleado['idUsuario']; ?>"><?php echo $row_empleado['idUsuario'] . ' | ' . $row_empleado['nombre_usuario']; ?></option>
-                                        <?php
-                                    }
-                                     */
-                                    ?>
-                                </select>
-                            </div>-->
                             <input type="hidden" class="form-control" id="idempleado" name="idempleado" value="<?php echo $this->session->userdata('userid'); ?>">
                             <br />
                         </div>
@@ -690,7 +680,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="controls">
                                 <select class="select2_single form-control" id="motivoanulaitem" name="motivoanulaitem" data-rel="chosen" style="font-size: 16px">
                                     <option value="ERROR_DIGITACION_CAJA">Error Digitacion Cajero</option>
-                                    <option value="ERROR_PEDIDO_MESERO">Error Pedido Mesero</option>
+                                    <option value="DOCUMENTO_NO_CORRESPONDE">Documento no corresponde</option>
                                     <option value="CLIENTE_DESISTE">Cliente Desiste</option>
                                 </select>
                             </div>
@@ -769,6 +759,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
+                                <label for="TipoDoc">Tipo de Documento</label>
+                                <select class="form-control" name="typedoc">
+                                    <?php
+                                    foreach ($list_document as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['idTipoDocumento']; ?>"><?php echo $row['descDocumento']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="identificacion">Nro. Identificación</label>
                                 <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Documento Cliente" autocomplete="Off" required="">
                             </div>
@@ -788,6 +790,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" class="form-control" id="celular" name="celular" placeholder="Telefono Fijo/Celular" autocomplete="Off" >
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico" autocomplete="Off" >
                                 <br />
+                                <label>
+                                    <input type="checkbox" class="flat" name="huesped_principal" >
+                                    Principal
+                                </label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -822,6 +828,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap-daterangepicker -->
     <script src="<?php echo base_url().'public/gentelella/vendors/moment/min/moment.min.js'; ?>"></script>
     <script src="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js'; ?>"></script>
+    
+    <!-- iCheck -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/iCheck/icheck.min.js'; ?>"></script>
     
     <!-- jQuery autocomplete -->
     <script src="<?php echo base_url().'public/gentelella/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js'; ?>"></script>

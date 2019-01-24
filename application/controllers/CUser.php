@@ -69,6 +69,8 @@ class CUser extends CI_Controller {
                 $listRoles = $this->MUser->list_roles();
                 /*Consulta Modelo para obtener listado de Sedes creadas*/
                 $listSedes = $this->MUser->list_sedes();
+                /*Consulta Modelo para obtener lista de tipo documento*/
+                $listTypeDoc = $this->MUser->type_doc_list(); 
                 /*Consulta Modelo para obtener listado de Tipo Proveedor*/
                 $listTipoProveedor = $this->MUser->list_tproveedor();
                 /*Retorna a la vista con los datos obtenidos*/
@@ -76,6 +78,7 @@ class CUser extends CI_Controller {
                 $info['list_rol'] = $listRoles;
                 $info['list_sede'] = $listSedes;
                 $info['list_tprov'] = $listTipoProveedor;
+                $info['list_document'] = $listTypeDoc;
                 $this->load->view('users/users',$info);
             
             } else {
@@ -115,6 +118,7 @@ class CUser extends CI_Controller {
                     $name = strtoupper($this->input->post('nameclient'));
                     $lastname = strtoupper($this->input->post('lastnameclient'));
                     $identificacion = $this->input->post('identificacion');
+                    $typedoc = $this->input->post('typedoc');
                     $direccion = strtoupper($this->input->post('direccion'));
                     $celular = $this->input->post('celular');
                     $email = $this->input->post('email');    
@@ -145,7 +149,7 @@ class CUser extends CI_Controller {
                                         if ($tipo === 'cliente'){
 
                                             /*Envia datos al modelo para el registro*/
-                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$sede,$horario,null,$fechaNace);
+                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,2,$diacumple,$mescumple,'12345',3,$sede,$horario,null,$fechaNace,$typedoc);
                                             if ($registerData == TRUE){
 
                                                 $info['message'] = 'Usuario registrado Exitosamente';
@@ -165,7 +169,7 @@ class CUser extends CI_Controller {
                                         if ($tipo === 'proveedor'){
 
                                             /*Envia datos al modelo para el registro*/
-                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,3,$diacumple,$mescumple,'12345',4,$sede,$horario,$tproveedor);
+                                            $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,3,$diacumple,$mescumple,'12345',4,$sede,$horario,$tproveedor,null,$typedoc);
                                             if ($registerData == TRUE){
 
                                                 $info['message'] = 'Proveedor registrado Exitosamente';
@@ -206,7 +210,7 @@ class CUser extends CI_Controller {
                                                 if ($this->jasr->validaTipoString($contrasena,8)){
 
                                                     /*Envia datos al modelo para el registro*/
-                                                    $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,1,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,null,$fechaNace);
+                                                    $registerData = $this->MUser->create_user($name,$lastname,$identificacion,$direccion,$celular,$email,1,$diacumple,$mescumple,$contrasena,$rol,$sede,$horario,null,$fechaNace,$typedoc);
                                                     if ($registerData == TRUE){
 
                                                         $info['message'] = 'Usuario registrado Exitosamente';
