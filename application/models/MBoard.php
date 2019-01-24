@@ -128,9 +128,9 @@ class MBoard extends CI_Model {
      * Nombre del Metodo: create_board
      * Descripcion: Registra un Producto en BD
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 25/03/2017, Ultima modificacion: 24/01/2019
      **************************************************************************/
-    public function create_board($name,$type,$caracteristicas) {
+    public function create_board($name,$type,$caracteristicas,$cantAdult,$cantNino) {
         
         /*Setea usuario de conexion - Auditoria BD*/
         //$this->db = $this->MAuditoria->db_user_audit($this->session->userdata('userid'));
@@ -143,13 +143,19 @@ class MBoard extends CI_Model {
                                     activo,
                                     idSede,
                                     idTipoMesa,
-                                    caracteristicas
+                                    caracteristicas,
+                                    idEstadoMesa,
+                                    cantAdulto,
+                                    cantNino
                                     ) VALUES (
                                     '".$name."',
                                     'S',
                                     ".$this->session->userdata('sede').",
                                     ".$type.",
-                                    '".$caracteristicas."'
+                                    '".$caracteristicas."',
+                                    2,
+                                    ".$cantAdult.",
+                                    ".$cantNino."
                                     )");
 
         $this->db->trans_complete();

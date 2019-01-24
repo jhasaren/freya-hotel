@@ -186,33 +186,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="detalleMesa">Caracteristicas</label>
+                                <label for="detalleMesa">Características</label>
                                 <br />
-                                <label>
-                                    <input type="checkbox" class="flat" name="car1" >
-                                    1 Cama Doble
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" class="flat" name="car2" >
-                                    1 Cama Sencilla
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" class="flat" name="car3" >
-                                    2 Camas Doble
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" class="flat" name="car4" >
-                                    2 Camas Sencilla
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" class="flat" name="car5" >
-                                    Calefacción
-                                </label>
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="descboard" name="descboard" placeholder="Descripción" maxlength="85" required="">
                             </div>
+                            <div class="form-group">
+                                <label for="adultosMesa">Adultos</label>
+                                <br />
+                                <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="countadult" name="countadult" placeholder="Cantidad" min="1" max="10" required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="ninosMesa">Niños</label>
+                                <br />
+                                <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="countkid" name="countkid" placeholder="Cantidad" min="0" max="10" required="">
+                            </div>
+                            <br />
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>

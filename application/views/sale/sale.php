@@ -54,7 +54,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Registrar Venta</h3>
+                        <h3>Registrar Venta<br />#<?php echo $this->session->userdata('idSale'); ?></h3>
+                        <?php
+                        if ($data_mesa->idEstadoMesa == 1){
+                            $label = "label-danger";
+                        }
+                        
+                        if ($data_mesa->idEstadoMesa == 2){
+                            $label = "label-success";
+                        }
+                        
+                        if ($data_mesa->idEstadoMesa == 3){
+                            $label = "label-info";
+                        }
+                        ?>
+                        <span class="label <?php echo $label; ?>">
+                            <?php echo $data_mesa->descEstadoMesa; ?>
+                        </span>
                         <?php 
                         if ($porcenInList->idEstadoRecibo == 8){
                             echo "CUENTA X COBRAR";
@@ -154,7 +170,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>ID:<?php echo $this->session->userdata('idSale')." - ".$data_mesa->nombreMesa." - ".$data_mesa->descTipoMesa." ".$data_mesa->caracteristicas." - ".$data_mesa->descEstadoMesa; ?></h2>
+                                <span style="color: #009999; font-weight: bold">
+                                    <?php echo "HABITACIÓN: ".$data_mesa->nombreMesa." | ADULTOS: ".$data_mesa->cantAdulto." | NIÑOS: ".$data_mesa->cantNino; ?>
+                                </span>
+                                <br />
+                                <span style="color: #000000;">
+                                    <?php echo $data_mesa->caracteristicas; ?>
+                                </span>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -608,7 +630,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <br />
                             <label class="control-label" for="selectError">CheckOut</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" />
+                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" readonly="" />
                             </div>
                             <br />
                         </div>

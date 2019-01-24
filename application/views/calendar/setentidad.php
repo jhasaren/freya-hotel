@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="Freya, Salon, Belleza, Gestion, Seguridad, Eficiencia, Calidad, Informacion">
     <meta name="author" content="Amadeus Soluciones">
 
-    <title>Freya - Gestión Centro de Belleza</title>
+    <title>Freya - Hotel</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -21,6 +21,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
     
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
@@ -104,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="x_content">
                                 <form role="form" name="form_entidad" action="<?php echo base_url().'index.php/CCalendar/servicesede'; ?>" method="post">
                                     <div class="modal-body">
-                                        <label class="control-label" for="selectSede">Seleccione la Sede</label>
+                                        <label class="control-label" style="color: #000" for="selectSede">HOTEL</label>
                                         <div class="controls">
                                             <select class="select2_single form-control" id="idsede" name="idsede" data-rel="chosen">
                                                 <?php
@@ -116,6 +119,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                             </select>
                                         </div>
+                                        <br />
+                                        <label class="control-label" style="color: #000" for="selectSede">CHECKIN-CHECKOUT</label>
+                                        <fieldset>
+                                            <input class="daterangepicker-field form-control" name="periodo"></input>
+                                        </fieldset>
+                                        <br />
+                                        <label class="control-label" style="color: #000" for="selectSede">ADULTOS</label>
+                                        <fieldset>
+                                            <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantadult" name="cantadult" placeholder="Cantidad" min="1" max="10" value="1" required="">
+                                        </fieldset>
+                                        <br />
+                                        <label class="control-label" style="color: #000" for="selectSede">NIÑOS</label>
+                                        <fieldset>
+                                            <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantkid" name="cantkid" placeholder="Cantidad" min="0" max="10" value="0"  required="">
+                                        </fieldset>
                                         <br />
                                     </div>
                                     <center>
@@ -151,6 +169,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.js'; ?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url().'public/gentelella/build/js/custom.js'; ?>"></script><!--Minificar-->  
+    
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/moment/min/moment.min.js'; ?>"></script>
+    <script src="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js'; ?>"></script>
     
   </body>
 </html>

@@ -119,8 +119,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="do-info">
                                                                 <div class="do-info-front do-circle">
                                                                     <center>
-                                                                        <h3 style="color: #000"><?php echo $row_list['nombreMesa']; ?></h3>
-                                                                        <?php echo $caracteristicas; ?>
+                                                                        <h3 style="color: #000">
+                                                                            <i class="fa fa-hotel fa-2x"></i><br />
+                                                                            <?php echo $row_list['nombreMesa']; ?>
+                                                                        </h3>
+                                                                        <?php //echo $caracteristicas; ?>
                                                                     </center>
                                                                 </div>
                                                                 <div class="do-info-back do-circle">

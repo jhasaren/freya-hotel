@@ -2004,6 +2004,7 @@ function init_daterangepicker_single_call() {
     }
     console.log('init_daterangepicker_single_call');
 
+    /*jasanchez*/
     $('#single_cal1').daterangepicker({
         singleDatePicker: true,
         singleClasses: "picker_1"
@@ -2043,6 +2044,47 @@ function init_daterangepicker_single_call() {
         minYear: 1975
     }, function (start, end, label) {
         console.log(start.toISOString(), end.toISOString(), label);
+    });
+    
+    var date = new Date();
+    date.setDate(date.getDate());
+    $(".daterangepicker-field").daterangepicker({
+        forceUpdate: true,
+        singleClasses: "picker_1",
+        autoApply: true, 
+        minDate: date,
+        "locale": {
+            "separator": " | ",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "daysOfWeek": [
+                "Dom",
+                "Lun",
+                "Mar",
+                "Mie",
+                "Jue",
+                "Vie",
+                "Sáb"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],
+        },
+        callback: function(startDate, endDate, period){
+          var title = startDate.format('L') + ' – ' + endDate.format('L');
+          $(this).val(title)
+        }
     });
 
 }

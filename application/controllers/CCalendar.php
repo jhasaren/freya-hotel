@@ -108,9 +108,12 @@ class CCalendar extends CI_Controller {
                     $dataSede = explode("|", $this->input->post('idsede'));
                     $sede = $dataSede[0];
                     $nombreSede = $dataSede[1];
-                    
+                    $periodo = $this->input->post('periodo');
+                    $adultosCount = $this->input->post('cantadult');
+                    $ninoCount = $this->input->post('cantkid');
+                                        
                     /*Consulta Modelo para obtener listado de Servicios creados para la sede*/
-                    $listServices = $this->MCalendar->list_service_calendar($sede);
+                    //$listServices = $this->MCalendar->list_service_calendar($sede);
                     /*Consulta Modelo para obtener listado de Clientes creados*/
                     $listUserSale = $this->MSale->list_users_sale();
 

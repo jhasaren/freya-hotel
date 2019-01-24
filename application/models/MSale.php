@@ -180,7 +180,9 @@ class MSale extends CI_Model {
                                 t.descTipoMesa,
                                 m.caracteristicas,
                                 m.idEstadoMesa,
-                                te.descEstadoMesa
+                                te.descEstadoMesa,
+                                m.cantAdulto,
+                                m.cantNino
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
