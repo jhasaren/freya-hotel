@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Reservar Cita</h2>
+                                <h2>Habitaciones Disponibles</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -93,50 +93,103 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <form role="form" name="form_calendar" action="<?php echo base_url() . 'index.php/CCalendar/personalcalendar'; ?>" method="post">
-                                    <div class="modal-body">
-                                        <strong><?php echo $nombreSede; ?></strong><br /><br />
-                                        <?php if ($this->session->userdata('perfil') == 'CLIENTE') { ?>
-                                            <input type="hidden" class="form-control" name="idcliente" id="idcliente" value="<?php echo "0|".$this->session->userdata('userid'); ?>" />
-                                        <?php } else { ?>
-                                            <label class="control-label" for="selectError">Seleccione el Cliente</label>
-                                            <div class="controls">
-                                                <input class="select2_single form-control" type="text" name="idcliente" id="idcliente" required="" />
-                                            </div>
-                                            <br />
-                                        <?php } ?>
-                                        <label class="control-label" for="selectService">Seleccione el Servicio</label>
-                                        <div class="controls">
-                                            <select class="select2_single form-control" id="idservice" name="idservice" data-rel="chosen">
-                                                <?php
-                                                foreach ($list_service as $row_service) {
-                                                    ?>
-                                                    <option value="<?php echo $row_service['idServicio']; ?>"><?php echo $row_service['descGrupoServicio'] . ' | ' . $row_service['descServicio']; ?></option>
-                                                    <?php
+                                <div class="modal-body">
+                                    <strong><?php echo $nombreSede; ?></strong><br /><br />
+
+                                    <?php 
+                                    if ($mensaje == NULL){
+                                        
+                                        if ($habitaciones != FALSE){
+
+                                            foreach ($habitaciones as $row_list){
+
+                                                if ($row_list['idMesa'] != NULL){
+                                                    
+                                                    if (($adultoCount <= $row_list['cantAdulto']) && ($ninoCount <= $row_list['cantNino'])){
+                                                        
+                                                        ?>
+                                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                                            <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" class="x_content btn-regreserv" style="background-color: gainsboro">
+                                                                <?php //echo $row_list['idMesa']; ?>
+                                                                <div class="alert alert-success" role="alert">
+                                                                    <?php echo "HABITACION: ".$row_list['nombreMesa']; ?>
+                                                                    <span style="padding-left: 35%"><?php echo "$".number_format($row_list['valorNoche'],0,",","."); ?></span>
+                                                                    <div align="right" style="font-size: 8px"><?php echo "Por Noche"; ?></div>
+                                                                </div>
+                                                                
+                                                                <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
+                                                                
+                                                                <center>
+                                                                <span class="label label-warning">
+                                                                    <?php echo "Adultos: ".$row_list['cantAdulto']; ?>
+                                                                </span>
+                                                                <span class="label label-success">
+                                                                    <?php echo "Niños: ".$row_list['cantNino']; ?>
+                                                                </span>
+                                                                </center>
+                                                                
+                                                                <div class="well well-sm" style="text-align: center">
+                                                                    <?php echo $periodo; ?>
+                                                                </div>
+                                                                
+                                                            </a>
+                                                        </div>
+                                                        <?php
+                                                        
+                                                    } 
+                                                    
                                                 }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <input type="hidden" name="idsede" id="idsede" value="<?php echo $sede; ?>" />
-                                        <input type="hidden" name="nombresede" id="nombresede" value="<?php echo $nombreSede; ?>" />
-                                        <br />
-                                    </div>
-                                    <center>
-                                        <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-primary btn-lg">
-                                            <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
-                                        </a>
-                                        <button type="submit" class="btn btn-success btn-lg">Siguiente
-                                            <i class="glyphicon glyphicon-forward glyphicon-white"></i>
-                                        </button>
-                                    </center>
-                                </form>
+
+                                            }
+                                            
+                                        }
+                                        
+                                    } else {
+                                        
+                                        echo $mensaje;
+                                        
+                                    }
+                                    ?>
+                                    <br />
+                                </div>     
                             </div>
+                            <center>
+                                <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-primary btn-lg">
+                                    <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
+                                </a>
+                            </center>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /page content -->
+        
+        <!--Modal - Reservar-->
+        <div class="modal fade" id="myModal-reserv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-reserv" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/deletedetailsale'; ?>" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>Registrar Reserva</h3>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label" for="habitacion">Habitacion</label>
+                            <input type="text" class="form-control" id="habitacion" name="habitacion" required="">
+                            <br />
+                            <input type="hidden" class="form-control" id="idregdetalle" name="idregdetalle">
+                            <input type="hidden" class="form-control" id="typereg" name="typereg">
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End modal Reservar-->
 
         <!-- footer content -->
         <?php 
@@ -157,21 +210,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.js'; ?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url().'public/gentelella/build/js/custom.js'; ?>"></script><!--Minificar-->  
-    
-    <!-- jQuery autocomplete -->
-    <script src="<?php echo base_url().'public/gentelella/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js'; ?>"></script>
-    
-    <script>
-    var clientes = [
-        <?php foreach ($list_user as $row_user) { ?>
-            { value: '<?php echo $row_user['nombre_usuario']." |".$row_user['idUsuario']; ?>' },
-        <?php } ?>
-    ];
-
-    $('#idcliente').autocomplete({
-        lookup: clientes
-    });
-    </script>
-    
+        
   </body>
 </html>

@@ -52,6 +52,86 @@ class MCalendar extends CI_Model {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: list_habitaciones_libre
+     * Descripcion: Obtiene las habitaciones disponibles para la sede
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 24/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function list_habitaciones_libre($habitaciones,$periodo) {
+        
+        $dataFecha = explode("|", $periodo);
+        
+        $dateIN = new DateTime($dataFecha[0]); 
+        $checkin = $dateIN->format('Y-m-d');
+        
+        $dateOUT = new DateTime($dataFecha[1]); 
+        $checkout = $dateOUT->format('Y-m-d');
+        
+        $inicia = FALSE;
+        $dataDisponibles['disponibilidad'] = TRUE;
+        if ($habitaciones['sitio'] != FALSE){
+            
+            $count = 0;
+            foreach ($habitaciones['sitio'] as $row_list){
+
+                /*Recupera las reservas registradas para cada habitacion en el periodo seleccionado*/
+                $query = $this->db->query("SELECT
+                                        e.idEvento
+                                        FROM
+                                        eventos_habitacion e
+                                        WHERE
+                                        e.idMesa = ".$row_list['idMesa']."
+                                        AND fechaInicioEvento 
+                                        BETWEEN '".$checkin." 13:00:00' 
+                                        AND '".$checkout." 15:00:00'");
+                
+                if ($query->num_rows() == 0) {
+                                        
+                    /*esta disponible*/
+                    $dataDisponibles[$count] = array(
+                        'idMesa' => $row_list['idMesa'],
+                        'nombreMesa' => $row_list['nombreMesa'],
+                        'caracteristicas' => $row_list['caracteristicas'],
+                        'cantAdulto' => $row_list['cantAdulto'],
+                        'cantNino' => $row_list['cantNino'],
+                        'valorNoche' => $row_list['valorProducto']
+                    );
+
+                    $count++;
+                    
+                }
+                
+            }
+            
+            $inicia = TRUE;
+        
+        }
+        
+        if ($inicia == FALSE){
+            
+            $dataDisponibles['disponibilidad'] = FALSE;
+            $dataDisponibles['mensaje'] = "No hay habitaciones habilitadas en este momento.";
+            return $dataDisponibles; /*no hay habitaciones disponibles*/
+            
+        } else {
+            
+            if ($count > 0){
+                
+                return $dataDisponibles; /*disponibles*/
+                
+            } else {
+                
+                $dataDisponibles['disponibilidad'] = FALSE;
+                $dataDisponibles['mensaje'] = "No hay habitaciones disponibles en el periodo seleccionado.";
+                return $dataDisponibles; /*no hay disponibilidada*/
+                
+            }
+            
+        }
+        
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: add_event
      * Descripcion: Registra un Evento para la agenda de un Empleado
      * Autor: jhonalexander90@gmail.com

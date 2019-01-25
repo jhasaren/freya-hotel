@@ -2034,11 +2034,16 @@ class MSale extends CI_Model {
                                 DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
                                 m.caracteristicas,
                                 m.idEstadoMesa,
-                                te.descEstadoMesa
+                                te.descEstadoMesa,
+                                m.cantAdulto,
+                                m.cantNino,
+                                m.idTarifa,
+                                p.valorProducto
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
                                 LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
+                                LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
                                 WHERE
                                 m.activo = 'S'
                                 AND m.idSede = ".$this->session->userdata('sede')."

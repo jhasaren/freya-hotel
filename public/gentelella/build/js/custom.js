@@ -350,6 +350,13 @@ $(document).ready(function () {
         $("#typereg").val(type);
         $('#myModal-itemdel').modal('show');
     });
+    /*Modal - Registrar Reserva*/
+    $('.btn-regreserv').click(function (e) {
+        e.preventDefault();
+        var idReg = $(this).attr('data-rel');
+        $("#habitacion").val(idReg);
+        $('#myModal-reserv').modal('show');
+    });
     /*Modal - Agregar Descuento Venta*/
     $('.btn-saledesc').click(function (e) {
         e.preventDefault();

@@ -111,11 +111,12 @@ class CBoard extends CI_Controller {
                     $caracteristicas = $this->input->post('descboard'); 
                     $adult = $this->input->post('countadult');
                     $nino = $this->input->post('countkid');
-
+                    $tarifa = $this->input->post('tarifa_id');
+                    
                     if ($this->jasr->validaTipoString($name,1)){
                                                 
                         /*Envia datos al modelo para el registro*/
-                        $registerData = $this->MBoard->create_board($name,$type,$caracteristicas,$adult,$nino);
+                        $registerData = $this->MBoard->create_board($name,$type,$caracteristicas,$adult,$nino,$tarifa);
 
                         if ($registerData == TRUE){
 

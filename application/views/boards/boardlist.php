@@ -200,6 +200,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <br />
                                 <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="countkid" name="countkid" placeholder="Cantidad" min="0" max="10" required="">
                             </div>
+                            <div class="form-group">
+                                <label for="tarifa_id">ID Tarifa</label>
+                                <br />
+                                <input type="number" class="form-control" id="tarifa_id" name="tarifa_id" placeholder="tarifa asociada" required="">
+                            </div>
                             <br />
                         </div>
                         <div class="modal-footer">

@@ -111,17 +111,46 @@ class CCalendar extends CI_Controller {
                     $periodo = $this->input->post('periodo');
                     $adultosCount = $this->input->post('cantadult');
                     $ninoCount = $this->input->post('cantkid');
-                                        
+                              
+                     /*Recupera habitaciones activas en la sede*/
+                    $habitaciones = $this->MSale->list_board_sale();
+                    
+                    /*Consulta Modelo para validar la disponibilidad segun los criterios ingresados*/
+                    $listHabitaciones = $this->MCalendar->list_habitaciones_libre($habitaciones,$periodo);
+                    
+                    if ($listHabitaciones['disponibilidad'] != FALSE){
+                        
+                        $info['sede'] = $sede;
+                        $info['nombreSede'] = $nombreSede;
+                        $info['adultoCount'] = $adultosCount;
+                        $info['ninoCount'] = $ninoCount;
+                        $info['periodo'] = $periodo;
+                        $info['habitaciones'] = $listHabitaciones;
+                        $this->load->view('calendar/setservice',$info);
+                        
+                    } else {
+                        
+                        /*No hay disponible*/
+                        $info['sede'] = $sede;
+                        $info['nombreSede'] = $nombreSede;
+                        $info['adultoCount'] = $adultosCount;
+                        $info['ninoCount'] = $ninoCount;
+                        $info['periodo'] = $periodo;
+                        $info['mensaje'] = $listHabitaciones['mensaje'];
+                        $this->load->view('calendar/setservice',$info);
+                        
+                    }
+                    
                     /*Consulta Modelo para obtener listado de Servicios creados para la sede*/
                     //$listServices = $this->MCalendar->list_service_calendar($sede);
                     /*Consulta Modelo para obtener listado de Clientes creados*/
-                    $listUserSale = $this->MSale->list_users_sale();
+                    //$listUserSale = $this->MSale->list_users_sale();
 
-                    $info['list_service'] = $listServices;
-                    $info['list_user'] = $listUserSale;
-                    $info['sede'] = $sede;
-                    $info['nombreSede'] = $nombreSede;
-                    $this->load->view('calendar/setservice',$info);
+                    //$info['list_service'] = $listServices;
+                    //$info['list_user'] = $listUserSale;
+                    //$info['sede'] = $sede;
+                    //$info['nombreSede'] = $nombreSede;
+                    //$this->load->view('calendar/setservice',$info);
 
                 } else {
 
