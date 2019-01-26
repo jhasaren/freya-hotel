@@ -111,22 +111,51 @@ class CCalendar extends CI_Controller {
                     $periodo = $this->input->post('periodo');
                     $adultosCount = $this->input->post('cantadult');
                     $ninoCount = $this->input->post('cantkid');
-                              
-                     /*Recupera habitaciones activas en la sede*/
-                    $habitaciones = $this->MSale->list_board_sale();
                     
-                    /*Consulta Modelo para validar la disponibilidad segun los criterios ingresados*/
-                    $listHabitaciones = $this->MCalendar->list_habitaciones_libre($habitaciones,$periodo);
+                    $dataFecha = explode("|", $periodo);
+                    $dateIN = new DateTime($dataFecha[0]); 
+                    $checkin = $dateIN->format('Y-m-d');
+                    $dateOUT = new DateTime($dataFecha[1]); 
+                    $checkout = $dateOUT->format('Y-m-d');
                     
-                    if ($listHabitaciones['disponibilidad'] != FALSE){
+                    /*cantidad de dias*/
+                    $diff = strtotime($checkout) - strtotime($checkin);
+                    $days = floor($diff / (60*60*24) );
+                    
+                    /*Recupera habitaciones activas en la sede con la capacidad*/
+                    $habitaciones = $this->MCalendar->list_board_calendar($adultosCount,$ninoCount,$sede);
+                    
+                    if ($habitaciones != FALSE){
                         
-                        $info['sede'] = $sede;
-                        $info['nombreSede'] = $nombreSede;
-                        $info['adultoCount'] = $adultosCount;
-                        $info['ninoCount'] = $ninoCount;
-                        $info['periodo'] = $periodo;
-                        $info['habitaciones'] = $listHabitaciones;
-                        $this->load->view('calendar/setservice',$info);
+                        /*Consulta Modelo para validar la disponibilidad segun los criterios ingresados*/
+                        $listHabitaciones = $this->MCalendar->list_habitaciones_libre($habitaciones,$checkin,$checkout);
+
+                        if ($listHabitaciones['disponibilidad'] != FALSE){
+
+                            $info['sede'] = $sede;
+                            $info['nombreSede'] = $nombreSede;
+                            $info['adultoCount'] = $adultosCount;
+                            $info['ninoCount'] = $ninoCount;
+                            $info['periodo_desde'] = $checkin;
+                            $info['periodo_hasta'] = $checkout;
+                            $info['cantidadNoches'] = $days;
+                            $info['habitaciones'] = $listHabitaciones;
+                            $info['mensaje'] = NULL;
+                            $info['list_document'] = $this->MUser->type_doc_list(); /*Consulta Modelo para obtener lista de tipo documento*/
+                            $this->load->view('calendar/setservice',$info);
+
+                        } else {
+
+                            /*No hay disponible*/
+                            $info['sede'] = $sede;
+                            $info['nombreSede'] = $nombreSede;
+                            $info['adultoCount'] = $adultosCount;
+                            $info['ninoCount'] = $ninoCount;
+                            $info['periodo'] = $periodo;
+                            $info['mensaje'] = $listHabitaciones['mensaje'];
+                            $this->load->view('calendar/setservice',$info);
+
+                        }
                         
                     } else {
                         
@@ -136,22 +165,13 @@ class CCalendar extends CI_Controller {
                         $info['adultoCount'] = $adultosCount;
                         $info['ninoCount'] = $ninoCount;
                         $info['periodo'] = $periodo;
-                        $info['mensaje'] = $listHabitaciones['mensaje'];
+                        $info['mensaje'] = "Lo sentimos. Actualmente no contamos con habitaciones para la cantidad de Huéspedes indicados.";
                         $this->load->view('calendar/setservice',$info);
                         
                     }
                     
-                    /*Consulta Modelo para obtener listado de Servicios creados para la sede*/
-                    //$listServices = $this->MCalendar->list_service_calendar($sede);
-                    /*Consulta Modelo para obtener listado de Clientes creados*/
-                    //$listUserSale = $this->MSale->list_users_sale();
-
-                    //$info['list_service'] = $listServices;
-                    //$info['list_user'] = $listUserSale;
-                    //$info['sede'] = $sede;
-                    //$info['nombreSede'] = $nombreSede;
-                    //$this->load->view('calendar/setservice',$info);
-
+                    
+                    
                 } else {
 
                     show_404();
@@ -352,9 +372,9 @@ class CCalendar extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: addevent
-     * Descripcion: Agrega un evento (reservacion de cita)
+     * Descripcion: Agrega un evento (reservacion de habitacion)
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 15/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 25/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addevent() {
         
@@ -369,42 +389,65 @@ class CCalendar extends CI_Controller {
                 if ($this->MRecurso->validaRecurso(12)){
 
                     /*captura de variables*/
-                    $timeIni = $this->input->post('timeIni');
-                    $idServicio = $this->input->post('idServicio');
-                    $minutosAtencion = $this->input->post('tiempoAtencion');
-                    $empleado = $this->input->post('empleado');
-                    $idCliente = $this->input->post('idcliente');
-                    $sede = $this->input->post('idsede');
+                    $typeDoc = $this->input->post('typedoc');
+                    $identificacion = $this->input->post('identificacion');
+                    $nombres = $this->input->post('nameclient');
+                    $apellidos = $this->input->post('lastnameclient');
+                    $telefono = $this->input->post('celular');
+                    $email = $this->input->post('email');
+                    $idHabitacion = $this->input->post('habitacion');
+                    $nochesReserva = $this->input->post('noches_reserva');
+                    $valorTotalReserva = $this->input->post('valor_reserva');
+                    $sede = $this->input->post('sede');
+                    $periodo_desde = $this->input->post('desde');
+                    $periodo_hasta = $this->input->post('hasta');
+                    $empleado = $this->session->userdata('userid');
+                    $countAdult = $this->input->post('adultos');
+                    $countNino = $this->input->post('ninos');
+                                        
                     
-                    /*suma minutos de atencion a la fecha seleccionada*/
-                    $tiempoAtencion = strtotime("+".$minutosAtencion." minute", strtotime($timeIni));
-                    $fechafin = date('Y-m-d H:i:s',$tiempoAtencion);
-                    
-                    /*Verifica disponibilidad de agenda*/
-                    $calendarEmpleado = $this->MCalendar->verify_calendar($empleado,$timeIni,$fechafin);
-                    
-                    if ($calendarEmpleado == FALSE) {
-                    
-                        /*Envia datos al modelo para registrar el evento*/
-                        $registraEvento = $this->MCalendar->add_event($empleado,$idCliente,$idServicio,$minutosAtencion,$timeIni,$fechafin,$sede);
+                    if ($this->jasr->validaTipoString($nombres,1) && $this->jasr->validaTipoString($apellidos,1)){
+                        
+                        if ($this->jasr->validaTipoString($identificacion,5)){
+                            
+                            if ($this->jasr->validaTipoString($email,6)){
+                                
+                                /*Envia al Modelo para registrar la reserva*/
+                                $calendarRegistro = $this->MCalendar->add_event($idHabitacion,$typeDoc,$identificacion,$nombres,$apellidos,$telefono,$email,$nochesReserva,$valorTotalReserva,$periodo_desde,$periodo_hasta,$empleado,$sede,$countAdult,$countNino);
 
-                        if ($registraEvento == FALSE){
+                                if ($calendarRegistro != FALSE) {
 
-                            $info['message'] = 'No fue posible reservar la cita. Comuniquese al Centro de Belleza.';
+                                    $info['message'] = 'Habitación Reservada Exitosamente.';
+                                    $info['alert'] = 1;
+                                    $this->module($info);
+
+                                } else {
+
+                                    $info['message'] = 'No fue posible reservar la Habitación. Verifique la disponibilidad nuevamente.';
+                                    $info['alert'] = 2;
+                                    $this->module($info);
+
+                                }
+                                
+                            } else {
+                                
+                                $info['message'] = 'No fue posible registrar la reserva. El correo electronico es incorrecto.';
+                                $info['alert'] = 2;
+                                $this->module($info);
+                                
+                            }
+                            
+                        } else {
+                            
+                            $info['message'] = 'No fue posible registrar la reserva. La identificacion es incorrecta.';
                             $info['alert'] = 2;
                             $this->module($info);
-
-                        } else {
-
-                            $info['message'] = 'Cita Reservada Exitosamente. Fecha: '.$timeIni;
-                            $info['alert'] = 1;
-                            $this->module($info);
-
+                            
                         }
-
+                        
                     } else {
                         
-                        $info['message'] = 'No fue posible reservar la cita. Verifique la disponibilidad del Profesional seleccionado.';
+                        $info['message'] = 'No fue posible registrar la reserva. Los campos nombre y apellidos son incorrectos.';
                         $info['alert'] = 2;
                         $this->module($info);
                         

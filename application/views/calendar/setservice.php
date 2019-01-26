@@ -21,6 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="<?php echo base_url().'public/gentelella/vendors/iCheck/skins/flat/green.css'; ?>" rel="stylesheet">
     
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
@@ -100,43 +102,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     if ($mensaje == NULL){
                                         
                                         if ($habitaciones != FALSE){
+                                            
+                                            if ($cantidadNoches == 0){
+                                                $cantNoches = 1;
+                                            } else {
+                                                $cantNoches = $cantidadNoches;
+                                            }
 
                                             foreach ($habitaciones as $row_list){
 
                                                 if ($row_list['idMesa'] != NULL){
-                                                    
-                                                    if (($adultoCount <= $row_list['cantAdulto']) && ($ninoCount <= $row_list['cantNino'])){
-                                                        
-                                                        ?>
-                                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                                            <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" class="x_content btn-regreserv" style="background-color: gainsboro">
-                                                                <?php //echo $row_list['idMesa']; ?>
-                                                                <div class="alert alert-success" role="alert">
-                                                                    <?php echo "HABITACION: ".$row_list['nombreMesa']; ?>
-                                                                    <span style="padding-left: 35%"><?php echo "$".number_format($row_list['valorNoche'],0,",","."); ?></span>
-                                                                    <div align="right" style="font-size: 8px"><?php echo "Por Noche"; ?></div>
-                                                                </div>
-                                                                
-                                                                <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
-                                                                
-                                                                <center>
-                                                                <span class="label label-warning">
-                                                                    <?php echo "Adultos: ".$row_list['cantAdulto']; ?>
-                                                                </span>
-                                                                <span class="label label-success">
-                                                                    <?php echo "Niños: ".$row_list['cantNino']; ?>
-                                                                </span>
-                                                                </center>
-                                                                
-                                                                <div class="well well-sm" style="text-align: center">
-                                                                    <?php echo $periodo; ?>
-                                                                </div>
-                                                                
-                                                            </a>
-                                                        </div>
-                                                        <?php
-                                                        
-                                                    } 
+                                                                                                            
+                                                    ?>
+                                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                                        <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" data-rel3="<?php echo ($row_list['valorNoche']*$cantNoches); ?>" data-rel4="<?php echo $cantNoches; ?>" data-rel5="<?php echo $periodo_desde; ?>" data-rel6="<?php echo $periodo_hasta; ?>" class="x_content btn-regreserv" style="background-color: gainsboro">
+                                                            <?php //echo $row_list['idMesa']; ?>
+                                                            <div class="alert alert-success" role="alert">
+                                                                <?php echo "HABITACION: ".$row_list['nombreMesa']; ?>
+                                                                <span style="padding-left: 30%"><?php echo "$".number_format(($row_list['valorNoche']*$cantNoches),0,",","."); ?></span>
+                                                                <div align="right" style="font-size: 8px"><?php echo "Por ". $cantNoches ." Noche(s)"; ?></div>
+                                                            </div>
+
+                                                            <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
+
+                                                            <center>
+                                                            <span class="label label-warning">
+                                                                <?php echo "Adultos: ".$row_list['cantAdulto']; ?>
+                                                            </span>
+                                                            <span class="label label-success">
+                                                                <?php echo "Niños: ".$row_list['cantNino']; ?>
+                                                            </span>
+                                                            </center>
+
+                                                            <div class="well well-sm" style="text-align: center">
+                                                                <?php echo "Desde ".$periodo_desde." Hasta ".$periodo_hasta; ?>
+                                                            </div>
+
+                                                        </a>
+                                                    </div>
+                                                    <?php
                                                     
                                                 }
 
@@ -146,19 +150,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         
                                     } else {
                                         
-                                        echo $mensaje;
+                                        echo "HOLA ->".$mensaje;
                                         
                                     }
                                     ?>
                                     <br />
                                 </div>     
                             </div>
-                            <center>
-                                <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-primary btn-lg">
-                                    <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
-                                </a>
-                            </center>
+                            <br /><br /><br />.
                         </div>
+                        
+                        <center>
+                            <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-primary btn-lg">
+                                <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
+                            </a>
+                        </center>
+                        
                     </div>
                 </div>
             </div>
@@ -169,27 +176,111 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal fade" id="myModal-reserv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-reserv" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/deletedetailsale'; ?>" method="post">
+                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/addevent'; ?>" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                             <h3>Registrar Reserva</h3>
                         </div>
                         <div class="modal-body">
-                            <label class="control-label" for="habitacion">Habitacion</label>
-                            <input type="text" class="form-control" id="habitacion" name="habitacion" required="">
+                            <div class="form-group">
+                                <label for="TipoDoc">Tipo de Documento</label>
+                                <select class="form-control" name="typedoc">
+                                    <?php
+                                    foreach ($list_document as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['idTipoDocumento']; ?>"><?php echo $row['descDocumento']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Nro de Identificacion" autocomplete="Off" required="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameclient" name="nameclient" placeholder="Nombres" autocomplete="Off" required="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="lastnameclient" name="lastnameclient" placeholder="Apellidos" autocomplete="Off" required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="datoscontacto">Datos de Contacto</label>
+                                <input type="text" class="form-control" id="celular" name="celular" placeholder="Telefono Celular" autocomplete="Off" required="" >
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico" autocomplete="Off" required="" >
+                                <br />
+                            </div>
+                            
+                            <input type="hidden" class="form-control" id="habitacion" name="habitacion">
+                            <input type="hidden" class="form-control" id="noches_reserva" name="noches_reserva">
+                            <input type="hidden" class="form-control" id="valor_reserva" name="valor_reserva">
+                            <input type="hidden" class="form-control" id="sede" name="sede" value="<?php echo $sede; ?>">
+                            <input type="hidden" class="form-control" id="desde" name="desde">
+                            <input type="hidden" class="form-control" id="hasta" name="hasta">
+                            <input type="hidden" class="form-control" id="adultos" name="adultos" value="<?php echo $adultoCount; ?>" >
+                            <input type="hidden" class="form-control" id="ninos" name="ninos" value="<?php echo $ninoCount; ?>">
+                            
+                            <div class="alert alert-info" role="alert">
+                                <B>Habitacion:</B> <span id="texto_habitacion" style="font-size: 18px; color: #000"></span><br />                  
+                                <B>Valor Total:</B> $ <span id="texto_valor_total" style="font-size: 18px; color: #000"></span><br />  
+                                <B>Cantidad Noches:</B> <span id="texto_nocreserva" style="font-size: 18px; color: #000"></span><br />
+                                <B>Desde:</B> <span id="texto_desde" style="font-size: 18px; color: #000"></span> 
+                                <B>Hasta:</B> <span id="texto_hasta" style="font-size: 18px; color: #000"></span><br />
+                                <B>Adultos:</B> <span id="texto_adulto" style="font-size: 18px; color: #000"><?php echo $adultoCount; ?></span> 
+                                <B>Niños:</B> <span id="texto_nino" style="font-size: 18px; color: #000"><?php echo $ninoCount; ?></span>
+                            </div>
+                            
+                            <label>
+                                <input type="checkbox" class="flat" name="huesped_principal" required="">
+                                Acepto Términos y Condiciones 
+                                <a href="#" class="btn-terms" style="color: #38b393">
+                                    [LEER]
+                                </a>
+                            </label>
+                            
                             <br />
-                            <input type="hidden" class="form-control" id="idregdetalle" name="idregdetalle">
-                            <input type="hidden" class="form-control" id="typereg" name="typereg">
+                            
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-success">Registrar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <!--End modal Reservar-->
+        
+        <!--Modal - Terminos y condiciones reserva -->
+        <div class="modal fade" id="myModal-terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-terms" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" name="form_terms" action="<?php echo base_url() . 'index.php/CSale/adduser/cliente'; ?>" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>Términos y Condiciones</h3>
+                        </div>
+                        <div class="modal-body" style="text-align: justify">
+                            * En caso tal, la reserva se debera cancelar como minimo con 4 horas de anticpación.<br /><br />
+                            
+                            <B>POLITICA DE DATOS</B><br /><br />
+                            Información que nos proporcionas. HOTEL puede pedirte que proporciones información personal cuando solicites un Pedido de un Producto en el Sitio Web. Por ejemplo, solicitamos información personal relacionada con tus datos de identificación (nombres, apellidos, dirección de envió, dirección de correo electrónico, ciudad, departamento, teléfono, identificación y la prescripcion médica de tu formúla expedida por tú optómetra u oftalmólogo).
+                            <br /><br />
+                            Información que obtenemos del uso que haces de nuestros servicios. Recolectamos información relacionada con el servicio que ofrecemos. Entre la información obtenida de esta forma, se incluyen los siguientes datos: la dirección IP y Pais. Corresponde igualmente a información relacionada con tus transacciones a través de HOTEL.
+                            <br /><br />
+                            La información que identifica y particulariza a una persona física o que permite ponerse en contacto con ella, como por ejemplo, el nombre, el teléfono, la dirección, correo electrónico, entre otros, tiene el carácter de personal. Esa información es de propiedad exclusiva de esa persona. La información que se registra de forma tal que no refleja ni hace referencia a una persona física en particular, permitiendo su identificación de forma individual, como por ejemplo la relacionada con la reserva, alojamiento, la adquisición de un determinado bien, servicio o producto, el medio de pago, el banco utilizado, entre otros, no tienen el carácter de información personal.
+                            <br /><br />
+                            Para las finalidades descritas en esta Política, HOTEL puede recolectar, usar, almacenar y proteger tu información personal, entre la que se incluye, la siguiente:
+                            <br /><br />
+                            Información de identificación (por ejemplo, nombre, domicilio, número de teléfono fijo o móvil, dirección de correo electrónico, identificacion, fecha de nacimiento).
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End Terminos y Condiciones Reserva-->
 
         <!-- footer content -->
         <?php 
@@ -210,6 +301,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.js'; ?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url().'public/gentelella/build/js/custom.js'; ?>"></script><!--Minificar-->  
+    <!-- iCheck -->
+    <script src="<?php echo base_url().'public/gentelella/vendors/iCheck/icheck.min.js'; ?>"></script>
         
   </body>
 </html>

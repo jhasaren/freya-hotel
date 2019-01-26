@@ -57,16 +57,8 @@ class MCalendar extends CI_Model {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 24/01/2019, Ultima modificacion: 
      **************************************************************************/
-    public function list_habitaciones_libre($habitaciones,$periodo) {
-        
-        $dataFecha = explode("|", $periodo);
-        
-        $dateIN = new DateTime($dataFecha[0]); 
-        $checkin = $dateIN->format('Y-m-d');
-        
-        $dateOUT = new DateTime($dataFecha[1]); 
-        $checkout = $dateOUT->format('Y-m-d');
-        
+    public function list_habitaciones_libre($habitaciones,$checkin,$checkout) {
+                
         $inicia = FALSE;
         $dataDisponibles['disponibilidad'] = TRUE;
         if ($habitaciones['sitio'] != FALSE){
@@ -81,9 +73,12 @@ class MCalendar extends CI_Model {
                                         eventos_habitacion e
                                         WHERE
                                         e.idMesa = ".$row_list['idMesa']."
-                                        AND fechaInicioEvento 
-                                        BETWEEN '".$checkin." 13:00:00' 
-                                        AND '".$checkout." 15:00:00'");
+                                        AND ((fechaInicioEvento 
+                                        BETWEEN '".$checkin." ".$this->config->item('checkin')."' 
+                                        AND '".$checkout." ".$this->config->item('checkout')."')
+                                        OR (fechaFinEvento 
+                                        BETWEEN '".$checkin." ".$this->config->item('checkin')."' 
+                                        AND '".$checkout." ".$this->config->item('checkout')."'))");
                 
                 if ($query->num_rows() == 0) {
                                         
@@ -96,7 +91,7 @@ class MCalendar extends CI_Model {
                         'cantNino' => $row_list['cantNino'],
                         'valorNoche' => $row_list['valorProducto']
                     );
-
+                    
                     $count++;
                     
                 }
@@ -115,15 +110,15 @@ class MCalendar extends CI_Model {
             
         } else {
             
-            if ($count > 0){
-                
-                return $dataDisponibles; /*disponibles*/
-                
-            } else {
+            if ($count == 0){
                 
                 $dataDisponibles['disponibilidad'] = FALSE;
                 $dataDisponibles['mensaje'] = "No hay habitaciones disponibles en el periodo seleccionado.";
                 return $dataDisponibles; /*no hay disponibilidada*/
+                
+            } else {
+                      
+                return $dataDisponibles; /*disponibles*/
                 
             }
             
@@ -132,36 +127,103 @@ class MCalendar extends CI_Model {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: list_board_calendar
+     * Descripcion: Obtiene la disponibilidad de las mesas en la sede
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 25/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function list_board_calendar($adult,$nino,$sede) {
+                
+        /*Recupera la disponibilidad de habitaciones en la sede que cumplen con la capacidad*/
+        /*TODAS*/
+        $query = $this->db->query("SELECT
+                                m.idMesa,
+                                m.nombreMesa,
+                                m.activo,
+                                m.idTipoMesa,
+                                t.descTipoMesa,
+                                m.idVenta,
+                                v.idEstadoRecibo,
+                                DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
+                                m.caracteristicas,
+                                m.idEstadoMesa,
+                                te.descEstadoMesa,
+                                m.cantAdulto,
+                                m.cantNino,
+                                m.idTarifa,
+                                p.valorProducto
+                                FROM mesas m
+                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
+                                LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
+                                LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
+                                WHERE
+                                m.activo = 'S'
+                                AND m.idSede = ".$sede."
+                                AND m.cantAdulto >= ".$adult."
+                                AND m.cantNino >= ".$nino."");
+
+        if ($query->num_rows() == 0) {
+
+            return false;
+
+        } else {
+            
+            $dataBoard['sitio'] = $query->result_array();
+            
+            return $dataBoard;
+
+        }
+            
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: add_event
      * Descripcion: Registra un Evento para la agenda de un Empleado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 16/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 25/01/2019, Ultima modificacion: 
      **************************************************************************/
-    public function add_event($empleado,$cliente,$servicio,$tiempo,$fechainicio,$fechafin,$sede) {
+    public function add_event($mesa,$tipoDoc,$idcliente,$nombre,$apellido,$tel,$email,$tiempo,$valorTotal,$desde,$hasta,$empleado,$sede,$adultos,$ninos) {
                     
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
         $query = $this->db->query("INSERT INTO
-                                    eventos_empleado (
-                                    idEmpleado,
-                                    idCliente,
-                                    idServicio,
-                                    tiempoAtencion,
-                                    fechaInicioEvento,
-                                    fechaFinEvento,
-                                    fechaRegistro,
-                                    usuarioRegistro,
-                                    idSede
+                                    eventos_habitacion (
+                                    idMesa, 
+                                    idTipoDocumento, 
+                                    idCliente, 
+                                    nombreCliente, 
+                                    apellidoCliente, 
+                                    telefonoCliente, 
+                                    emailCliente, 
+                                    tiempoAtencion, 
+                                    valorReserva, 
+                                    fechaInicioEvento, 
+                                    fechaFinEvento, 
+                                    fechaRegistro, 
+                                    usuarioRegistro, 
+                                    idSede,
+                                    cumplido,
+                                    adultos,
+                                    ninos
                                     ) VALUES (
-                                    ".$empleado.",
-                                    ".$cliente.",
-                                    ".$servicio.",
+                                    ".$mesa.",
+                                    ".$tipoDoc.",
+                                    ".$idcliente.",
+                                    '".$nombre."',
+                                    '".$apellido."',
+                                    '".$tel."',
+                                    '".$email."',
                                     ".$tiempo.",
-                                    '".$fechainicio."',
-                                    '".$fechafin."',
+                                    ".$valorTotal.",
+                                    '".$desde." ".$this->config->item('checkin')."',
+                                    '".$hasta." ".$this->config->item('checkout')."',
                                     NOW(),
-                                    ".$this->session->userdata('userid').",
-                                    ".$sede."
+                                    '".$empleado."',
+                                    ".$sede.",
+                                    'N',
+                                    ".$adultos.",
+                                    ".$ninos."
                                     )");
 
         $this->db->trans_complete();

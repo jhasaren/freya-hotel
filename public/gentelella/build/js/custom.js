@@ -354,8 +354,28 @@ $(document).ready(function () {
     $('.btn-regreserv').click(function (e) {
         e.preventDefault();
         var idReg = $(this).attr('data-rel');
+        var nameReg = $(this).attr('data-rel2');
+        var valorReg = $(this).attr('data-rel3');
+        var nochesReg = $(this).attr('data-rel4');
+        var desde = $(this).attr('data-rel5');
+        var hasta = $(this).attr('data-rel6');
         $("#habitacion").val(idReg);
+        $("#name_habitacion").val(nameReg);
+        $("#texto_habitacion").text(nameReg);
+        $("#valor_reserva").val(valorReg);
+        $("#texto_valor_total").text(parseInt(valorReg).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $("#noches_reserva").val(nochesReg);
+        $("#texto_nocreserva").text(nochesReg);
+        $("#desde").val(desde);
+        $("#texto_desde").text(desde);
+        $("#hasta").val(hasta);
+        $("#texto_hasta").text(hasta);
         $('#myModal-reserv').modal('show');
+    });
+    /*Modal - Terminos y Condiciones Reserva*/
+    $('.btn-terms').click(function (e) {
+        e.preventDefault();
+        $('#myModal-terms').modal('show');
     });
     /*Modal - Agregar Descuento Venta*/
     $('.btn-saledesc').click(function (e) {

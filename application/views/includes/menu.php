@@ -28,6 +28,25 @@
                     </a>
                 </li>
                 
+                <?php if ($this->MRecurso->validaRecurso(12)){ /*Reservas*/ ?>
+                <li>
+                    <a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">
+                        <i class="fa fa-calendar-check-o"></i> Reservas
+                    </a>
+                    
+                    <!--<a><i class="fa fa-calendar-check-o"></i> Reservas <span class="fa fa-chevron-down"></span></a>-->
+                    <!--<ul class="nav child_menu">-->
+                        <?php //if ($this->MRecurso->validaRecurso(140)) { /*Mis Citas - Cliente*/ ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/cliente'; ?>">Mis Citas</a></li>-->
+                        <?php //} ?>
+                        <?php //if ($this->MRecurso->validaRecurso(155)) { /*Citas Sede - Superadmin*/ ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/sede'; ?>">Citas Reservadas</a></li>-->
+                        <?php //} ?>
+                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar'; ?>">Reservar Cita</a></li>-->
+                    <!--</ul>-->
+                </li>
+                <?php } ?>
+                
                 <?php if ($this->MRecurso->validaRecurso(9)){ /*Registro de Venta*/ ?>
                 <!--<li>
                     <a href="<?php // echo base_url().'index.php/CSale/createsale'; ?>">
@@ -102,26 +121,7 @@
                     </a>
                 </li>
                 <?php } ?>
-                
-                <?php if ($this->MRecurso->validaRecurso(12)){ /*Reservas*/ ?>
-                <li>
-                    <a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">
-                        <i class="fa fa-calendar-check-o"></i> Reservas
-                    </a>
-                    
-                    <!--<a><i class="fa fa-calendar-check-o"></i> Reservas <span class="fa fa-chevron-down"></span></a>-->
-                    <!--<ul class="nav child_menu">-->
-                        <?php //if ($this->MRecurso->validaRecurso(140)) { /*Mis Citas - Cliente*/ ?>
-                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/cliente'; ?>">Mis Citas</a></li>-->
-                        <?php //} ?>
-                        <?php //if ($this->MRecurso->validaRecurso(155)) { /*Citas Sede - Superadmin*/ ?>
-                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar/listevent/sede'; ?>">Citas Reservadas</a></li>-->
-                        <?php //} ?>
-                        <!--<li><a href="<?php //echo base_url().'index.php/CCalendar'; ?>">Reservar Cita</a></li>-->
-                    <!--</ul>-->
-                </li>
-                <?php } ?>
-                
+                                
                 <?php if ($this->MRecurso->validaRecurso(10)){ /*Fidelizacion*/ ?>
                 <li>
                     <a href="<?php echo base_url().'index.php/CReport/module/reportFide'; ?>">
