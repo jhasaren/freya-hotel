@@ -1,9 +1,7 @@
 {
     "parametros": {
-        "intervaloMinutosServicio": "15",
-        "MinMinutosCancelaCita": "120",
-        "calcularImptoRenta": "S",
-        "valorVigenteUVT": 33156,
-        "origenRenta": "2"
+        "MinMinutosCancelaCita": "240",
+        "MinMinutosIncumpleCita": "-300",
+        "MinMinutosConfirmaCita": "-9999"
     }
 }

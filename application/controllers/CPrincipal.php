@@ -95,6 +95,27 @@ class CPrincipal extends CI_Controller {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: reservas_pendientes
+     * Descripcion: Obtiene la cantidad de reservas pendientes de confirmacion.
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function reservas_pendientes() {
+        
+        if ($this->session->userdata('validated')) {
+            
+            $cantReservaPendiente = $this->MCalendar->eventos_pendiente_confirmar();            
+            echo $cantReservaPendiente->pedienteConfirmar;
+            
+        } else {
+            
+            echo "0";
+            
+        }
+        
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: login
      * Descripcion: valida el Inicio de Sesion
      * Autor: jhonalexander90@gmail.com

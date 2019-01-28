@@ -79,7 +79,7 @@ class CSale extends CI_Controller {
                 //$listProductInterno = $this->MSale->list_product_int(); /*Consulta Modelo para obtener lista de Productos de Consumo Interno*/
                 $receiptSale = $this->MPrincipal->rango_recibos(1);  /*Consulta el Modelo Cantidad de recibos disponibles*/
                 $dataMesa = $this->MSale->info_mesa($this->session->userdata('idMesa'));  /*Consulta el Modelo Informacion de la mesa*/
-                
+                                
                 $clientInList = $this->MSale->client_in_list(); /*datos del cliente agregados a la venta*/
                 if ($this->session->userdata('sclient') != NULL){
                     $huespedInList = $this->MSale->huesped_in_list(); /*lista de huespedes agregados a la habitacion*/
@@ -89,7 +89,7 @@ class CSale extends CI_Controller {
                 $adicionalInList = $this->MSale->adicional_in_list(); /*lista cargos adicionales agregados a la venta*/
                 $consumoInList = $this->MSale->consumo_in_list(); /*lista consumo interno agregados a la venta*/
                 $porcenInList = $this->MSale->porcen_in_list(); /*recupera descuento, servicio y idempleado que atiende que estan agregados en la venta*/
-
+                
                 /*Retorna a la vista con los datos obtenidos*/
                 $info['list_user'] = $listUserSale;
                 $info['list_service'] = $listServiceSale;
@@ -154,7 +154,7 @@ class CSale extends CI_Controller {
                     }
                     
                 } else {
-                    
+                                        
                     /*Registra el id de venta de la mesa como variable de sesion*/
                     $datos_session = array(
                         'idSale' => $flagBoard,

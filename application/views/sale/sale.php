@@ -623,14 +623,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </select>
                             </div>
                             <br />
-                            <label class="control-label" for="selectError">CheckIn</label>
+                            <label class="control-label" for="selectError">Entrada</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" readonly="" />
+                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d H:i:s"); ?>" required="" readonly="" />
                             </div>
                             <br />
                             <label class="control-label" for="selectError">CheckOut</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d h:i:s"); ?>" required="" readonly="" />
+                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d H:i:s"); ?>" required="" readonly="" />
                             </div>
                             <br />
                         </div>

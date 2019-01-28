@@ -83,8 +83,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="alert alert-success alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                Recuerde presentarse en el centro de belleza 15 minutos antes. 
-                                Si desea cancelar su cita debe realizarlo minimo con 2 horas de anticipación.
+                                Recuerde: 
+                                Si desea cancelar su reserva debe realizarlo minimo con 4 horas de anticipación.
                             </div>
                         <?php } else if ($alert == 2){ ?>
                             <div class="alert alert-danger alert-dismissible fade in" role="alert">

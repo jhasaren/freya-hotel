@@ -66,21 +66,30 @@ class MCalendar extends CI_Model {
             $count = 0;
             foreach ($habitaciones['sitio'] as $row_list){
 
-                /*Recupera las reservas registradas para cada habitacion en el periodo seleccionado*/
+                /*
+                Recupera las reservas registradas para cada habitacion en el periodo 
+                seleccionado las cuales se encuentren 1-REGISTRADAS y/o -CONFIRMADA.
+                */                
                 $query = $this->db->query("SELECT
                                         e.idEvento
                                         FROM
                                         eventos_habitacion e
                                         WHERE
                                         e.idMesa = ".$row_list['idMesa']."
-                                        AND ((fechaInicioEvento 
-                                        BETWEEN '".$checkin." ".$this->config->item('checkin')."' 
-                                        AND '".$checkout." ".$this->config->item('checkout')."')
-                                        OR (fechaFinEvento 
-                                        BETWEEN '".$checkin." ".$this->config->item('checkin')."' 
-                                        AND '".$checkout." ".$this->config->item('checkout')."'))");
+                                        AND e.idEstadoReserva IN (1,2,4)
+                                        AND
+                                        (((fechaInicioEvento >= '".$checkin." ".$this->config->item('checkout')."'
+                                        AND fechaInicioEvento <= '".$checkout." ".$this->config->item('checkout')."')
+                                        OR
+                                        (fechaFinEvento >= '".$checkin." ".$this->config->item('checkin')."'
+                                        AND fechaFinEvento <= '".$checkout." ".$this->config->item('checkin')."'))
+                                        OR
+                                        ((fechaFinEvento >= '".$checkin." ".$this->config->item('checkin')."')
+                                        AND
+                                        (fechaInicioEvento <= '".$checkout." ".$this->config->item('checkout')."')))
+                                        ");
                 
-                if ($query->num_rows() == 0) {
+                if ($query->num_rows() == 0) { /*si hay disponibilidad, muestra la habitacion al usuario*/
                                         
                     /*esta disponible*/
                     $dataDisponibles[$count] = array(
@@ -203,9 +212,9 @@ class MCalendar extends CI_Model {
                                     fechaRegistro, 
                                     usuarioRegistro, 
                                     idSede,
-                                    cumplido,
                                     adultos,
-                                    ninos
+                                    ninos,
+                                    idEstadoReserva
                                     ) VALUES (
                                     ".$mesa.",
                                     ".$tipoDoc.",
@@ -221,11 +230,11 @@ class MCalendar extends CI_Model {
                                     NOW(),
                                     '".$empleado."',
                                     ".$sede.",
-                                    'N',
                                     ".$adultos.",
-                                    ".$ninos."
+                                    ".$ninos.",
+                                    1
                                     )");
-
+        $idevento = $this->db->insert_id();
         $this->db->trans_complete();
         $this->db->trans_off();
 
@@ -234,7 +243,8 @@ class MCalendar extends CI_Model {
             return false;
 
         } else {
-
+            
+            $this->event_process($idevento, 1); /*Registra proceso*/
             return true;
 
         }
@@ -292,6 +302,33 @@ class MCalendar extends CI_Model {
         } else {
             
             return $query->result_array();
+            
+        }
+        
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: eventos_pendiente_confirmar
+     * Descripcion: Obtiene la cantidad de reservas pendientes de confirmar en la sede
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function eventos_pendiente_confirmar() {
+                
+        /*Recupera las reservas pendientes de confirmacion*/
+        $query = $this->db->query("SELECT
+                                count(1) as pedienteConfirmar
+                                FROM eventos_habitacion
+                                WHERE idEstadoReserva = 1
+                                AND idSede = ".$this->session->userdata('sede')."");
+        
+        if ($query->num_rows() == 0) {
+            
+            return false;
+            
+        } else {
+            
+            return $query->row();
             
         }
         
@@ -413,36 +450,41 @@ class MCalendar extends CI_Model {
      * Nombre del Metodo: list_event_sede
      * Descripcion: Obtiene los eventos/citas reservadas de la sede
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function list_event_sede() {
         
         /*Recupera los eventos creados*/
         $query = $this->db->query("SELECT
                                 e.idEvento,
-                                e.idEmpleado,
-                                concat(a.nombre,' ',a.apellido) as nombreEmpleado,
+                                e.idMesa,
+                                m.nombreMesa,
+                                t.descTipoMesa,
+                                i.descDocumento,
                                 e.idCliente,
-                                concat(c.nombre,' ',c.apellido) as nombreCliente,
-                                c.numCelular,
-                                e.idServicio,
-                                s.descServicio,
+                                e.nombreCliente,
+                                e.apellidoCliente,
+                                e.telefonoCliente,
+                                e.emailCliente,
+                                e.tiempoAtencion,
+                                e.valorReserva,
                                 e.fechaInicioEvento,
                                 e.fechaFinEvento,
-                                e.tiempoAtencion,
-                                e.idSede,
-                                d.nombreSede,
-                                d.direccionSede,
-                                d.telefonoSede
-                                FROM
-                                eventos_empleado e
-                                JOIN app_usuarios a ON a.idUsuario = e.idEmpleado
-                                JOIN servicios s ON s.idServicio = e.idServicio
-                                JOIN sede d ON d.idSede = e.idSede
-                                JOIN app_usuarios c ON c.idUsuario = e.idCliente
-                                WHERE
-                                e.idSede = ".$this->session->userdata('sede')."
-                                AND fechaInicioEvento >= CURDATE()");
+                                e.fechaRegistro,
+                                s.nombreSede,
+                                e.adultos,
+                                e.ninos,
+                                e.idEstadoReserva,
+                                r.descEstadoReserva
+                                FROM eventos_habitacion e
+                                JOIN mesas m ON m.idMesa = e.idMesa
+                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                JOIN tipo_identificacion i ON i.idTipoDocumento = e.idTipoDocumento
+                                JOIN sede s ON s.idSede = e.idSede
+                                JOIN tipo_estado_reserva r ON r.idEstadoReserva = e.idEstadoReserva
+                                WHERE e.idSede = ".$this->session->userdata('sede')."
+                                AND e.idEstadoReserva IN (1,2)
+                                ORDER BY e.fechaInicioEvento DESC");
         
         if ($query->num_rows() == 0) {
             
@@ -457,16 +499,26 @@ class MCalendar extends CI_Model {
     }
     
     /**************************************************************************
-     * Nombre del Metodo: event_cancel
-     * Descripcion: Cancela una cita reservada (elimina)
+     * Nombre del Metodo: event_process
+     * Descripcion: Permite cambiar el estado de una reserva
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
      **************************************************************************/
-    public function event_cancel($idevento) {
+    public function event_process($idevento,$estado) {
         
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
-        $query = $this->db->query("DELETE FROM eventos_empleado WHERE idEvento = ".$idevento."");
+        $query = $this->db->query("UPDATE eventos_habitacion SET idEstadoReserva = ".$estado." WHERE idEvento = ".$idevento."");
+        $query2 = $this->db->query("INSERT INTO reserva_proceso (
+                                idEvento, 
+                                usuarioProceso, 
+                                fechaProceso, 
+                                idEstadoReserva) 
+                                VALUES(
+                                ".$idevento.",
+                                ".$this->session->userdata('userid').",
+                                NOW(),
+                                ".$estado.")");
         $this->db->trans_complete();
         $this->db->trans_off();
 
@@ -486,36 +538,41 @@ class MCalendar extends CI_Model {
      * Nombre del Metodo: detail_event
      * Descripcion: Obtiene el detalle de un evento/cita reservada en la sede
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 29/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function detail_event($idevento) {
         
         /*Recupera los eventos creados*/
         $query = $this->db->query("SELECT
                                 e.idEvento,
-                                e.idEmpleado,
-                                concat(a.nombre,' ',a.apellido) as nombreEmpleado,
+                                e.idMesa,
+                                m.nombreMesa,
+                                t.descTipoMesa,
+                                i.descDocumento,
                                 e.idCliente,
-                                concat(c.nombre,' ',c.apellido) as nombreCliente,
-                                c.numCelular,
-                                e.idServicio,
-                                s.descServicio,
+                                e.nombreCliente,
+                                e.apellidoCliente,
+                                e.telefonoCliente,
+                                e.emailCliente,
+                                e.tiempoAtencion,
+                                e.valorReserva,
                                 e.fechaInicioEvento,
                                 e.fechaFinEvento,
-                                e.tiempoAtencion,
-                                e.idSede,
-                                d.nombreSede,
-                                d.direccionSede,
-                                d.telefonoSede
-                                FROM
-                                eventos_empleado e
-                                JOIN app_usuarios a ON a.idUsuario = e.idEmpleado
-                                JOIN servicios s ON s.idServicio = e.idServicio
-                                JOIN sede d ON d.idSede = e.idSede
-                                JOIN app_usuarios c ON c.idUsuario = e.idCliente
-                                WHERE
-                                e.fechaInicioEvento >= CURDATE()
-                                AND e.idEvento = '".$idevento."'");
+                                e.fechaRegistro,
+                                s.nombreSede,
+                                e.adultos,
+                                e.ninos,
+                                e.idEstadoReserva,
+                                r.descEstadoReserva
+                                FROM eventos_habitacion e
+                                JOIN mesas m ON m.idMesa = e.idMesa
+                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                JOIN tipo_identificacion i ON i.idTipoDocumento = e.idTipoDocumento
+                                JOIN sede s ON s.idSede = e.idSede
+                                JOIN tipo_estado_reserva r ON r.idEstadoReserva = e.idEstadoReserva
+                                WHERE e.idSede = ".$this->session->userdata('sede')."
+                                AND e.idEvento = ".$idevento."
+                                AND e.idEstadoReserva IN (1,2)");
         
         if ($query->num_rows() == 0) {
             

@@ -88,6 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 
                                                 $color = "#F3BEB5"; /*mesa ocupada en proceso pago - azul*/
                                                 $flag = $row_list['idVenta'];
+                                                $disabledBoard = "true";
                                                 $ocupation = $row_list['descEstadoMesa'];
                                                 $caracteristicas = $row_list['caracteristicas'];
                                                 
@@ -97,6 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 
                                                     $color = "#A8DFED"; /*mesa ocupada en pedido - azul*/
                                                     $flag = 0;
+                                                    $disabledBoard = "true";
                                                     $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
                                                     
@@ -104,6 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     
                                                     $color = "#CBEDA8"; /*mesa libre - verde*/
                                                     $flag = 0;
+                                                    $disabledBoard = "false";
                                                     $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
                                                     
@@ -115,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!--http://placehold.it/261x261-->
                                                     <img src="<?php echo base_url().'public/img/261x261S.jpg'; ?>" class="do-item do-circle">
                                                     <div class="do-info-wrap do-circle" style="background-color: <?php echo $color; ?>">
-                                                        <a href="<?php echo base_url().'index.php/CSale/createsale/'.$row_list['idMesa'].'/'.$flag; ?>">
+                                                        <a href="<?php echo base_url().'index.php/CSale/createsale/'.$row_list['idMesa'].'/'.$flag; ?>" onclick="return <?php echo $disabledBoard; ?>;" >
                                                             <div class="do-info">
                                                                 <div class="do-info-front do-circle">
                                                                     <center>

@@ -404,7 +404,6 @@ class CCalendar extends CI_Controller {
                     $empleado = $this->session->userdata('userid');
                     $countAdult = $this->input->post('adultos');
                     $countNino = $this->input->post('ninos');
-                                        
                     
                     if ($this->jasr->validaTipoString($nombres,1) && $this->jasr->validaTipoString($apellidos,1)){
                         
@@ -471,7 +470,7 @@ class CCalendar extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: listevent
-     * Descripcion: Lista las citas agendadas
+     * Descripcion: Lista las citas reservadas
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 20/04/2017, Ultima modificacion: 
      **************************************************************************/
@@ -512,7 +511,7 @@ class CCalendar extends CI_Controller {
                 /*ROL SUPERADMIN: permite ver todas las citas de la sede*/
                 if ($typeUser == 'sede'){
                     
-                    if ($this->MRecurso->validaRecurso(15)){ /*Citas Sede*/
+                    if ($this->MRecurso->validaRecurso(15)){ /*Reservas Sede*/
                     
                         /*consulta el modelo para obtener listado de eventos de la sede*/
                         $eventSede = $this->MCalendar->list_event_sede();
@@ -524,7 +523,7 @@ class CCalendar extends CI_Controller {
 
                         } else {
 
-                            $info['message'] = 'La sede no tiene Citas Reservadas.';
+                            $info['message'] = 'La sede no tiene Reservas registradas ni confirmadas';
                             $info['alert'] = 1;
                             $this->load->view('calendar/listevent-sede',$info);
 
@@ -551,9 +550,9 @@ class CCalendar extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: eventcancel
-     * Descripcion: Cancelar Cita Agendada
+     * Descripcion: Cancelar Reserva Agendada
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function eventcancel() {
         
@@ -569,23 +568,40 @@ class CCalendar extends CI_Controller {
                     
                     /*captura variables*/
                     $evento = $this->input->post('idevento');
+                    $estado = $this->input->post('idestado');
                     $tipoUsuario = $this->input->post('typeUser');
-
-                    /*Obtiene el detalle del evento (fechaInicio)*/
+                    
+                    /*Obtiene el detalle del evento (fechaInicioEvento)*/
                     $detailEvent = $this->MCalendar->detail_event($evento);
                     
                     /*Calcula la diferencia en Minutos de la fecha/hora del evento frente a la actual*/
-                    $segundos = strtotime($detailEvent->fechaInicioEvento) - strtotime(date('Y-m-d h:i:s'));
+                    $segundos = strtotime($detailEvent->fechaInicioEvento) - strtotime(date('Y-m-d H:i:s'));
                     $diferencia_minutos = intval($segundos/60);
+                                        
+                    if ($estado == 3){ /*cancela*/
+                        /*Obtiene Parametro Minutos Minimos para Cancelar Reserva*/
+                        $data = file_get_contents(base_url().'public/bower_components/parametros/config.json');
+                        $configuracion = json_decode($data, true);
+                        $parametroTime = $configuracion['parametros']['MinMinutosCancelaCita'];
+                    }
                     
-                    /*Obtiene Parametro Minutos Minimos para Cancelar cita*/
-                    $data = file_get_contents(base_url().'public/bower_components/parametros/config.json');
-                    $configuracion = json_decode($data, true);
-                    $parametroTime = $configuracion['parametros']['MinMinutosCancelaCita'];
+                    if ($estado == 5){ /*incumple*/
+                        /*Obtiene Parametro Minutos Minimos para Incumplir la Reserva*/
+                        $data = file_get_contents(base_url().'public/bower_components/parametros/config.json');
+                        $configuracion = json_decode($data, true);
+                        $parametroTime = $configuracion['parametros']['MinMinutosIncumpleCita'];
+                    }
+                    
+                    if ($estado == 2){ /*confirma*/
+                        /*Obtiene Parametro Minutos Minimos para Incumplir la Reserva*/
+                        $data = file_get_contents(base_url().'public/bower_components/parametros/config.json');
+                        $configuracion = json_decode($data, true);
+                        $parametroTime = $configuracion['parametros']['MinMinutosConfirmaCita'];
+                    }
                     
                     if ($diferencia_minutos < $parametroTime){
                         
-                        $info['message'] = 'No es posible cancelar la cita. No cumple con el Tiempo minimo permitido para cancelar. Comuniquese con el centro de belleza.';
+                        $info['message'] = 'No es posible actualizar el estado de la Reserva. No cumple con el Tiempo minimo permitido para esta acción.';
                         $info['alert'] = 2;
                         
                         if ($tipoUsuario == 'cliente'){
@@ -604,12 +620,12 @@ class CCalendar extends CI_Controller {
                         
                     } else {
                     
-                        /*envia datos al modelo para cancelar cita*/
-                        $cancelEvent = $this->MCalendar->event_cancel($evento);
+                        /*envia datos al modelo para actualizar reserva*/
+                        $updateEvent = $this->MCalendar->event_process($evento,$estado);
 
-                        if ($cancelEvent == TRUE){
+                        if ($updateEvent == TRUE){
 
-                            $info['message'] = 'Cita Cancelada Exitosamente.';
+                            $info['message'] = 'Se actualizo el estado de la Reserva Exitosamente.';
                             $info['alert'] = 1;
 
                             if ($tipoUsuario == 'cliente'){
@@ -620,15 +636,19 @@ class CCalendar extends CI_Controller {
                             }
 
                             if ($tipoUsuario == 'superadmin'){
-                                /*consulta el modelo para obtener listado de eventos de la sede*/
-                                $eventSede = $this->MCalendar->list_event_sede();
-                                $info['list_event'] = $eventSede;
-                                $this->load->view('calendar/listevent-sede',$info);
+                                if ($estado == 4){
+                                    redirect("/CSale/createsale/".$detailEvent->idMesa."/0");
+                                } else {
+                                    /*consulta el modelo para obtener listado de eventos de la sede*/
+                                    $eventSede = $this->MCalendar->list_event_sede();
+                                    $info['list_event'] = $eventSede;
+                                    $this->load->view('calendar/listevent-sede',$info);
+                                }
                             }
 
                         } else {
 
-                            $info['message'] = 'No es posible Cancelar la Cita.';
+                            $info['message'] = 'No es posible Actualizar el estado de la Reserva.';
                             $info['alert'] = 2;
 
                             if ($tipoUsuario == 'cliente'){

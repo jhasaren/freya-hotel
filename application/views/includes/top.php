@@ -32,6 +32,39 @@
                     </li>
                 </ul>
             </li>
+            
+            <!--Notificacion-->
+            <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <script>
+                    var base_url = "<?php echo base_url(); ?>";
+                    </script>
+                    <span id="reservaspendientes" class="badge bg-green"></span>
+                </a>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                        <a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">
+                            <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                            <span>
+                                <span style="color: red">Reservas Registradas</span>
+                                <span class="time">Notificación</span>
+                            </span>
+                            <span class="message">
+                                Tienes reservas pendientes de confirmar...
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="text-center">
+                            <a href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>">
+                                <strong>Ver todas las Reservas</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
 
         </ul>
     </nav>

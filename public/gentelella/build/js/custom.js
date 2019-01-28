@@ -414,14 +414,32 @@ $(document).ready(function () {
         var _self = $(this); //captura etiquetas
         var evento = _self.data('id'); //captura variable de etiqueta id
         var servicio = _self.data('service'); //captura variable de etiqueta service
+        var estado = _self.data('state'); //captura variable del estado
         $("#servicio").text(servicio); //enviar dato al div de la modal
         $("#idevento").val(evento); //enviar dato al input de la modal
+        $("#idestado").val(estado); //enviar dato al input de la modal
         $('#myModal-canc').modal('show');
     });
     /*Formulario Login - cursor en campo de texto*/
     $('#username').focus();
     /*Formulario Liquidacion Venta - cursor en campo de texto*/
     $('#pagacon').focus();
+    /*consulta cantidad de reservas pendientes de confirmacion*/
+    $('#reservaspendientes').ready(function(){
+        console.log("**reservas pendientes**");
+        $.ajax({ //request ajax
+            url:base_url+"index.php/CPrincipal/reservas_pendientes",
+            //type:POST,
+            //dataType:json,
+            success: function(repons) {
+                $("#reservaspendientes").html(repons);
+            },
+            error: function() {
+                console.log("**error**");
+            }
+        });
+    });
+    
 });
 // /Modal jasanchez
 

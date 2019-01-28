@@ -99,13 +99,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="datatable10" class="table table-striped table-bordered table-responsive">
                                     <thead>
-                                        <th>Inicio</th>
-                                        <th>Fin</th>
+                                        <th>#Reserva</th>
+                                        <th>Checkin</th>
+                                        <th>Checkout</th>
+                                        <th>Estadia</th>
+                                        <th>Habitación</th>
                                         <th>Cliente</th>
-                                        <th>Servicio</th>
-                                        <th>Empleado</th>
+                                        <th>Contacto</th>
+                                        <th>Huéspedes</th>
+                                        <th>Estado</th>
                                         <th>Accion</th>
                                     </thead>
                                     <tbody>
@@ -114,16 +118,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             foreach ($list_event as $row_list){
                                                 ?>
                                                 <tr style="background-color: #2A3F54;">
-                                                    <td class="center blue"><?php echo $row_list['fechaInicioEvento']; ?></td>
-                                                    <td class="center red"><?php echo $row_list['fechaFinEvento']; ?></td>
-                                                    <td class="center green"><small><?php echo $row_list['nombreCliente']."<br />[Id: ".$row_list['idCliente']." | Tel: ".$row_list['numCelular']."]"; ?></small></td>
-                                                    <td class="center"><?php echo $row_list['descServicio']."<br />(".$row_list['tiempoAtencion']." Min.)"; ?></td>
-                                                    <td class="center blue"><small><?php echo $row_list['nombreEmpleado']."<br />[".$row_list['idEmpleado']."]"; ?></small></td>
+                                                    <td class="center red" style="color: #FFF; font-size: 25px"><?php echo $row_list['idEvento']; ?></td>
+                                                    <td class="center green"><?php echo $row_list['fechaInicioEvento']; ?></td>
+                                                    <td class="center blue"><?php echo $row_list['fechaFinEvento']; ?></td>
+                                                    <td class="center" style="color: #FFF"><?php echo $row_list['tiempoAtencion']." Noches<br />$".number_format($row_list['valorReserva'],0,',','.'); ?></td>
+                                                    <td class="center red" style="color: #FFF"><?php echo $row_list['nombreMesa']."<br />Tipo: ".$row_list['descTipoMesa']; ?></td>
+                                                    <td class="center red" style="color: #FFF"><?php echo $row_list['descDocumento']." ".$row_list['idCliente']."<br />".$row_list['nombreCliente']." ".$row_list['apellidoCliente']; ?></td>
+                                                    <td class="center red" style="color: #FFF"><?php echo "Tel: ".$row_list['telefonoCliente']."<br />".$row_list['emailCliente']; ?></td>
+                                                    <td class="center red" style="color: #FFF"><?php echo "Adultos: ".$row_list['adultos']."<br />Niños: ".$row_list['ninos']; ?></td>
+                                                    <?php if ($row_list['idEstadoReserva'] == 1){ ?>
+                                                    <td class="center red" style="font-weight: bold"><?php echo $row_list['descEstadoReserva']; ?></td>
+                                                    <?php } else { ?>
+                                                    <td class="center blue" style="font-weight: bold"><?php echo $row_list['descEstadoReserva']; ?></td>
+                                                    <?php } ?>
                                                     <td class="center">
-                                                        <a class="btn btn-default btn-sm btn-cancel" href="#" data-id="<?php echo $row_list['idEvento']; ?>" data-service="<?php echo $row_list['descServicio']." [".$row_list['fechaInicioEvento']."]"; ?>" >
-                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                        <?php if ($row_list['idEstadoReserva'] == 1){ ?>
+                                                        <a class="label label-danger btn-cancel" href="#" data-id="<?php echo $row_list['idEvento']; ?>" data-service="<?php echo "#Reserva: ".$row_list['idEvento']." | Habitación: ". $row_list['nombreMesa']; ?>" data-state="3" >
+                                                            <i class="glyphicon glyphicon-remove"></i>
                                                             Cancelar
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if (($row_list['idEstadoReserva'] == 1) || ($row_list['idEstadoReserva'] == 2)){ ?>
+                                                        <a class="label label-warning btn-cancel" href="#" data-id="<?php echo $row_list['idEvento']; ?>" data-service="<?php echo "#Reserva: ".$row_list['idEvento']." | Habitación: ". $row_list['nombreMesa']; ?>" data-state="5" >
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                            Incumplida
+                                                        </a>
+                                                        <?php } ?>
+                                                        <?php if ($row_list['idEstadoReserva'] == 1){ ?>
+                                                        <a class="label label-success btn-cancel" href="#" data-id="<?php echo $row_list['idEvento']; ?>" data-service="<?php echo "#Reserva: ".$row_list['idEvento']." | Habitación: ". $row_list['nombreMesa']; ?>" data-state="2" >
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                            Confirmar
+                                                        </a>
+                                                        <?php } ?>
+                                                        <?php if ($row_list['idEstadoReserva'] == 2){ ?>
+                                                        <a class="label label-info btn-cancel" href="#" data-id="<?php echo $row_list['idEvento']; ?>" data-service="<?php echo "#Reserva: ".$row_list['idEvento']." | Habitación: ". $row_list['nombreMesa']; ?>" data-state="4" >
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                            Cumplida
+                                                        </a>
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -147,19 +179,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form role="form" name="form_cancel_event" action="<?php echo base_url() . 'index.php/CCalendar/eventcancel'; ?>" method="post" autocomplete="off">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Cancelar Cita</h3>
+                            <h3>Actualizar Reserva</h3>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="idevento" id="idevento" />
+                            <input type="hidden" name="idestado" id="idestado" />
                             <input type="hidden" name="typeUser" id="typeUser" value="superadmin" />
-                            <h4>Esta seguro que desea cancelar el servicio?</h4>
+                            <h4>Esta seguro que desea actualizar el estado de la reserva?</h4>
                             <br />
-                            <div class="red" id="servicio"></div>
+                            <div class="blue" id="servicio"></div>
                             <br />
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                            <button type="submit" class="btn btn-success">Confirmar</button>
+                            <button type="submit" class="btn btn-success">Sí, estoy seguro</button>
                         </div>
                     </form>
                 </div>
@@ -190,6 +223,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Datatables -->
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js'; ?>"></script>
     <script src="<?php echo base_url().'public/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'; ?>"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#datatable10').DataTable( {
+                "order": [[ 1, "desc" ]]
+            } );
+        } );
+        
+        /*Actualiza pagina cada 60 segundos*/
+        setTimeout(function(){
+           location.reload();
+        },60000);
+    </script>  
     
   </body>
 </html>
