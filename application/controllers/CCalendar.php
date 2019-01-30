@@ -637,8 +637,15 @@ class CCalendar extends CI_Controller {
 
                             if ($tipoUsuario == 'superadmin'){
                                 if ($estado == 4){
-                                    redirect("/CSale/createsale/".$detailEvent->idMesa."/0");
+                                    
+                                    /*Inserta la relacion de la mesa con la reserva*/
+                                    $eventSede = $this->MCalendar->upd_hab_reserva($detailEvent->idMesa,$evento);
+                                    /*Actualiza el estado de la habitacion a 1-Ocupada*/
+                                    $eventSede = $this->MCalendar->upd_habitacion_sede($detailEvent->idMesa,1);
+                                    redirect("/CSale/createsale/".$detailEvent->idMesa."/0/".$evento);
+                                    
                                 } else {
+                                    
                                     /*consulta el modelo para obtener listado de eventos de la sede*/
                                     $eventSede = $this->MCalendar->list_event_sede();
                                     $info['list_event'] = $eventSede;

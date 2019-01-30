@@ -91,6 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 $disabledBoard = "true";
                                                 $ocupation = $row_list['descEstadoMesa'];
                                                 $caracteristicas = $row_list['caracteristicas'];
+                                                $reserva = $row_list['idReserva'];
                                                 
                                             } else {
                                                 
@@ -101,6 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $disabledBoard = "true";
                                                     $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
+                                                    $reserva = 0;
                                                     
                                                 } else {
                                                     
@@ -109,6 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $disabledBoard = "false";
                                                     $ocupation = $row_list['descEstadoMesa'];
                                                     $caracteristicas = $row_list['caracteristicas'];
+                                                    $reserva = 0;
                                                     
                                                 }
                                             }
@@ -118,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!--http://placehold.it/261x261-->
                                                     <img src="<?php echo base_url().'public/img/261x261S.jpg'; ?>" class="do-item do-circle">
                                                     <div class="do-info-wrap do-circle" style="background-color: <?php echo $color; ?>">
-                                                        <a href="<?php echo base_url().'index.php/CSale/createsale/'.$row_list['idMesa'].'/'.$flag; ?>" onclick="return <?php echo $disabledBoard; ?>;" >
+                                                        <a href="<?php echo base_url().'index.php/CSale/createsale/'.$row_list['idMesa'].'/'.$flag."/".$reserva; ?>" onclick="return <?php echo $disabledBoard; ?>;" >
                                                             <div class="do-info">
                                                                 <div class="do-info-front do-circle">
                                                                     <center>
@@ -193,9 +196,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });*/
     
     /*Actualiza pagina cada 60 segundos*/
-    setTimeout(function(){
+    /*setTimeout(function(){
        location.reload();
-    },60000); 
+    },60000); */
     </script>
     
   </body>

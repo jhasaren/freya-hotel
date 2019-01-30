@@ -227,7 +227,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
         $(document).ready(function() {
             $('#datatable10').DataTable( {
-                "order": [[ 1, "desc" ]]
+                "order": [[ 1, "asc" ]]
             } );
         } );
         

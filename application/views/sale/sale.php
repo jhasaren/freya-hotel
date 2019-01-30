@@ -68,6 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $label = "label-info";
                         }
                         ?>
+                        Reserva #<?php echo $this->session->userdata('idReserva'); ?><br />
                         <span class="label <?php echo $label; ?>">
                             <?php echo $data_mesa->descEstadoMesa; ?>
                         </span>

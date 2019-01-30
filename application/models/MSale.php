@@ -2038,12 +2038,14 @@ class MSale extends CI_Model {
                                 m.cantAdulto,
                                 m.cantNino,
                                 m.idTarifa,
-                                p.valorProducto
+                                p.valorProducto,
+                                c.idReserva
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
                                 LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
                                 LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
+                                LEFT JOIN control_habitacion_reserva c ON c.idMesa = m.idMesa
                                 WHERE
                                 m.activo = 'S'
                                 AND m.idSede = ".$this->session->userdata('sede')."

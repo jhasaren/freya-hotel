@@ -535,6 +535,84 @@ class MCalendar extends CI_Model {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: upd_habitacion_sede
+     * Descripcion: Permite cambiar el estado de una habitacion
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 29/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function upd_habitacion_sede($idHabitacion,$estado) {
+        
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $query = $this->db->query("UPDATE mesas SET idEstadoMesa = ".$estado." WHERE idMesa = ".$idHabitacion."");
+        $this->db->trans_complete();
+        $this->db->trans_off();
+
+        if ($this->db->trans_status() === FALSE){
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: upd_hab_reserva
+     * Descripcion: Permite registrar la relacion de una habitacion y una reserva
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 29/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function upd_hab_reserva($idHabitacion,$evento) {
+        
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $query = $this->db->query("INSERT INTO control_habitacion_reserva (idMesa,idReserva) VALUES (".$idHabitacion.",".$evento.")");
+        $this->db->trans_complete();
+        $this->db->trans_off();
+
+        if ($this->db->trans_status() === FALSE){
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+
+    }
+    
+    /**************************************************************************
+     * Nombre del Metodo: del_hab_reserva
+     * Descripcion: Permite eliminar la relacion de una habitacion y una reserva
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 29/01/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function del_hab_reserva($idHabitacion,$evento) {
+        
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $query = $this->db->query("DELETE FROM control_habitacion_reserva WHERE idMesa = ".$idHabitacion." and idReserva=".$evento."");
+        $this->db->trans_complete();
+        $this->db->trans_off();
+
+        if ($this->db->trans_status() === FALSE){
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: detail_event
      * Descripcion: Obtiene el detalle de un evento/cita reservada en la sede
      * Autor: jhonalexander90@gmail.com

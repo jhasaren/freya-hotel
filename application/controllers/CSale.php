@@ -128,7 +128,7 @@ class CSale extends CI_Controller {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 27/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function createsale($board,$flagBoard) {
+    public function createsale($board,$flagBoard,$reserva) {
         
         if ($this->session->userdata('validated')) {
             
@@ -143,6 +143,12 @@ class CSale extends CI_Controller {
                     /*Envia datos al modelo para el registro del empleado Default*/
                     $this->MSale->add_empleado_sale($this->session->userdata('userid'),$this->session->userdata('idSale'));
                     
+                    /*Registra el id de la reserva de la mesa como variable de sesion*/
+                    $datos_session = array(
+                        'idReserva' => $reserva
+                    );
+                    $this->session->set_userdata($datos_session);
+                    
                     if ($createSale == TRUE){
 
                         $this->module($info);
@@ -155,10 +161,11 @@ class CSale extends CI_Controller {
                     
                 } else {
                                         
-                    /*Registra el id de venta de la mesa como variable de sesion*/
+                    /*Registra el id de venta de la mesa como variable de sesion, el id de la reserva*/
                     $datos_session = array(
                         'idSale' => $flagBoard,
-                        'idMesa' => $board
+                        'idMesa' => $board,
+                        'idReserva' => $reserva
                     );
                     $this->session->set_userdata($datos_session);
                     
@@ -594,12 +601,19 @@ class CSale extends CI_Controller {
                 if ($deldata == TRUE){
 
                     /*Envia al modelo para habilitar la mesa/habitacion*/
-                    $enable = $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'), 2);
+                    $enable = $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'), 2); /*disponible*/
+
+                    /*Actualiza estado de la reserva*/
+                    $updReservaEstado = $this->MCalendar->event_process($this->session->userdata('idReserva'),3); /*cancelada*/
+
+                    /*Elimina relacion de la habitacion con la reserva*/
+                    $delMesaReserva = $this->MCalendar->del_hab_reserva($this->session->userdata('idMesa'),$this->session->userdata('idReserva')); /*Elimina*/
                     
                     $this->session->unset_userdata('sclient'); 
                     $this->session->unset_userdata('sempleado');
                     $this->session->unset_userdata('idSale'); 
                     $this->session->unset_userdata('idMesa'); 
+                    $this->session->unset_userdata('idReserva'); 
                     $this->session->unset_userdata('sdescuento');
                     $this->session->unset_userdata('sservicio');
 
@@ -715,6 +729,12 @@ class CSale extends CI_Controller {
 
                                     /*Actualiza estado de la mesa*/
                                     $updMesaEstado = $this->MSale->upd_estado_mesa($mesa,3); /*Limpieza*/
+                                    
+                                    /*Actualiza estado de la reserva*/
+                                    $updReservaEstado = $this->MCalendar->event_process($this->session->userdata('idReserva'),6); /*pagada*/
+                                    
+                                    /*Elimina relacion de la habitacion con la reserva*/
+                                    $delMesaReserva = $this->MCalendar->del_hab_reserva($mesa,$this->session->userdata('idReserva')); /*Elimina*/
                                     
                                     /*Obtiene datos del cliente*/
                                     $datosCliente = $this->MUser->get_user($this->session->userdata('sclient')); 
