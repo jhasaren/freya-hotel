@@ -187,7 +187,7 @@ $(document).ready(function () {
 
 // Modal - jasanchez
 $(document).ready(function () {
-    $("#cantidad_ser").change(function () {
+    /*$("#cantidad_ser").change(function () {
         var night = $(this).val();
         
         if (night){
@@ -199,16 +199,7 @@ $(document).ready(function () {
             
             $("#checkout").val(entrega.getFullYear()+"-"+(entrega.getMonth()+1)+"-"+entrega.getDate() + " " + entrega.getHours() + ":0" + entrega.getMinutes() + ":0" + entrega.getSeconds());
         }
-        /*if ($(this).val() == 'S') {
-            $("#valor_tarifa").val("");
-            $("#valor_tarifa").attr("readonly", "readonly");
-            $("#increm_calendarioA").removeAttr("disabled");
-        } else {
-            $("#valor_tarifa").val("");
-            $("#valor_tarifa").removeAttr("readonly");
-            $("#increm_calendarioA").attr("disabled", "disabled");
-        }*/
-    }).trigger("change");
+    }).trigger("change");*/
     
     /*Modal - Cambio de Clave*/
     $('.btn-changepass').click(function (e) {

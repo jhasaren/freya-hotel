@@ -600,9 +600,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="modal-body">
                             <div class="controls">
+                                <?php 
+                                if ($this->config->item('tarifa_dinamica') == 1){
+                                    $readonly = 'readonly';
+                                } else {
+                                    $readonly = '';
+                                }
+                                ?>
                                 <label class="control-label" for="select">Escriba parte del nombre y seleccione de la lista</label>
                                 <div class="controls">
-                                    <input class="select2_single form-control" type="text" name="idproducto" id="idservice" required="" />
+                                    <input class="select2_single form-control" type="text" name="idproducto" id="idservice" value="<?php echo $data_mesa->idTarifa .' | '.$data_mesa->valorProducto." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto; ?>" <?php echo $readonly; ?> required="" />
                                 </div>
                                 <br />
                             </div>
@@ -611,27 +618,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <br />
                             <label class="control-label" for="selectError">Cantidad de Noches</label>
                             <div class="controls">
-                                <select class="select2_single form-control" id="cantidad_ser" name="cantidad" data-rel="chosen" required="">
-                                    <option value=""></option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                </select>
+                                <input type="text" class="form-control" id="cantidad_ser" name="cantidad" value="<?php echo $data_reserva->tiempoAtencion; ?>" readonly="">                                
                             </div>
                             <br />
-                            <label class="control-label" for="selectError">Entrada</label>
+                            <label class="control-label" for="selectError">CheckIn</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkin" id="idservice" value="<?php echo date("Y-m-d H:i:s"); ?>" required="" readonly="" />
+                                <input class="form-control" type="datetime" name="checkin" id="idservice" value="<?php echo $data_reserva->fechaInicioEvento; ?>" required="" readonly="" />
                             </div>
                             <br />
                             <label class="control-label" for="selectError">CheckOut</label>
                             <div class="controls">
-                                <input class="select2_single form-control" type="datetime" name="checkout" id="checkout" value="<?php echo date("Y-m-d H:i:s"); ?>" required="" readonly="" />
+                                <input class="form-control" type="datetime" name="checkout" id="checkout" value="<?php echo $data_reserva->fechaFinEvento; ?>" required="" readonly="" />
                             </div>
                             <br />
                         </div>

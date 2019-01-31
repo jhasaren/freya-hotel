@@ -116,6 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php
                                         if ($list_event != FALSE){
                                             foreach ($list_event as $row_list){
+                                                if (($row_list['idEstadoReserva'] == 1) || ($row_list['idEstadoReserva'] == 2)){
                                                 ?>
                                                 <tr style="background-color: #2A3F54;">
                                                     <td class="center red" style="color: #FFF; font-size: 25px"><?php echo $row_list['idEvento']; ?></td>
@@ -159,6 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </td>
                                                 </tr>
                                                 <?php
+                                                }
                                             }
                                         }
                                         ?>

@@ -113,16 +113,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                 if ($row_list['idMesa'] != NULL){
                                                                                                             
-                                                    ?>
-                                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                                    ?>                                    
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" data-rel3="<?php echo ($row_list['valorNoche']*$cantNoches); ?>" data-rel4="<?php echo $cantNoches; ?>" data-rel5="<?php echo $periodo_desde; ?>" data-rel6="<?php echo $periodo_hasta; ?>" class="x_content btn-regreserv" style="background-color: gainsboro">
-                                                            <?php //echo $row_list['idMesa']; ?>
-                                                            <div class="alert alert-success" role="alert">
-                                                                <?php echo "HABITACION: ".$row_list['nombreMesa']; ?>
-                                                                <span style="padding-left: 30%"><?php echo "$".number_format(($row_list['valorNoche']*$cantNoches),0,",","."); ?></span>
-                                                                <div align="right" style="font-size: 8px"><?php echo "Por ". $cantNoches ." Noche(s)"; ?></div>
+                                                            <?php //echo $row_list['idMesa']; ?>           
+                                                            
+                                                            <div class="alert alert-info" style="height:90px;" role="alert">
+                                                                <span style="font-size: 25px; font-weight: bold"><?php echo $row_list['nombreMesa']; ?></span>
+                                                                <span style="padding-right: 100%"><?php echo "$".number_format(($row_list['valorNoche']*$cantNoches),0,",","."); ?></span>
+                                                                <div style="font-size: 8px"><?php echo "Por ". $cantNoches ." Noche(s)"; ?></div>
                                                             </div>
-
+                                                            
                                                             <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
 
                                                             <center>
@@ -161,7 +162,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         
                         <center>
-                            <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-primary btn-lg">
+                            <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-warning btn-lg">
                                 <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
                             </a>
                         </center>
@@ -207,7 +208,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label for="datoscontacto">Datos de Contacto</label>
                                 <input type="text" class="form-control" id="celular" name="celular" placeholder="Telefono Celular" autocomplete="Off" required="" >
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico" autocomplete="Off" required="" >
-                                <br />
                             </div>
                             
                             <input type="hidden" class="form-control" id="habitacion" name="habitacion">
@@ -219,7 +219,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="hidden" class="form-control" id="adultos" name="adultos" value="<?php echo $adultoCount; ?>" >
                             <input type="hidden" class="form-control" id="ninos" name="ninos" value="<?php echo $ninoCount; ?>">
                             
-                            <div class="alert alert-info" role="alert">
+                            <div class="alert alert-success" role="alert">
                                 <B>Habitacion:</B> <span id="texto_habitacion" style="font-size: 18px; color: #000"></span><br />                  
                                 <B>Valor Total:</B> $ <span id="texto_valor_total" style="font-size: 18px; color: #000"></span><br />  
                                 <B>Cantidad Noches:</B> <span id="texto_nocreserva" style="font-size: 18px; color: #000"></span><br />

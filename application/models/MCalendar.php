@@ -650,7 +650,8 @@ class MCalendar extends CI_Model {
                                 JOIN tipo_estado_reserva r ON r.idEstadoReserva = e.idEstadoReserva
                                 WHERE e.idSede = ".$this->session->userdata('sede')."
                                 AND e.idEvento = ".$idevento."
-                                AND e.idEstadoReserva IN (1,2)");
+                                /*AND e.idEstadoReserva IN (1,2)*/
+                                ");
         
         if ($query->num_rows() == 0) {
             

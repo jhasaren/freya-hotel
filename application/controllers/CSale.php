@@ -84,6 +84,9 @@ class CSale extends CI_Controller {
                 if ($this->session->userdata('sclient') != NULL){
                     $huespedInList = $this->MSale->huesped_in_list(); /*lista de huespedes agregados a la habitacion*/
                 }
+                if ($this->session->userdata('idReserva') != NULL){
+                    $dataReserva = $this->MCalendar->detail_event($this->session->userdata('idReserva')); /*Obtiene detalle de la reserva*/
+                }
                 $plateInList = $this->MSale->placas_in_list(); /*lista vehiculos agregados a la venta*/
                 $productInList = $this->MSale->product_in_list(); /*lista de productos agregados a la venta*/
                 $adicionalInList = $this->MSale->adicional_in_list(); /*lista cargos adicionales agregados a la venta*/
@@ -106,6 +109,7 @@ class CSale extends CI_Controller {
                 $info['receiptSale'] = $receiptSale;
                 $info['list_product'] = $listProductSale;
                 $info['data_mesa'] = $dataMesa;
+                $info['data_reserva'] = $dataReserva;
                 $this->load->view('sale/sale',$info);
             
             } else {
@@ -1170,18 +1174,12 @@ class CSale extends CI_Controller {
                     $idempleado = $this->input->post('idempleado');
                     $typeReg = $this->input->post('typeReg'); /*0-alojamiento, 1-producto*/
                                         
-                    $dateIn = new DateTime($this->input->post('checkin')); 
-                    $checkIN = $dateIn->format('Y-m-d H:i:s'); 
+                    /*$dateIn = new DateTime($this->input->post('checkin')); 
+                    $checkIN = $dateIn->format('Y-m-d H:i:s'); */
                     
-                    $dateOut = new DateTime($this->input->post('checkout')); 
-                    $checkOUT = $dateOut->format('Y-m-d H:i:s');
+                    /*$dateOut = new DateTime($this->input->post('checkout')); 
+                    $checkOUT = $dateOut->format('Y-m-d H:i:s');*/
                     
-                    log_message("DEBUG", "*********************************************************");
-                    log_message("DEBUG", "Dias->".$cantidad);
-                    log_message("DEBUG", $checkIN);
-                    log_message("DEBUG", $checkOUT);
-                    log_message("DEBUG", "*********************************************************");
-
                     if ($this->jasr->validaTipoString($cantidad,2)){
                         
                         /*Valida el producto y valor*/

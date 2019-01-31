@@ -182,10 +182,16 @@ class MSale extends CI_Model {
                                 m.idEstadoMesa,
                                 te.descEstadoMesa,
                                 m.cantAdulto,
-                                m.cantNino
+                                m.cantNino,
+                                m.idTarifa,
+                                p.valorProducto,
+                                p.descProducto,
+                                g.descGrupoServicio
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
+                                LEFT JOIN productos p ON p.idProducto = m.idTarifa
+                                LEFT JOIN grupo_servicio g ON g.idGrupoServicio = p.idGrupoServicio
                                 WHERE m.idMesa = ".$mesa."");
 
         if ($query->num_rows() == 0) {
