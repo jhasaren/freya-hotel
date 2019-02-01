@@ -363,6 +363,14 @@ $(document).ready(function () {
         $("#texto_hasta").text(hasta);
         $('#myModal-reserv').modal('show');
     });
+    /*Modal - Ver Fotos Habitacion*/
+    $('.btn-verhabitacion').click(function (e) {
+        e.preventDefault();
+        var idReg = $(this).attr('data-rel');
+        var nameReg = $(this).attr('data-rel2');
+        $("#name_habitacion").text(nameReg);
+        $('#myModal-imghabit').modal('show');
+    });
     /*Modal - Terminos y Condiciones Reserva*/
     $('.btn-terms').click(function (e) {
         e.preventDefault();

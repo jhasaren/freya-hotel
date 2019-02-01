@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="x_content">
                                 <div class="modal-body">
                                     <strong><?php echo $nombreSede; ?></strong><br /><br />
-
+                                    <div class="row">
                                     <?php 
                                     if ($mensaje == NULL){
                                         
@@ -114,32 +114,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 if ($row_list['idMesa'] != NULL){
                                                                                                             
                                                     ?>                                    
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" data-rel3="<?php echo ($row_list['valorNoche']*$cantNoches); ?>" data-rel4="<?php echo $cantNoches; ?>" data-rel5="<?php echo $periodo_desde; ?>" data-rel6="<?php echo $periodo_hasta; ?>" class="x_content btn-regreserv" style="background-color: gainsboro">
+                                                    <div class="col-md-6" style="height: 300px">
+                                                        <div class="x_content" style="background-color: gainsboro">
                                                             <?php //echo $row_list['idMesa']; ?>           
                                                             
-                                                            <div class="alert alert-info" style="height:90px;" role="alert">
-                                                                <span style="font-size: 25px; font-weight: bold"><?php echo $row_list['nombreMesa']; ?></span>
-                                                                <span style="padding-right: 100%"><?php echo "$".number_format(($row_list['valorNoche']*$cantNoches),0,",","."); ?></span>
-                                                                <div style="font-size: 8px"><?php echo "Por ". $cantNoches ." Noche(s)"; ?></div>
+                                                            <table style="width: 100%; background-color: #89cbea; border-collapse: separate; border-spacing: 10px; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; border: 0px solid #000000;">
+                                                                <tr style="border-collapse: separate; border-spacing: 10px;">
+                                                                    <td>
+                                                                        <span style="font-size: 25px; font-weight: bold; color: #000"><?php echo $row_list['nombreMesa']; ?></span>
+                                                                        <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" class="btn-verhabitacion">
+                                                                            <span class="label label-primary">Ver Fotos</span>
+                                                                        </a>
+                                                                        <span style="float: right">
+                                                                            <?php echo "$".number_format(($row_list['valorNoche']*$cantNoches),0,",",".")." Por ". $cantNoches ." Noche(s)"; ?>
+                                                                            <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" data-rel3="<?php echo ($row_list['valorNoche']*$cantNoches); ?>" data-rel4="<?php echo $cantNoches; ?>" data-rel5="<?php echo $periodo_desde; ?>" data-rel6="<?php echo $periodo_hasta; ?>" class="btn-regreserv">
+                                                                                <span class="label label-danger">Reservar</span>
+                                                                            </a>
+                                                                            
+                                                                        </span>
+                                                                        <br /><br />
+                                                                    </td>
+                                                                </tr>	
+                                                            </table>
+                                                            <br /><br />
+                                                            <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                                                <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
                                                             </div>
                                                             
-                                                            <?php echo $row_list['caracteristicas']."<br /><br />"; ?>
-
                                                             <center>
-                                                            <span class="label label-warning">
+                                                            <div class="label label-warning">
                                                                 <?php echo "Adultos: ".$row_list['cantAdulto']; ?>
-                                                            </span>
-                                                            <span class="label label-success">
+                                                            </div>
+                                                            <div class="label label-success">
                                                                 <?php echo "Niños: ".$row_list['cantNino']; ?>
-                                                            </span>
+                                                            </div>
                                                             </center>
 
                                                             <div class="well well-sm" style="text-align: center">
                                                                 <?php echo "Desde ".$periodo_desde." Hasta ".$periodo_hasta; ?>
                                                             </div>
 
-                                                        </a>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                     
@@ -151,14 +166,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         
                                     } else {
                                         
-                                        echo "HOLA ->".$mensaje;
+                                        echo $mensaje;
                                         
                                     }
                                     ?>
-                                    <br />
+                                    </div>  
                                 </div>     
                             </div>
-                            <br /><br /><br />.
                         </div>
                         
                         <center>
@@ -249,6 +263,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         <!--End modal Reservar-->
+        
+        <!--Modal - Imagenes Habitacion-->
+        <div class="modal fade" id="myModal-imghabit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-imghabit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/addevent'; ?>" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3><span id="name_habitacion" style="font-size: 18px; color: #000"></span></h3>
+                        </div>
+                        <div class="modal-body">
+                            <?php
+                            for ($i = 1; $i <= 5; $i++){
+                                ?>
+                                <picture>
+                                    <img src="<?php echo $this->config->item('path_img_habit'); ?>10/10-1.jpg" class="img-fluid img-thumbnail" alt="...">
+                                </picture>
+                                <?php
+                            }
+                            ?>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End modal Imagenes Habitacion-->
         
         <!--Modal - Terminos y condiciones reserva -->
         <div class="modal fade" id="myModal-terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-terms" aria-hidden="true">
