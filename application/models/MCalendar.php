@@ -245,7 +245,7 @@ class MCalendar extends CI_Model {
         } else {
             
             $this->event_process($idevento, 1); /*Registra proceso*/
-            return true;
+            return $idevento;
 
         }
 

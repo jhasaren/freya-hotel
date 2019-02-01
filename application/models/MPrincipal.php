@@ -191,19 +191,22 @@ class MPrincipal extends CI_Model {
      * Descripcion: obtiene la cantidad de servicios atendidos en un periodo de
      * tiempo
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 01/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function cantidad_servicios($fechaIni,$fechaFin) {
         
-        /*Recupera los usuarios creados*/
+        /*Recupera los alojamientos pagados*/
         $query = $this->db->query("SELECT
-                                count(v.idServicio) as cantidadServicios
+                                sum(v.cantidad) as cantidadServicios
                                 FROM venta_detalle v
                                 JOIN venta_maestro m ON m.idVenta = v.idVenta
+                                JOIN productos p ON p.idProducto = v.idProducto
                                 WHERE
-                                m.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                AND v.productoInterno = 'N'
                                 AND m.idSede = ".$this->session->userdata('sede')."
-                                AND m.idEstadoRecibo = 5");
+                                AND m.idEstadoRecibo = 5
+                                AND p.idTipoProducto = 1");
         
         return $query->row();
         
@@ -214,7 +217,7 @@ class MPrincipal extends CI_Model {
      * Descripcion: Obtiene los productos vendidos en un determinado periodo
      * de tiempo.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 01/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function cantidad_productos_venta($fechaIni,$fechaFin) {
         
@@ -223,11 +226,13 @@ class MPrincipal extends CI_Model {
                                 sum(v.cantidad) as cantidadProductos
                                 FROM venta_detalle v
                                 JOIN venta_maestro m ON m.idVenta = v.idVenta
+                                JOIN productos p ON p.idProducto = v.idProducto
                                 WHERE
-                                m.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
                                 AND v.productoInterno = 'N'
                                 AND m.idSede = ".$this->session->userdata('sede')."
-                                AND m.idEstadoRecibo = 5");
+                                AND m.idEstadoRecibo = 5
+                                AND p.idTipoProducto = 2");
         
         return $query->row();
         
@@ -238,7 +243,7 @@ class MPrincipal extends CI_Model {
      * Descripcion: obtiene la cantidad de recibos en determinado estado de
      * un periodo de tiempo
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 01/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function cantidad_recibos_estado($fechaIni,$fechaFin,$estado) {
         
@@ -248,7 +253,7 @@ class MPrincipal extends CI_Model {
                                 sum(m.valorLiquida) as valor_pagado
                                 FROM venta_maestro m
                                 WHERE
-                                m.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
                                 AND m.idSede = ".$this->session->userdata('sede')."
                                 AND m.idEstadoRecibo = ".$estado."");
         

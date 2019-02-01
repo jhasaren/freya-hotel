@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="count_bottom"><i class="green"></i> Activos</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Platos Vendidos</span>
+                    <span class="count_top"><i class="fa fa-user"></i> Tarifa Alojamiento</span>
                     <div class="count green"><?php echo $serviciosDia->cantidadServicios; ?></div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Hoy <?php echo date('D d/m'); ?></i></span>
                 </div>
@@ -185,83 +185,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <!--Fin Gastos Pendiente Pago-->
                                 
                                 <!--Stock Productos-->
-                                <div class="row">
-                                    <!--Stock Productos 80-->
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2>Consumido más del 80%</h2>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content">
-                                                <?php 
-                                                if ($consumoProductos80 != NULL){
-                                                    foreach ($consumoProductos80 as $stock80){ 
-                                                    ?>
-                                                    <article class="media event">
-                                                        <a class="pull-left date" style="background-color: red;">
-                                                            <p class="day"><?php echo number_format($stock80['consumo'],0,',','.'); ?></p>
-                                                            <p class="day">%</p>
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <a class="red" href="#"><?php echo $stock80['descProducto']; ?></a>
-                                                            <p class="small">Disponible: <?php echo $stock80['disponibles']; ?></p>
-                                                            <p class="small">Tipo: <?php echo $stock80['descTipoProducto']; ?></p>
-                                                        </div>
-                                                    </article>
-                                                    <?php 
-                                                    }
-                                                } else {
-                                                    echo "El Stock no tiene productos que hayan consumido mas del 80%.";
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--Fin Stock Productos 80-->
-                                    
-                                    <!--Stock Productos 60-->
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2>Consumido entre 60% y 80%</h2>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content">
-                                                <?php 
-                                                if ($consumoProductos60 != NULL){
-                                                    foreach ($consumoProductos60 as $stock60){ 
-                                                    ?>
-                                                    <article class="media event">
-                                                        <a class="pull-left date" style="background-color: #e1e64e;">
-                                                            <p class="day"><?php echo number_format($stock60['consumo'],0,',','.'); ?></p>
-                                                            <p class="day">%</p>
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <a class="blue" href="#"><?php echo $stock60['descProducto']; ?></a>
-                                                            <p class="small">Disponible: <?php echo $stock60['disponibles']; ?></p>
-                                                            <p class="small">Tipo: <?php echo $stock60['descTipoProducto']; ?></p>
-                                                        </div>
-                                                    </article>
-                                                    <?php 
-                                                    }
-                                                } else {
-                                                    echo "El Stock no tiene productos que hayan consumido mas del 60%.";
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--Fin Stock Productos 80-->
-                                </div>
+                                
                                 <!--Fin Stock productos-->
                             </div>
                             
@@ -269,6 +193,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
             </div>
+            
+            <!-- top tiles -->
+            <center>
+            <div class="row tile_count">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <a class="btn btn-info" href="<?php echo base_url().'index.php/CSale/boards/2'; ?>"><i class="glyphicon glyphicon-th"></i> HABITACIONES</a>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <a class="btn btn-danger" href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>"><i class="glyphicon glyphicon-th"></i> CONTROL DE RESERVAS</a>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <a class="btn btn-warning" href="<?php echo base_url().'index.php/CCalendar'; ?>"><i class="glyphicon glyphicon-th"></i> NUEVA RESERVA</a>
+                </div>
+            </div>
+            </center>    
+            <!-- /top tiles -->
+            
         </div>
         <!-- /page content -->
 

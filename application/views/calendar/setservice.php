@@ -177,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <center>
                             <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-warning btn-lg">
-                                <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Cancelar
+                                <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Regresar
                             </a>
                         </center>
                         

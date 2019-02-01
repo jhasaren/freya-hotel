@@ -42,7 +42,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: index (por defecto CodeIgniter)
      * Descripcion: Carga la vista de login cuando se inicia sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 01/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -55,8 +55,8 @@ class CPrincipal extends CI_Controller {
             $info['clientesRegistrados'] = $this->MPrincipal->cantidad_clientes(); /*Consulta el Modelo Cantidad de clientes*/
             $info['gastosPendientes'] = $this->MPrincipal->cantidad_gastos_pendientes(); /*Consulta el Modelo Cantidad de Gastos Pendientes*/
             $info['gastosPendienteDetalle'] = $this->MPrincipal->gastos_pendiente_detalle(); /*Consulta el Modelo detalle de Gastos Pendientes*/
-            $info['consumoProductos80'] = $this->MPrincipal->consumo_productos_80(); /*Consulta el Modelo productos consumidos 80%*/
-            $info['consumoProductos60'] = $this->MPrincipal->consumo_productos_60(); /*Consulta el Modelo productos consumidos 60%*/
+            //$info['consumoProductos80'] = $this->MPrincipal->consumo_productos_80(); /*Consulta el Modelo productos consumidos 80%*/
+            //$info['consumoProductos60'] = $this->MPrincipal->consumo_productos_60(); /*Consulta el Modelo productos consumidos 60%*/
             $this->load->view('home',$info);
             
         } else {

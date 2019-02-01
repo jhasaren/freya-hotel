@@ -416,9 +416,11 @@ class CCalendar extends CI_Controller {
 
                                 if ($calendarRegistro != FALSE) {
 
-                                    $info['message'] = 'Habitación Reservada Exitosamente.';
+                                    $info['reserva'] = $calendarRegistro;
+                                    $info['message'] = 'Su reserva se ha registrado Exitosamente. Pronto uno de nuestros asesores se comunicara con usted para hacer la confirmación.';
                                     $info['alert'] = 1;
-                                    $this->module($info);
+                                    $this->load->view('calendar/event-finish',$info);
+                                    //$this->module($info);
 
                                 } else {
 
