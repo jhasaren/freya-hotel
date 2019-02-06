@@ -20,30 +20,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- NProgress -->
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    <link href="<?php echo base_url().'public/gentelella/build/css/custom.res.css'; ?>" rel="stylesheet">
     <!-- iCheck -->
     <link href="<?php echo base_url().'public/gentelella/vendors/iCheck/skins/flat/green.css'; ?>" rel="stylesheet">
     
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
 
-  <body class="nav-md">
-    <div class="container body">
+  <body class="nav-md" style="background-color: #afd3e2">
+      <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+<!--        <div class="col-md-3 left_col">
             <?php 
             /*include*/
-            $this->load->view('includes/menu');
+            //$this->load->view('includes/menu');
             ?>
-        </div>
+        </div>-->
 
         <!-- top navigation -->
-        <div class="top_nav">
+<!--        <div class="top_nav">
             <?php 
             /*include*/
-            $this->load->view('includes/top');
+            //$this->load->view('includes/top');
             ?>
-        </div>
+        </div>-->
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Reservas</h3>
+                        <h3 style="color: #FFF;"><?php echo $this->config->item('namebussines'); ?></h3>
                     </div>
 
                     <div class="title_right">
@@ -176,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         
                         <center>
-                            <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-warning btn-lg">
+                            <a href="<?php echo base_url() . 'index.php/CReservas'; ?>" class="btn btn-warning btn-lg">
                                 <i class="glyphicon glyphicon-remove-sign glyphicon-white"></i> Regresar
                             </a>
                         </center>
@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal fade" id="myModal-reserv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-reserv" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/addevent'; ?>" method="post">
+                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CReservas/addevent'; ?>" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                             <h3>Registrar Reserva</h3>
@@ -295,29 +295,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal fade" id="myModal-terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-terms" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_terms" action="<?php echo base_url() . 'index.php/CSale/adduser/cliente'; ?>" method="post">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>Términos y Condiciones</h3>
-                        </div>
-                        <div class="modal-body" style="text-align: justify">
-                            * En caso tal, la reserva se debera cancelar como minimo con 4 horas de anticpación.<br /><br />
-                            
-                            <B>POLITICA DE DATOS</B><br /><br />
-                            Información que nos proporcionas. HOTEL puede pedirte que proporciones información personal cuando solicites un Pedido de un Producto en el Sitio Web. Por ejemplo, solicitamos información personal relacionada con tus datos de identificación (nombres, apellidos, dirección de envió, dirección de correo electrónico, ciudad, departamento, teléfono, identificación y la prescripcion médica de tu formúla expedida por tú optómetra u oftalmólogo).
-                            <br /><br />
-                            Información que obtenemos del uso que haces de nuestros servicios. Recolectamos información relacionada con el servicio que ofrecemos. Entre la información obtenida de esta forma, se incluyen los siguientes datos: la dirección IP y Pais. Corresponde igualmente a información relacionada con tus transacciones a través de HOTEL.
-                            <br /><br />
-                            La información que identifica y particulariza a una persona física o que permite ponerse en contacto con ella, como por ejemplo, el nombre, el teléfono, la dirección, correo electrónico, entre otros, tiene el carácter de personal. Esa información es de propiedad exclusiva de esa persona. La información que se registra de forma tal que no refleja ni hace referencia a una persona física en particular, permitiendo su identificación de forma individual, como por ejemplo la relacionada con la reserva, alojamiento, la adquisición de un determinado bien, servicio o producto, el medio de pago, el banco utilizado, entre otros, no tienen el carácter de información personal.
-                            <br /><br />
-                            Para las finalidades descritas en esta Política, HOTEL puede recolectar, usar, almacenar y proteger tu información personal, entre la que se incluye, la siguiente:
-                            <br /><br />
-                            Información de identificación (por ejemplo, nombre, domicilio, número de teléfono fijo o móvil, dirección de correo electrónico, identificacion, fecha de nacimiento).
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                        </div>
-                    </form>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Términos y Condiciones</h3>
+                    </div>
+                    <div class="modal-body" style="text-align: justify">
+                        * En caso tal, la reserva se debera cancelar como minimo con 4 horas de anticpación.<br /><br />
+
+                        <B>POLITICA DE DATOS</B><br /><br />
+                        Información que nos proporcionas. HOTEL puede pedirte que proporciones información personal cuando solicites un Pedido de un Producto en el Sitio Web. Por ejemplo, solicitamos información personal relacionada con tus datos de identificación (nombres, apellidos, dirección de envió, dirección de correo electrónico, ciudad, departamento, teléfono, identificación y la prescripcion médica de tu formúla expedida por tú optómetra u oftalmólogo).
+                        <br /><br />
+                        Información que obtenemos del uso que haces de nuestros servicios. Recolectamos información relacionada con el servicio que ofrecemos. Entre la información obtenida de esta forma, se incluyen los siguientes datos: la dirección IP y Pais. Corresponde igualmente a información relacionada con tus transacciones a través de HOTEL.
+                        <br /><br />
+                        La información que identifica y particulariza a una persona física o que permite ponerse en contacto con ella, como por ejemplo, el nombre, el teléfono, la dirección, correo electrónico, entre otros, tiene el carácter de personal. Esa información es de propiedad exclusiva de esa persona. La información que se registra de forma tal que no refleja ni hace referencia a una persona física en particular, permitiendo su identificación de forma individual, como por ejemplo la relacionada con la reserva, alojamiento, la adquisición de un determinado bien, servicio o producto, el medio de pago, el banco utilizado, entre otros, no tienen el carácter de información personal.
+                        <br /><br />
+                        Para las finalidades descritas en esta Política, HOTEL puede recolectar, usar, almacenar y proteger tu información personal, entre la que se incluye, la siguiente:
+                        <br /><br />
+                        Información de identificación (por ejemplo, nombre, domicilio, número de teléfono fijo o móvil, dirección de correo electrónico, identificacion, fecha de nacimiento).
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                    </div>
                 </div>
             </div>
         </div>

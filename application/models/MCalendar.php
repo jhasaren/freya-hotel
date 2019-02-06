@@ -506,6 +506,13 @@ class MCalendar extends CI_Model {
      **************************************************************************/
     public function event_process($idevento,$estado) {
         
+        /*Valida si el usuario existe en la sesion*/
+        if ($this->session->userdata('userid') == NULL){
+            $usuarioProceso = 0;
+        } else {
+            $usuarioProceso = $this->session->userdata('userid');
+        }
+            
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
         $query = $this->db->query("UPDATE eventos_habitacion SET idEstadoReserva = ".$estado." WHERE idEvento = ".$idevento."");
@@ -516,7 +523,7 @@ class MCalendar extends CI_Model {
                                 idEstadoReserva) 
                                 VALUES(
                                 ".$idevento.",
-                                ".$this->session->userdata('userid').",
+                                ".$usuarioProceso.",
                                 NOW(),
                                 ".$estado.")");
         $this->db->trans_complete();

@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- NProgress -->
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    <link href="<?php echo base_url().'public/gentelella/build/css/custom.res.css'; ?>" rel="stylesheet">
     
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
@@ -29,22 +29,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </head>
 
   <body class="nav-md">
-    <div class="container body">
+      <div class="container body" style="background: #e7ed3f">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <!--<div class="col-md-3 left_col">-->
             <?php 
             /*include*/
-            $this->load->view('includes/menu');
+            //$this->load->view('includes/menu');
             ?>
-        </div>
+        <!--</div>-->
 
         <!-- top navigation -->
-        <div class="top_nav">
+        <!--<div class="top_nav">-->
             <?php 
             /*include*/
-            $this->load->view('includes/top');
+            //$this->load->view('includes/top');
             ?>
-        </div>
+        <!--</div>-->
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Reservas</h3>
+                        <h3 style="color: #FFF"><?php echo $this->config->item('namebussines'); ?></h3>
                     </div>
 
                     <div class="title_right">
@@ -60,9 +60,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="input-group">
                                 <div></div>
                                 <span class="input-group-btn">
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info" href="<?php echo base_url().'index.php/CCalendar/listevent/sede'; ?>"><i class="glyphicon glyphicon-th"></i> Ver Reservas</a>
-                                    </span>
+<!--                                    <span class="input-group-btn">
+                                        <a class="btn btn-info" href="<?php // echo base_url().'index.php/CCalendar/listevent/sede'; ?>"><i class="glyphicon glyphicon-th"></i> Ver Reservas</a>
+                                    </span>-->
                                 </span>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <form role="form" name="form_entidad" action="<?php echo base_url().'index.php/CCalendar/servicesede'; ?>" method="post">
+                                <form role="form" name="form_entidad" action="<?php echo base_url().'index.php/CReservas/servicesede'; ?>" method="post">
                                     <div class="modal-body">
                                         <label class="control-label" style="color: #000" for="selectSede">HOTEL</label>
                                         <div class="controls">
@@ -135,12 +135,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantkid" name="cantkid" placeholder="Cantidad" min="0" max="10" value="0"  required="">
                                         </fieldset>
                                         <br />
+                                        <center>
+                                            <button type="submit" class="btn btn-success btn-lg">Siguiente
+                                                <i class="glyphicon glyphicon-forward glyphicon-white"></i>
+                                            </button>
+                                        </center>
                                     </div>
-                                    <center>
-                                        <button type="submit" class="btn btn-success btn-lg">Siguiente
-                                            <i class="glyphicon glyphicon-forward glyphicon-white"></i>
-                                        </button>
-                                    </center>
+                                    
                                 </form> 
                             </div>
                         </div>

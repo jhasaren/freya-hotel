@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- NProgress -->
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="<?php echo base_url().'public/gentelella/build/css/custom.min.css'; ?>" rel="stylesheet">
+    <link href="<?php echo base_url().'public/gentelella/build/css/custom.res.css'; ?>" rel="stylesheet">
     
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
@@ -28,23 +28,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="shortcut icon" href="<?php echo base_url().'public/img/favicon.ico'; ?>">
   </head>
 
-  <body class="nav-md">
+  <body class="nav-md" style="background-color: #7fd097">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+<!--        <div class="col-md-3 left_col">
             <?php 
             /*include*/
-            $this->load->view('includes/menu');
+            //$this->load->view('includes/menu');
             ?>
-        </div>
+        </div>-->
 
         <!-- top navigation -->
-        <div class="top_nav">
+<!--        <div class="top_nav">
             <?php 
             /*include*/
-            $this->load->view('includes/top');
+            //$this->load->view('includes/top');
             ?>
-        </div>
+        </div>-->
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Reservas</h3>
+                        <h3 style="color: #FFF;"><?php echo $this->config->item('namebussines'); ?></h3>
                     </div>
 
                     <div class="title_right">
@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     
                                 </div>
                                 <center>
-                                    <a href="<?php echo base_url() . 'index.php/CCalendar'; ?>" class="btn btn-info btn-lg">
+                                    <a href="<?php echo base_url() . 'index.php/CReservas'; ?>" class="btn btn-info btn-lg">
                                         <i class="glyphicon glyphicon-home glyphicon-white"></i> Volver al Inicio
                                     </a>
                                 </center>
