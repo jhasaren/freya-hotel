@@ -363,7 +363,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         echo "<a class='btn-saleitemdel' data-rel='".$row_huesped_in['id']."' data-rel2='5' href='#'><i class='glyphicon glyphicon-remove red'></i></a>";
                                                                     } 
                                                                     ?>
-                                                                    <a class='btn-saledocument' target="e_blank" href='<?php echo base_url().'index.php/CSale/contratohuesped/'.$row_huesped_in['idUsuarioHuesped']."/".$row_huesped_in['descDocumento']."/".$row_huesped_in['nombre']." ".$row_huesped_in['apellido']; ?>'><i class='glyphicon glyphicon-book red'></i></a>
                                                                 </td>
                                                                 
                                                             </tr>
