@@ -368,6 +368,12 @@ $(document).ready(function () {
         e.preventDefault();
         var idReg = $(this).attr('data-rel');
         var nameReg = $(this).attr('data-rel2');
+        var obj = {a: 1, b: 2, c: 3, d: 4, e: 5};
+
+        jQuery.each( obj, function( i, val ) {
+            $( "#imagen" + val ).attr("src","http://localhost/freya-hotel/public/img/habitacion/"+idReg+"/"+idReg+"-"+val+".jpg");
+        });
+        
         $("#name_habitacion").text(nameReg);
         $('#myModal-imghabit').modal('show');
     });

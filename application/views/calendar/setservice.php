@@ -268,28 +268,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal fade" id="myModal-imghabit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-imghabit" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form role="form" name="form_reserv" action="<?php echo base_url() . 'index.php/CCalendar/addevent'; ?>" method="post">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3><span id="name_habitacion" style="font-size: 18px; color: #000"></span></h3>
-                        </div>
-                        <div class="modal-body">
-                            <?php
-                            for ($i = 1; $i <= 5; $i++){
-                                ?>
-                                <picture>
-                                    <img src="<?php echo $this->config->item('path_img_habit'); ?>10/10-1.jpg" class="img-fluid img-thumbnail" alt="...">
-                                </picture>
-                                <?php
-                            }
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3><span id="name_habitacion" style="font-size: 18px; color: #000"></span></h3>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        for ($i = 1; $i <= 5; $i++){
                             ?>
-                            
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                        </div>
-                    </form>
+                            <picture>
+                                <img id="imagen<?php echo $i; ?>" src="" class="img-fluid img-thumbnail" alt="Habitacion">
+                            </picture>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                    </div>
                 </div>
             </div>
         </div>

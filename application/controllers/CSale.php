@@ -502,7 +502,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: restoresale
      * Descripcion: Recupera venta con el detalle para continuar proceso
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 04/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function restoresale($idVenta,$usuario,$porcent,$porcentServ,$idEmpleado,$board) {
         
@@ -543,7 +543,7 @@ class CSale extends CI_Controller {
      * Descripcion: Elimina las variables de sesion creadas para la venta y deja
      * recibo en espera.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 04/02/2019, Ultima modificacion: 
      **************************************************************************/
     public function waitdatasale() {
         
