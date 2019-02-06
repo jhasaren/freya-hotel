@@ -407,7 +407,7 @@ class MSale extends CI_Model {
             $query = $this->db->query("SELECT
                                     idServicio
                                     FROM servicios
-                                    WHERE idServicio = ".$item."
+                                    WHERE idServicio = '".$item."'
                                     AND valorServicio = '".$value."'");
             
         } else {
@@ -418,7 +418,7 @@ class MSale extends CI_Model {
                 $query = $this->db->query("SELECT
                                         idProducto
                                         FROM productos
-                                        WHERE idProducto = ".$item."
+                                        WHERE idProducto = '".$item."'
                                         AND valorProducto = '".$value."'");
                 
             }

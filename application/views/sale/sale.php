@@ -616,7 +616,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 ?>
                                 <label class="control-label" for="select">Escriba parte del nombre y seleccione de la lista</label>
                                 <div class="controls">
-                                    <input class="select2_single form-control" type="text" name="idproducto" id="idservice" value="<?php echo $data_mesa->idTarifa .' | '.$data_mesa->valorProducto." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto; ?>" <?php echo $readonly; ?> required="" />
+                                    <?php
+                                    if ($data_mesa->idTarifa == NULL){
+                                        $valueTarifa = NULL;
+                                    } else {
+                                        $valueTarifa = $data_mesa->idTarifa .' | '.$data_mesa->valorProducto." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto;
+                                    }
+                                    ?>
+                                    
+                                    <input class="select2_single form-control" type="text" name="idproducto" id="idservice" value="<?php echo $valueTarifa; ?>" <?php echo $readonly; ?> required="" />
                                 </div>
                                 <br />
                             </div>
