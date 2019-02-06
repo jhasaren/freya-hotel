@@ -1640,6 +1640,53 @@ class CSale extends CI_Controller {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: contratohuesped
+     * Descripcion: Genera contrato en PDF con los datos del huesped
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 05/02/2019, Ultima modificacion:
+     **************************************************************************/
+    public function contratohuesped($idUsuario,$typeDoc,$nombre) {
+        
+        if ($this->session->userdata('validated')) {
+            
+            if ($this->MRecurso->validaRecurso(9)){
+            
+                ini_set('memory_limit', '256M');
+
+                /*Carga Libreria*/
+                $pdf = $this->pdf->load();
+
+                /*Consulta modelo datos del huesped*/
+                $contratoDetalle['idusuario'] = $idUsuario;
+                $contratoDetalle['tipodoc'] = $typeDoc;
+                $contratoDetalle['nombre'] = $nombre;
+
+                /*Carga la vista para Imprimir en PDF*/
+                $html = $this->load->view('sale/contrato_huesped_pdf',$contratoDetalle, true);
+                $pdf->SetDisplayMode('real');
+
+                /*Escribo el HTML en el PDF*/
+                $pdf->WriteHTML($html);
+
+                /*Genera el documento pdf y lo almacena*/
+                $output = 'contrato_' . $idUsuario . '.pdf';
+                $pdf->Output("./files/contratos/$output", 'I');      
+            
+            } else {
+                
+                show_404();
+                
+            }
+            
+        } else {
+            
+            $this->index();
+            
+        }
+        
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: detallerecibopdf
      * Descripcion: Genera recibo de pago en PDF
      * Autor: jhonalexander90@gmail.com

@@ -122,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <tr style="border-collapse: separate; border-spacing: 10px;">
                                                                     <td>
                                                                         <span style="font-size: 25px; font-weight: bold; color: #000"><?php echo $row_list['nombreMesa']; ?></span>
-                                                                        <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" class="btn-verhabitacion">
+                                                                        <a href="#" data-rel="<?php echo $row_list['idMesa']; ?>" data-rel2="<?php echo $row_list['nombreMesa']; ?>" data-rel3="<?php echo $this->config->item('url_img'); ?>" class="btn-verhabitacion">
                                                                             <span class="label label-primary">Ver Fotos</span>
                                                                         </a>
                                                                         <span style="float: right">

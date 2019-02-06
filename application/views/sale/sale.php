@@ -276,6 +276,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="x_panel" style="background-color: #81a4ba;">
                                             <div class="x_title" style="color: white;">
                                                 <h2>Info. Huésped Principal</h2>
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li>
+                                                        <span class="label label-warning">
+                                                            <a href='<?php echo base_url().'index.php/CSale/contratohuesped/'.$clientInList->idUsuario."/".$clientInList->descDocumento."/".$clientInList->nombre_usuario; ?>' target="e_blank"><span style="color: #000">Imprimir Contrato</span></a>
+                                                        </span>
+                                                    </li>
+                                                </ul>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content" style="color: white;">
@@ -327,7 +334,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title" style="background-color: #89e0e0; color: black;">
-                                                <h2>Huéspedes</h2>
+                                                <h2>Huéspedes Acompañantes</h2>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
@@ -356,6 +363,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         echo "<a class='btn-saleitemdel' data-rel='".$row_huesped_in['id']."' data-rel2='5' href='#'><i class='glyphicon glyphicon-remove red'></i></a>";
                                                                     } 
                                                                     ?>
+                                                                    <a class='btn-saledocument' target="e_blank" href='<?php echo base_url().'index.php/CSale/contratohuesped/'.$row_huesped_in['idUsuarioHuesped']."/".$row_huesped_in['descDocumento']."/".$row_huesped_in['nombre']." ".$row_huesped_in['apellido']; ?>'><i class='glyphicon glyphicon-book red'></i></a>
                                                                 </td>
                                                                 
                                                             </tr>
