@@ -160,7 +160,7 @@ class CBoard extends CI_Controller {
      * Nombre del Metodo: updboard
      * Descripcion: Actualiza una Mesa
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 22/09/2018, Ultima modificacion: 06/02/2019
      **************************************************************************/
     public function updboard(){
         
@@ -180,26 +180,51 @@ class CBoard extends CI_Controller {
                     $estado = $this->input->post('estadoBoard');
                     if ($estado == 'on'){ $valueState = 'S'; } else $valueState = 'N';
                     $idboard = $this->input->post('idboard'); 
+                    $tipoMesa = $this->input->post('tipo');
+                    $capAdulto = $this->input->post('cantAdult');
+                    $capNino = $this->input->post('cantNino');
+                    $caracteristicas = $this->input->post('caracteristicas');
+                    $tarifa = $this->input->post('tarifa');
 
                     if ($this->jasr->validaTipoString($nameBoard,1)){
+                        
+                        if (($this->jasr->validaTipoString($tarifa,2)) || ($tarifa == NULL)){
+                            
+                            if (($this->jasr->validaTipoString($capAdulto,2)) && ($this->jasr->validaTipoString($capNino,2))){
 
-                        /*Envia datos al modelo para la actualizacion del producto*/
-                        $updateData = $this->MBoard->update_board($idboard,$nameBoard,$valueState);
+                                /*Envia datos al modelo para la actualizacion del producto*/
+                                $updateData = $this->MBoard->update_board($idboard,$nameBoard,$valueState,$tipoMesa,$capAdulto,$capNino,$tarifa,$caracteristicas);
 
-                        if ($updateData == TRUE){
+                                if ($updateData == TRUE){
 
-                            $info['message'] = "Mesa #".$idboard." Actualizada Exitosamente";
-                            $info['alert'] = 1;
-                            $this->module($info);
+                                    $info['message'] = "Mesa #".$idboard." Actualizada Exitosamente";
+                                    $info['alert'] = 1;
+                                    $this->module($info);
 
+                                } else {
+
+                                    $info['message'] = 'No fue posible Actualizar la Mesa';
+                                    $info['alert'] = 2;
+                                    $this->module($info);
+
+                                }
+
+                            } else {
+                                
+                                $info['message'] = 'No fue posible actualizar la Mesa. La capacidad no es valida.';
+                                $info['alert'] = 2;
+                                $this->module($info);
+                                
+                            }
+                            
                         } else {
-
-                            $info['message'] = 'No fue posible Actualizar la Mesa';
+                            
+                            $info['message'] = 'No fue posible actualizar la Mesa. ID Tarifa no valido.';
                             $info['alert'] = 2;
                             $this->module($info);
-
+                            
                         }
-
+                        
                     } else {
 
                         $info['message'] = 'No fue posible actualizar la Mesa. Nombre incorrecto.';

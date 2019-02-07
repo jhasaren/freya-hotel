@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -113,20 +113,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="nameboard" name="nameboard" placeholder="Nombre de la Habitacion" value="<?php echo $data_board->nombreMesa; ?>" required="">
                                         </div>
                                         <div class="form-group">
-                                            <label for="GrupoServicio">Tipo</label>
-                                            <input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $data_board->descTipoMesa; ?>" disabled="">
+                                            <label for="GrupoServicio">Tipo de Habitación</label>
+                                            <select class="form-control" name="tipo">
+                                                <?php
+                                                foreach ($type_board as $row) {
+                                                    if ($data_board->idTipoMesa == $row['idTipoMesa']){
+                                                        $selectedItem = "selected";
+                                                    } else $selectedItem = "";
+                                                    ?>
+                                                    <option value="<?php echo $row['idTipoMesa']; ?>" <?php echo $selectedItem; ?> ><?php echo $row['descTipoMesa']; ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
-                                            <?php
-                                            if ($data_board->activo == 'S') {
-                                                $check = 'checked';
-                                            } else {
-                                                $check = '';
-                                            }
-                                            ?>
-                                            <label>
-                                                Activo
-                                              <input type="checkbox" class="flat" name="estadoBoard" <?php echo $check; ?> >
-                                            </label>
+                                        <div class="form-group">
+                                            <label for="CantidadAdultos">Capacidad</label>
+                                            <input type="text" class="form-control" id="cantAdult" name="cantAdult" placeholder="Adultos" value="<?php echo $data_board->cantAdulto; ?>" required="">
+                                            <input type="text" class="form-control" id="cantNino" name="cantNino" placeholder="Niños" value="<?php echo $data_board->cantNino; ?>" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Caracteristicas">Características</label>
+                                            <input type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" id="caracteristicas" name="caracteristicas" placeholder="Descripción Habitación" maxlength="85" value="<?php echo $data_board->caracteristicas; ?>" required="" style="height: 60px;" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tarifa">ID Tarifa</label>
+                                            <input type="text" class="form-control" id="tarifa" name="tarifa" placeholder="Tarifa de alojamiento" value="<?php echo $data_board->idTarifa; ?>" >
+                                        </div>
+                                        <?php
+                                        if ($data_board->activo == 'S') {
+                                            $check = 'checked';
+                                        } else {
+                                            $check = '';
+                                        }
+                                        ?>
+                                        <label>
+                                            Activo
+                                          <input type="checkbox" class="flat" name="estadoBoard" <?php echo $check; ?> >
+                                        </label>
                                         <input type="hidden" class="form-control" id="idboard" name="idboard" value="<?php echo $id; ?>" >
                                     </div>
                                     <div class="modal-footer">

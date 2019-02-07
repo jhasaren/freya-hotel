@@ -69,7 +69,7 @@ class MBoard extends CI_Model {
      * Nombre del Metodo: get_board
      * Descripcion: Obtiene una mesa creada
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 22/09/2018, Ultima modificacion: 06/02/2019
      **************************************************************************/
     public function get_board($idboard) {
         
@@ -78,7 +78,12 @@ class MBoard extends CI_Model {
                                 m.idMesa,
                                 m.nombreMesa,
                                 m.activo,
-                                t.descTipoMesa
+                                m.idTipoMesa,
+                                t.descTipoMesa,
+                                m.caracteristicas,
+                                m.cantAdulto,
+                                m.cantNino,
+                                m.idTarifa
                                 FROM mesas m
                                 JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
                                 WHERE
@@ -180,19 +185,40 @@ class MBoard extends CI_Model {
      * Nombre del Metodo: update_board
      * Descripcion: Actualiza una mesa en BD
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 22/09/2018, Ultima modificacion: 06/02/2019
      **************************************************************************/
-    public function update_board($idboard,$name,$valueState) {
+    public function update_board($idboard,$name,$valueState,$tipoMesa,$capAdulto,$capNino,$tarifa,$caracteristicas) {
                     
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
-        $query1 = $this->db->query("UPDATE
-                                    mesas SET
-                                    nombreMesa = '".$name."',
-                                    activo = '".$valueState."'
-                                    WHERE
-                                    idMesa = ".$idboard."");
-
+        if ($tarifa == NULL){
+            
+            $query1 = $this->db->query("UPDATE
+                                        mesas SET
+                                        nombreMesa = '".$name."',
+                                        activo = '".$valueState."',
+                                        idTipoMesa = ".$tipoMesa.",
+                                        cantAdulto = ".$capAdulto.",
+                                        cantNino = ".$capNino.",
+                                        caracteristicas = '".$caracteristicas."',
+                                        idTarifa = NULL
+                                        WHERE
+                                        idMesa = ".$idboard."");
+        } else {
+            
+            $query1 = $this->db->query("UPDATE
+                                        mesas SET
+                                        nombreMesa = '".$name."',
+                                        activo = '".$valueState."',
+                                        idTipoMesa = ".$tipoMesa.",
+                                        cantAdulto = ".$capAdulto.",
+                                        cantNino = ".$capNino.",
+                                        caracteristicas = '".$caracteristicas."',
+                                        idTarifa = ".$tarifa."
+                                        WHERE
+                                        idMesa = ".$idboard."");
+            
+        }
         $this->db->trans_complete();
         $this->db->trans_off();
 

@@ -425,11 +425,13 @@ class CPrincipal extends CI_Controller {
                         if ($module == 'board'){
 
                             /*Consulta el modelo*/
+                            $typeBoard = $this->MBoard->list_type_board();
                             $dataBoard = $this->MBoard->get_board($value);
 
                             if ($dataBoard != FALSE){
 
                                 $info['id'] = $value;
+                                $info['type_board'] = $typeBoard;
                                 $info['data_board'] = $dataBoard;
                                 $this->load->view('boards/boardget',$info);
 
