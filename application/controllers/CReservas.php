@@ -23,6 +23,7 @@ class CReservas extends CI_Controller {
         $this->load->model('MService'); /*Modelo para los Servicios*/
         $this->load->model('MSale'); /*Modelo para los Clientes*/
         $this->load->model('MUser'); /*Modelo para la Sede*/
+        $this->load->file('application/libraries/class.phpmailer.php'); /*Libreria para el envio de Email*/
         
         date_default_timezone_set('America/Bogota'); /*Zona horaria*/
 
@@ -188,12 +189,30 @@ class CReservas extends CI_Controller {
 
                         if ($calendarRegistro != FALSE) {
 
-                            $info['reserva'] = $calendarRegistro;
-                            $info['message'] = 'Su reserva se ha registrado Exitosamente. Pronto uno de nuestros asesores se comunicara con usted para hacer la confirmación.';
-                            $info['alert'] = 1;
-                            $this->load->view('reservas/event-finish',$info);
-                            //$this->module($info);
-
+                            $mail = $this->notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro);
+                            
+                            if ($mail){
+                                
+                                log_message("DEBUG", "****************************");
+                                log_message("DEBUG", "Se envio correo exitosamente");
+                                log_message("DEBUG", "****************************");
+                                $info['reserva'] = $calendarRegistro;
+                                $info['message'] = 'Su reserva se ha registrado Exitosamente. Pronto uno de nuestros asesores se comunicara con usted para hacer la confirmación.';
+                                $info['alert'] = 1;
+                                $this->load->view('reservas/event-finish',$info);
+                                
+                            } else {
+                                
+                                log_message("ERROR", "****************************");
+                                log_message("ERROR", "No se pudo enviar correo electronico");
+                                log_message("ERROR", "****************************");
+                                $info['reserva'] = $calendarRegistro;
+                                $info['message'] = 'Su reserva se ha registrado Exitosamente. Pronto uno de nuestros asesores se comunicara con usted para hacer la confirmación.';
+                                $info['alert'] = 1;
+                                $this->load->view('reservas/event-finish',$info);
+                                
+                            }
+                            
                         } else {
 
                             $info['message'] = 'No fue posible reservar la Habitación. Verifique la disponibilidad nuevamente.';
@@ -230,5 +249,73 @@ class CReservas extends CI_Controller {
         
     }
     
+    
+    /**************************************************************************
+     * Nombre del Metodo: notificamail
+     * Descripcion: Permite enviar correo electronico
+     * Autor: jhonalexander90@gmai.xom
+     * Fecha Creacion: 07/02/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro) {
+        
+        /*Notifica al correo electronico*/
+        $notificationMail = new PHPMailer();
+        //Propiedades del mensaje       
+        $notificationMail->IsSMTP();
+        $notificationMail->SMTPAuth   = true;
+        $notificationMail->SMTPSecure = "tls";
+        $notificationMail->Port       = 587;
+        $notificationMail->Host       = 'mx1.hostinger.co';
+        $notificationMail->Username   = "compras@tiendavitreo.com";	
+        $notificationMail->Password   = "vitreotienda";
+        $notificationMail->SMTPDebug  = 1;
+        $notificationMail->From       = "compras@tiendavitreo.com";
+        $notificationMail->FromName   = "Freya Hotel";
+        //$mail->SetFrom('infomultas@consorciopst.com', 'Info Multas');
+        $notificationMail->AddAddress($email);
+                    
+        $notificationMail->Subject  = "Reserva Realizada [#".$calendarRegistro."]";
+        //Cuerpo del mensaje
+        $body = " <html>"
+                . "<body>"
+                . "<p style='font-family: Lucida Console; color: #000;'>"
+                . "Hola, Es un gusto saber que pronto podrás disfrutar de esta maravillosa experiencia. Estas son algunas de las 
+                   recomendaciones para que la pases excelente: 1- Recuerda que estarás en una zona de reserva natural, con diversidad 
+                   de aves y clima 2- Te vas a encontrar con un clima fresco en el día y frío en la noche, ven preparado 3- Desconéctate 
+                   de la rutina y conéctate con la naturaleza 4- Prepárate para liberarte del stress del día a día y recargar 
+                   baterías para lo que viene 5- Lo mas importante disfruta de la experiencia ¡Tu reserva fue exitosa!<br /><br />"
+                . "<B>Detalles de tú Reserva</B><br /><br />"
+                . "Huésped(es): ".$nombres." ".$apellidos."<br />
+                    #Reserva: ".$calendarRegistro."<br />
+                    Entrada: ".$periodo_desde."<br />
+                    Salida: ".$periodo_hasta."<br />
+                    Número de noches: ".$nochesReserva."<br />
+                    Huéspedes: Adultos: ".$countAdult.", Niños: ".$countNino."<br /><br />"
+                . "El check in es a las ".$this->config->item('checkin')." y el check out a las ".$this->config->item('checkout').". Estamos ubicados en La Tulia a 15 minutos del municipio de "
+                . "Roldanillo-Valle, te podemos enviar ubicación exacta antes de tu estadía. Puedes disfrutar de servicio adicional "
+                . "de restaurante, vinos, cocteles, ademas puedes rentar caballos y practicar parapente. "
+                . "Pronto uno de nuestros asesores te contactara para hacer la confirmación, debes hacer la consignación de tu reserva en las siguientes 48 horas del registro para evitar cancelación. Bancolombia Alexis "
+                . "Mendoza -Cuenta de ahorro 30100274134- <B>POR FAVOR ENVIAR COPIA DE CONSIGNACION AL EMAIL O WHATSAPP CON NOMBRE Y NUMERO "
+                . "DE RESERVA</B>. Tenemos servicio de datafono en el lugar. Gracias por tu reserva.<br />"
+                . "</p>"
+                . "</body>"
+                . "</html>";
+        
+        $notificationMail->Body = $body;
+        $notificationMail->IsHTML(true);
+        $notificationMail->CharSet = 'UTF-8';
+
+        //enviar el correo
+        if (($notificationMail->Send()) == TRUE){
+
+            return TRUE;
+
+        } else {
+
+            return FALSE;
+
+        }
+        
+    }    
     
 }
