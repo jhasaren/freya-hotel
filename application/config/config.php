@@ -521,7 +521,7 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Nombre del Restaurante
+| Nombre del Hotel
 |--------------------------------------------------------------------------
 */
 $config['namebussines'] = "Freya Hotel";
@@ -555,7 +555,7 @@ $config['procen_servicio'] = 0;
 
 /*
 |--------------------------------------------------------------------------
-| Parametros IMPOCONSUMO
+| Parametros IMPUESTO
 | porcen_consumo -> Porcentaje de Cobro por Impuesto al Consumo (default)
 | impo_add_factura -> mostrar valor del impuesto en la factura (0-no, 1-si)
 |--------------------------------------------------------------------------

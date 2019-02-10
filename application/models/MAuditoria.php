@@ -3,7 +3,7 @@
 * Nombre de la Clase: MAuditoria
 * Descripcion: Es el Modelo para las interacciones en BD del modulo Auditoria
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 26/09/2018
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
@@ -22,7 +22,7 @@ class MAuditoria extends CI_Model {
      * Nombre del Metodo: db_user_audit
      * Descripcion: Selecciona el usuario de conexion a base de datos
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 24/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      * IMPORTANTE: el usuario debe existir en BD
      **************************************************************************/
     public function db_user_audit($username) {
