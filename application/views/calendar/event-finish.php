@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <br />
                                     <div class="well well-sm" style="text-align: center; font-size: 15px; color: #000">
                                         <?php echo $message; ?><br />
-                                        Hemos enviado toda la infomación de la reserva a su Correo Electrónico.<br /><br />
+                                        <br />
                                         Muchas Gracias!!
                                     </div>
                                     

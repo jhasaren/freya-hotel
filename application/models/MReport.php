@@ -435,7 +435,7 @@ class MReport extends CI_Model {
      **************************************************************************/
     public function estado_pyg($fechaIni,$fechaFin, $sede) {
         
-        $queryServicios = $this->db->query("SELECT
+        /*$queryServicios = $this->db->query("SELECT
                                         vd.idServicio,
                                         sum(vd.valor) as valorLiquida
                                         FROM venta_maestro m
@@ -445,9 +445,24 @@ class MReport extends CI_Model {
                                         AND m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
                                         AND m.idSede = ".$sede."
                                         AND vd.idServicio IS NOT NULL
-                                        group by vd.idServicio");
+                                        group by vd.idServicio");*/
         
-        $queryProductos = $this->db->query("SELECT
+        /*productos tipo INTERNOS*/
+        $queryServicios = $this->db->query("SELECT
+                                        vd.idProducto,
+                                        sum(vd.valor) as valorLiquida
+                                        FROM venta_maestro m
+                                        JOIN venta_detalle vd ON vd.idVenta = m.idVenta
+                                        JOIN productos p ON p.idProducto = vd.idProducto
+                                        WHERE
+                                        m.idEstadoRecibo = 5
+                                        AND m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                        AND m.idSede = ".$sede."
+                                        AND vd.idProducto IS NOT NULL
+                                        AND p.idTipoProducto = 1
+                                        group by vd.idProducto");
+        
+        /*$queryProductos = $this->db->query("SELECT
                                         vd.idProducto,
                                         sum(vd.valor) as valorLiquida
                                         FROM venta_maestro m
@@ -457,6 +472,21 @@ class MReport extends CI_Model {
                                         AND m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
                                         AND m.idSede = ".$sede."
                                         AND vd.idProducto IS NOT NULL
+                                        group by vd.idProducto");*/
+        
+        /*productos tipo PARA VENTA*/
+        $queryProductos = $this->db->query("SELECT
+                                        vd.idProducto,
+                                        sum(vd.valor) as valorLiquida
+                                        FROM venta_maestro m
+                                        JOIN venta_detalle vd ON vd.idVenta = m.idVenta
+                                        JOIN productos p ON p.idProducto = vd.idProducto
+                                        WHERE
+                                        m.idEstadoRecibo = 5
+                                        AND m.fechaPideCuenta BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                        AND m.idSede = ".$sede."
+                                        AND vd.idProducto IS NOT NULL
+                                        AND p.idTipoProducto = 2
                                         group by vd.idProducto");
         
         $queryAdicionales = $this->db->query("SELECT

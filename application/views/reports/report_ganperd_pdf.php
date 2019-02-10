@@ -140,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td class="header" colspan="12">Ingresos Operativos</td>
                                   </tr>
                                   <tr>
-                                    <td class="describe" colspan="8">Ventas de Platos Fuertes</td>
+                                    <td class="describe" colspan="8">Ventas de Alojamiento</td>
                                     <td class="valores" colspan="4"><?php echo "$".number_format($valorServicios-$valorDescuento,0,',','.'); ?></td>
                                   </tr>
                                   <tr>

@@ -697,7 +697,7 @@ class CReport extends CI_Controller {
                 $dataPYGSede['fechaFin'] = $fechafin;
                 
                 /*Calcula Impuesto de Renta*/
-                $valorRenta = $this->calculaimptorenta($fechaini,$fechafin,$sede);
+                //$valorRenta = $this->calculaimptorenta($fechaini,$fechafin,$sede);
                 $dataPYGSede['valorRenta'] = $valorRenta;
                 
                 if ($dataPYGSede == TRUE){
@@ -731,7 +731,7 @@ class CReport extends CI_Controller {
 
                     $dataPYGSede['dataRow'] = 2;
                     $dataPYGSede['alert'] = 1;
-                    $dataPYGSede['message'] = "No existen Servicios registrados en el periodo seleccionado.";
+                    $dataPYGSede['message'] = "No existen recibos registrados en el periodo seleccionado.";
                     $this->load->view('reports/report_ganperd',$dataPYGSede);
 
                 }
