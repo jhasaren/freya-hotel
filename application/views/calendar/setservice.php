@@ -232,6 +232,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="hidden" class="form-control" id="hasta" name="hasta">
                             <input type="hidden" class="form-control" id="adultos" name="adultos" value="<?php echo $adultoCount; ?>" >
                             <input type="hidden" class="form-control" id="ninos" name="ninos" value="<?php echo $ninoCount; ?>">
+                            <input type="hidden" class="form-control" id="totalHuespedCobro" name="totalHuespedCobro" value="<?php echo $totalHuespedCobro; ?>" >
                             
                             <div class="alert alert-success" role="alert">
                                 <B>Habitacion:</B> <span id="texto_habitacion" style="font-size: 18px; color: #000"></span><br />                  
@@ -241,10 +242,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <B>Hasta:</B> <span id="texto_hasta" style="font-size: 18px; color: #000"></span><br />
                                 <B>Adultos:</B> <span id="texto_adulto" style="font-size: 18px; color: #000"><?php echo $adultoCount; ?></span> 
                                 <B>Niños:</B> <span id="texto_nino" style="font-size: 18px; color: #000"><?php echo $ninoCount; ?></span>
+                                <B>Huéspedes con Tárifa:</B> <span id="texto_nino" style="font-size: 18px; color: #000"><?php echo $totalHuespedCobro; ?></span>
                             </div>
                             
                             <label>
-                                <input type="checkbox" class="flat" name="huesped_principal" required="">
+                                <input type="checkbox" class="flat" name="huesped_principal" required="" checked="">
                                 Acepto Términos y Condiciones 
                                 <a href="#" class="btn-terms" style="color: #38b393">
                                     [LEER]

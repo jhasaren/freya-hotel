@@ -133,6 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <label class="control-label" style="color: #000" for="selectSede">NIÑOS</label>
                                         <fieldset>
                                             <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantkid" name="cantkid" placeholder="Cantidad" min="0" max="10" value="0"  required="">
+                                            <span id="edadnino"></span>
                                         </fieldset>
                                         <br />
                                     </div>

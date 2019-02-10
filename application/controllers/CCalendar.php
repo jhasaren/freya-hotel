@@ -122,8 +122,34 @@ class CCalendar extends CI_Controller {
                     $diff = strtotime($checkout) - strtotime($checkin);
                     $days = floor($diff / (60*60*24) );
                     
+                    /*****************************************************************/
+                    /*Calcular tarifa basado en la cantidad de huespedes adultos*/
+                    /*****************************************************************/
+                    if ($this->config->item('tarifa_huespedes') == 1){
+
+                        /*evaluacion de edad en niños para generar cobro de huesped adulto*/
+                        if ($ninoCount != 0){
+                            $adultCantAdc = 0;
+                            for ($i = 1; $i <= $ninoCount; $i++){
+
+                                $edadNino = $this->input->post('edadn'.$i);
+
+                                if ($edadNino > $this->config->item('edad_perm_nino')){
+
+                                    $adultCantAdc = $adultCantAdc + 1;
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                    $adultosCountTotal = $adultosCount + $adultCantAdc;
+                    /*****************************************************************/
+                    
                     /*Recupera habitaciones activas en la sede con la capacidad*/
-                    $habitaciones = $this->MCalendar->list_board_calendar($adultosCount,$ninoCount,$sede);
+                    $habitaciones = $this->MCalendar->list_board_calendar($adultosCount,$ninoCount,$sede,$adultosCountTotal);
                     
                     if ($habitaciones != FALSE){
                         
@@ -136,6 +162,7 @@ class CCalendar extends CI_Controller {
                             $info['nombreSede'] = $nombreSede;
                             $info['adultoCount'] = $adultosCount;
                             $info['ninoCount'] = $ninoCount;
+                            $info['totalHuespedCobro'] = $adultosCountTotal;
                             $info['periodo_desde'] = $checkin;
                             $info['periodo_hasta'] = $checkout;
                             $info['cantidadNoches'] = $days;
@@ -223,6 +250,7 @@ class CCalendar extends CI_Controller {
                     $empleado = $this->session->userdata('userid');
                     $countAdult = $this->input->post('adultos');
                     $countNino = $this->input->post('ninos');
+                    $totalHuespedCobro = $this->input->post('totalHuespedCobro');
                     
                     if ($this->jasr->validaTipoString($nombres,1) && $this->jasr->validaTipoString($apellidos,1)){
                         
@@ -231,7 +259,7 @@ class CCalendar extends CI_Controller {
                             if ($this->jasr->validaTipoString($email,6)){
                                 
                                 /*Envia al Modelo para registrar la reserva*/
-                                $calendarRegistro = $this->MCalendar->add_event($idHabitacion,$typeDoc,$identificacion,$nombres,$apellidos,$telefono,$email,$nochesReserva,$valorTotalReserva,$periodo_desde,$periodo_hasta,$empleado,$sede,$countAdult,$countNino);
+                                $calendarRegistro = $this->MCalendar->add_event($idHabitacion,$typeDoc,$identificacion,$nombres,$apellidos,$telefono,$email,$nochesReserva,$valorTotalReserva,$periodo_desde,$periodo_hasta,$empleado,$sede,$countAdult,$countNino,$totalHuespedCobro);
 
                                 if ($calendarRegistro != FALSE) {
 
