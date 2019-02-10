@@ -306,7 +306,7 @@ class CReservas extends CI_Controller {
         //Cuerpo del mensaje
         $body = " <html>"
                 . "<body>"
-                . "<p style='font-family: Lucida Console; color: #000;'>"
+                . "<p style='font-family: Verdana; color: #000;'>"
                 . "Hola, Es un gusto saber que pronto podrás disfrutar de esta maravillosa experiencia. Estas son algunas de las 
                    recomendaciones para que la pases excelente: 1- Recuerda que estarás en una zona de reserva natural, con diversidad 
                    de aves y clima 2- Te vas a encontrar con un clima fresco en el día y frío en la noche, ven preparado 3- Desconéctate 
