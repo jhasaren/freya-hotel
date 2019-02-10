@@ -16,7 +16,7 @@ class CSale extends CI_Controller {
         
         parent::__construct(); /*por defecto*/
         $this->load->helper('url'); /*Carga la url base por defecto*/
-        $this->load->helper('Mike42_helper'); /*Lib Mike42 Impresion Tickets*/
+        //$this->load->helper('Mike42_helper'); /*Lib Mike42 Impresion Tickets*/
         $this->load->library('jasr'); /*Funciones Externas de Apoyo*/
         $this->load->library('pdf'); /*Libreria mPDF*/
         

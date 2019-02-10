@@ -194,6 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="clearfix"></div>
                                             </div>
 
+                                            <!--*************************************************-->
                                             <!--Ticket informacion-->
                                             <div id="ticketPrint" class="x_content">
                                                 <center style="font-size: 12px;">
@@ -203,13 +204,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php echo "Nro. Factura ".$detalleRecibo['general']->nroRecibo; ?>
                                                 </center>
                                                 <br />
-                                                <table style="width: 100%">
+                                                <!--<table style="width: 100%">
                                                     <tr>
                                                         <td align="center" style="font-size: 20px; font-weight:bold;">
-                                                            TURNO <?php echo $turno; ?>
+                                                            TURNO <?php //echo $turno; ?>
                                                         </td>
                                                     </tr>                               
-                                                </table>
+                                                </table>-->
                                                 <table style="width: 100%">
                                                     <?php
                                                     /*Servicios*/
@@ -251,7 +252,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <td align="right">$<?php echo number_format($detalleRecibo['general']->valorTotalVenta,0,',','.'); ?></td>
                                                     </tr>   
                                                     <tr style="font-size: 12px;">
-                                                        <td align="left">Descuento(<?php echo ($detalleRecibo['general']->porcenDescuento*100); ?>%):</td>
+                                                        <td align="left">Descuento Alojamiento(<?php echo ($detalleRecibo['general']->porcenDescuento*100); ?>%):</td>
                                                         <td align="right">-$<?php echo number_format(($detalleRecibo['general']->valorTotalVenta-$detalleRecibo['general']->valorLiquida),0,',','.'); ?></td>
                                                     </tr>
                                                     <tr style="font-size: 12px; font-weight:bold;">
@@ -284,18 +285,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </center>
                                             </div>
                                             <!--Fin Ticket informacion-->
+                                             <!--*************************************************-->
 
                                             <!--Impresion por libreria mike32-->
                                             <!--<a href="<?php //echo base_url().'index.php/CSale/imprimeticket/'.$detalleRecibo."/0"; ?>" class="btn btn-primary btn-lg">
                                                 <i class="glyphicon glyphicon-time glyphicon-white"></i> 
                                                 Imprimir Ticket
                                             </a>-->
-                                            <button type="submit" class="btn btn-success btn-lg">
+                                            <!--<button type="submit" class="btn btn-success btn-lg">
                                                 <i class="glyphicon glyphicon-check glyphicon-white"></i>
                                                 Imprimir Ticket
-                                            </button>
+                                            </button>-->
                                             <!--Impresion por navegador-->
-                                            <!--<input id="btnprint" class="btn btn-success btn-lg" type="button" value="Imprimir Ticket" onclick="PrintElem('#ticketPrint')" />-->
+                                            <input id="btnprint" class="btn btn-success btn-lg" type="button" value="Imprimir Ticket" onclick="PrintElem('#ticketPrint')" />
                                             </center>
                                         </form>
                                     </div>
