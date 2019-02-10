@@ -1,7 +1,7 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CReservas
-* Version: 1.0
+* Version: 1.0.0
 * Descripcion: Es el controlador para gestionar el Modulo de reservas publico
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
@@ -65,7 +65,8 @@ class CReservas extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: module
-     * Descripcion: Redirecciona respuesta al usuario
+     * Descripcion: Permite listar habitaciones disponibles segun los datos 
+     * ingresados por el cliente para la reserva
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 06/02/2019, Ultima modificacion: 
      **************************************************************************/
@@ -280,7 +281,7 @@ class CReservas extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: notificamail
-     * Descripcion: Permite enviar correo electronico
+     * Descripcion: Permite enviar correo electronico con info de reserva
      * Autor: jhonalexander90@gmai.xom
      * Fecha Creacion: 07/02/2019, Ultima modificacion: 
      **************************************************************************/

@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CCalendar
-* Version: 1.0
-* Descripcion: Es el controlador para gestionar el Modulo de Agedas
+* Version: 1.0.0
+* Descripcion: Es el controlador para gestionar el Modulo de Agendas y reservas
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 09/04/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -38,7 +38,7 @@ class CCalendar extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -58,7 +58,7 @@ class CCalendar extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -88,9 +88,10 @@ class CCalendar extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: module
-     * Descripcion: Redirecciona respuesta al usuario
+     * Descripcion: Permite listar habitaciones disponibles segun los datos 
+     * inresados por el cliente para la reserva
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function servicesede() {
         
@@ -321,7 +322,7 @@ class CCalendar extends CI_Controller {
      * Nombre del Metodo: listevent
      * Descripcion: Lista las citas reservadas
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 20/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function listevent($typeUser) {
         
@@ -545,7 +546,7 @@ class CCalendar extends CI_Controller {
      * Nombre del Metodo: eventconsulta
      * Descripcion: Consulta los datos de un evento
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 29/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function eventconsulta($idEvento) {
         

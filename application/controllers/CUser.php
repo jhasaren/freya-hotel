@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CUser
-* Version: 1.0
+* Version: 1.0.0
 * Descripcion: Es el controlador para el Modulo de Usuarios
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 29/03/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -35,7 +35,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -55,7 +55,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 29/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -99,7 +99,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: adduser
      * Descripcion: Crear Usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 24/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function adduser($tipo){
         
@@ -297,7 +297,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: upduser
      * Descripcion: Actualizar Usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function upduser(){
         
@@ -418,7 +418,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: calendarempleado
      * Descripcion: Obtiene el calendario de atencion del empleado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 15/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function calendarempleado($idUsuario){
         
@@ -452,7 +452,7 @@ class CUser extends CI_Controller {
      * Nombre del Metodo: updhorario
      * Descripcion: Guarda el horario laboral del empleado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 18/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function updhorario(){
         

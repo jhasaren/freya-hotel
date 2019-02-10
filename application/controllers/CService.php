@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CService
-* Version: 1.0
+* Version: 1.0.0
 * Descripcion: Es el controlador para el Modulo de Servicios
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 29/03/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -36,7 +36,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -56,7 +56,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -98,7 +98,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: addservice
      * Descripcion: Crear Servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 23/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addservice(){
         
@@ -189,7 +189,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: updservice
      * Descripcion: Actualizar un Servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function updservice(){
         
@@ -282,7 +282,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: empleadoservicio
      * Descripcion: Obtiene los empleados que atienden dicho servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function empleadoservicio($idServicio) {
         
@@ -340,7 +340,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: asignaempleado
      * Descripcion: Registra los empleados que atienden dicho servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function asignaempleado() {
         
@@ -408,7 +408,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: productoservicio
      * Descripcion: Obtiene los productos que hacen parte de dicho servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function productoservicio($idServicio) {
         
@@ -466,7 +466,7 @@ class CService extends CI_Controller {
      * Nombre del Metodo: asignaproducto
      * Descripcion: Registra los productos que hacen parte del servicio
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 04/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function asignaproducto() {
         

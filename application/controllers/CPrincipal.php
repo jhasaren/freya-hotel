@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CPrincipal
-* Version: 1.0
+* Version: 1.0.0
 * Descripcion: Es el controlador principal el cual carga por default al iniciar
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 21/03/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -42,7 +42,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: index (por defecto CodeIgniter)
      * Descripcion: Carga la vista de login cuando se inicia sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 01/02/2019, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -71,7 +71,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Devuelve al usuario al home con mensaje de notificacion.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 20/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -119,7 +119,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: login
      * Descripcion: valida el Inicio de Sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function login(){
 
@@ -210,7 +210,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: changepass
      * Descripcion: Cambiar contraseña usuario logueado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 20/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function changepass(){
         
@@ -293,7 +293,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: logout
      * Descripcion: Cerrar de Sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function logout() {
 
@@ -326,7 +326,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: dataedit
      * Descripcion: Editar registro
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function dataedit($module,$value) {
 
@@ -457,7 +457,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: backup
      * Descripcion: Genera Backup de la Base de datos.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 24/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function backup() {
         
@@ -502,7 +502,7 @@ class CPrincipal extends CI_Controller {
      * Nombre del Metodo: optimize
      * Descripcion: Optimiza la Base de Datos
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 24/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function optimize() {
         

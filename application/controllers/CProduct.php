@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CProduct
-* Version: 1.0.1
+* Version: 1.0.0
 * Descripcion: Es el controlador para gestionar el Modulo de Productos
-* en el sistema.
+* en el sistema (tarifas)
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 27/03/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -36,7 +36,7 @@ class CProduct extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -56,7 +56,7 @@ class CProduct extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 21/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -97,7 +97,7 @@ class CProduct extends CI_Controller {
      * Nombre del Metodo: stock
      * Descripcion: Carga el stock de productos
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function stock() {
         
@@ -127,9 +127,9 @@ class CProduct extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: addproduct
-     * Descripcion: Crear Producto
+     * Descripcion: Crear Producto (tarifa)
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addproduct(){
         
@@ -221,9 +221,9 @@ class CProduct extends CI_Controller {
     
     /**************************************************************************
      * Nombre del Metodo: updproduct
-     * Descripcion: Actualiza un Producto
+     * Descripcion: Actualiza un Producto (tarifa)
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function updproduct(){
         

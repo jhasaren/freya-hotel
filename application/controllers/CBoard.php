@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CBoard
-* Version: 1.2.0
-* Descripcion: Es el controlador para gestionar el Modulo de Gestion Habitación
+* Version: 1.0.0
+* Descripcion: Es el controlador para gestionar el Modulo de Gestion Habitacines
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 22/09/2018
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -35,7 +35,7 @@ class CBoard extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -55,7 +55,7 @@ class CBoard extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -90,7 +90,7 @@ class CBoard extends CI_Controller {
      * Nombre del Metodo: addboard
      * Descripcion: Crear Habitación
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addboard(){
         
@@ -160,7 +160,7 @@ class CBoard extends CI_Controller {
      * Nombre del Metodo: updboard
      * Descripcion: Actualiza una Mesa
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 06/02/2019
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 06/02/2019
      **************************************************************************/
     public function updboard(){
         

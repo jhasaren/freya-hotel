@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CReceipt
-* Version: 1.0
+* Version: 1.0.0
 * Descripcion: Es el controlador para gestionar el Modulo de Recibos
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 07/04/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -36,7 +36,7 @@ class CReceipt extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 07/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -56,7 +56,7 @@ class CReceipt extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 07/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -88,7 +88,7 @@ class CReceipt extends CI_Controller {
      * Nombre del Metodo: createrange
      * Descripcion: Crear nuevo rango de recibos para la facturacion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 07/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function createrange(){
         

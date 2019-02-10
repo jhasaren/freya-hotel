@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CSale
-* Version: 1.0 
+* Version: 1.0.0
 * Descripcion: Es el controlador para el Modulo de ventas
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 26/03/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -42,7 +42,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -62,7 +62,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($info) {
         
@@ -130,7 +130,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: createsale
      * Descripcion: crea la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 10/02/2019
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function createsale($board,$flagBoard,$reserva) {
         
@@ -195,7 +195,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: boards
      * Descripcion: visualiza el estado de las habitaciones
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 22/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function boards($type) {
         
@@ -253,7 +253,7 @@ class CSale extends CI_Controller {
      * Descripcion: lista los recibos liquidados pendientes de pago colocados en
      * espera
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 05/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function pendientespago() {
         
@@ -284,7 +284,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: liquidasale
      * Descripcion: Liquida la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 01/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function liquidasale() {
         
@@ -426,8 +426,8 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: deletedetailsale
      * Descripcion: Elimina un concepto del detalle de venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, 
-     * Ultima modificacion: 27/09/2018 eliminacion con clave admin y motivos
+     * Fecha Creacion: 18/01/2019, 
+     * Ultima modificacion: 22/01/2019 eliminacion con clave admin y motivos
      **************************************************************************/
     public function deletedetailsale() {
         
@@ -591,7 +591,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: canceldatasale
      * Descripcion: Cancela el registro de la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function canceldatasale() {
         
@@ -648,7 +648,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: enableboard
      * Descripcion: Habilita una mesa/habitacion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 23/01/2019, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function enableboard($board) {
         
@@ -688,7 +688,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: payregistersale
      * Descripcion: Registra el Pago de un recibo Liquidado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 02/04/2017, Ultima modificacion: 12/05/2017
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 12/05/2017
      **************************************************************************/
     public function payregistersale() {
         
@@ -862,7 +862,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addusersale
      * Descripcion: Agregar Cliente a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addusersale(){
         
@@ -1002,7 +1002,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addempleadosale
      * Descripcion: Agregar Empleado a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 19/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addempleadosale(){
         
@@ -1072,7 +1072,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addservicesale
      * Descripcion: Agregar Servicio a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addservicesale(){
         
@@ -1146,7 +1146,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addproductsale
      * Descripcion: Agregar Producto a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 10/02/2019
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function addproductsale(){
         
@@ -1250,7 +1250,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addproductint
      * Descripcion: Agregar Producto de Consumo interno
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 29/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addproductint(){
         
@@ -1317,7 +1317,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addcargoadc
      * Descripcion: Agregar Cargo Adicional a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 30/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addcargoadc(){
         
@@ -1406,7 +1406,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addporcentdesc
      * Descripcion: Agregar Porcentaje de descuento
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 30/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addporcentdesc(){
         
@@ -1476,14 +1476,14 @@ class CSale extends CI_Controller {
      * Descripcion: Limpia todos los registros de venta en Proceso Liquidacion.
      * Ejecucion: CRONTAB diariamente
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function saleclean(){
         
         if ($this->session->userdata('validated')) {
         
             /*Envia datos al modelo para el registro*/
-            $deleteData = $this->MSale->sale_clean();
+            //$deleteData = $this->MSale->sale_clean();
 
             if ($deleteData == TRUE){
 

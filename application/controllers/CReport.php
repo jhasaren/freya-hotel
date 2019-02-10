@@ -1,11 +1,11 @@
 <?php
 /**************************************************************************
 * Nombre de la Clase: CReport
-* Version: 1.0.1 
+* Version: 1.0.0 
 * Descripcion: Es el controlador para el Modulo de Reportes
 * en el sistema.
 * Autor: jhonalexander90@gmail.com
-* Fecha Creacion: 05/04/2017
+* Fecha Creacion: 18/01/2019
 **************************************************************************/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -38,7 +38,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: index
      * Descripcion: Direcciona al usuario segun la sesion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function index() {
         
@@ -58,7 +58,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: module
      * Descripcion: Redirecciona respuesta al usuario
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function module($report) {
         
@@ -158,7 +158,7 @@ class CReport extends CI_Controller {
      * Descripcion: genera reporte recibos pagados, pagos por empleado consolidado
      * y detalle.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function paymentrecibos() {
         
@@ -209,7 +209,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: paymentrecibosforms
      * Descripcion: genera reporte recibos discriminando la forma de pago
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 20/09/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function paymentrecibosforms() {
         
@@ -263,7 +263,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: anularecibo
      * Descripcion: Anula un recibo pagado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 26/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function anularecibo() {
         
@@ -309,7 +309,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: paymentnomina
      * Descripcion: genera reporte de pagos a empleados
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 04/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function paymentnomina() {
         
@@ -363,7 +363,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: detallerecibo
      * Descripcion: recupera el detalle de conceptop de un recibo pagado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 01/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function detallerecibo($venta,$recibo) {
         
@@ -397,7 +397,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: detalleliquida
      * Descripcion: recupera el detalle de pagos para liquidar un empleado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 08/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function detalleliquida($fechaIni,$fechaFin,$empleado,$sede) {
         
@@ -433,7 +433,7 @@ class CReport extends CI_Controller {
      * Descripcion: Cierra los recibos debido a la liquidacion de nomina, genera 
      * comprobante pdf y envia adjunto al correo electronico del empleado.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 08/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function paymentcierre() {
         
@@ -529,7 +529,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: paymentsedes
      * Descripcion: genera reporte de pagos por sede
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 20/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function paymentsedes() {
         
@@ -603,7 +603,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: gastossedes
      * Descripcion: genera reporte de gastos por sede
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function gastossedes() {
         
@@ -670,7 +670,7 @@ class CReport extends CI_Controller {
      * Descripcion: genera estado de ganancias y perdidas general
      * (todas las sedes, en un periodo de tiempo)
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function ganperdidas() {
         
@@ -715,7 +715,7 @@ class CReport extends CI_Controller {
                     $pdf->SetProtection(array(), 'username', $this->session->userdata('userid'));
                     /*Footer del documento PDF*/
                     $pdf->SetHTMLFooter('Generado: '.date('Y-m-d h:i:s').'<br />
-                                         Freya Trucks - Software');
+                                         Freya Hotel - Software');
 
                     /*Escribo el HTML en el PDF*/
                     $pdf->WriteHTML($html);
@@ -755,7 +755,7 @@ class CReport extends CI_Controller {
      * Descripcion: Calcula valor del impuesto de renta para el estado
      * de ganancias y perdidas, ese segun ley 1819 de 2016
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function calculaimptorenta($fechaIni,$fechaFin,$sede) {
         
@@ -861,7 +861,7 @@ class CReport extends CI_Controller {
      *  tipo 1 -> Registrar Gasto
      *  tipo 2 -> Actualizar Gasto
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 11/02/2018, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function addgasto($type){
         
@@ -992,7 +992,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: fidelizationclients
      * Descripcion: genera reporte de clientes para fidelizacion
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 08/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function fidelizationclients() {
         
@@ -1050,7 +1050,7 @@ class CReport extends CI_Controller {
      * Nombre del Metodo: comprobante_pdf
      * Descripcion: Genera comprobante de pago en PDF
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 09/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 18/01/2019, Ultima modificacion: 
      **************************************************************************/
     public function comprobante_pdf($fechaIni,$fechaFin,$empleado,$sede,$orden) {
         
