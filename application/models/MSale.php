@@ -475,7 +475,7 @@ class MSale extends CI_Model {
     public function liquida_sale() {
         
         /*Liquida servicios de la venta*/
-        $service = $this->db->query("SELECT
+        /*$service = $this->db->query("SELECT
                                     sum(v.valor) as totalServicios,
                                     m.porcenDescuento,
                                     (sum(v.valor)*m.porcenDescuento) as totalDescuento
@@ -484,7 +484,20 @@ class MSale extends CI_Model {
                                     JOIN servicios s ON s.idServicio = v.idServicio
                                     JOIN venta_maestro m ON m.idVenta = v.idVenta
                                     WHERE
-                                    v.idVenta = ".$this->session->userdata('idSale')."");
+                                    v.idVenta = ".$this->session->userdata('idSale')."");*/
+        
+        $service = $this->db->query("SELECT
+                                    sum(v.valor) as totalServicios,
+                                    m.porcenDescuento,
+                                    (sum(v.valor)*m.porcenDescuento) as totalDescuento
+                                    FROM
+                                    venta_detalle v
+                                    JOIN productos p ON p.idProducto = v.idProducto
+                                    JOIN venta_maestro m ON m.idVenta = v.idVenta
+                                    WHERE
+                                    v.idVenta = ".$this->session->userdata('idSale')."
+                                    AND productoInterno = 'N'
+                                    AND p.idTipoProducto = 1");
         
         $values[0] = $service->row();
         
@@ -496,7 +509,8 @@ class MSale extends CI_Model {
                                     JOIN productos p ON p.idProducto = v.idProducto
                                     WHERE
                                     v.idVenta = ".$this->session->userdata('idSale')."
-                                    AND productoInterno = 'N'");
+                                    AND productoInterno = 'N'
+                                    AND p.idTipoProducto = 2");
         
         $values[1] = $product->row();
         

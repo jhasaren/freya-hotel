@@ -318,7 +318,7 @@ class CSale extends CI_Controller {
                             
                                 $valorPagoServicios = $totalServicios-$totalDescuento;
                                 $valorTotalVenta = $totalServicios+$totalProductos+$totalAdicional;
-                                $valorLiquidaVenta = $valorPagoServicios+$totalProductos+$totalAdicional;
+                                $valorLiquidaVenta = ($valorPagoServicios+$totalProductos+$totalAdicional);
 
                                 /*Consulta Modelo para generar recibo*/
                                 $numeracion = $this->MSale->genera_recibo();
@@ -1169,16 +1169,8 @@ class CSale extends CI_Controller {
                     $porcentEmpleado = 0;
                     $cantidad = $this->input->post('cantidad');
                     $valueEmpleado = ($valueProducto*$cantidad)*$porcentEmpleado;
-                    //$valueTotal = $valueProducto = $varprod[1]*$cantidad;
-                    $valueTotal = $valueProducto*$cantidad;
                     $idempleado = $this->input->post('idempleado');
                     $typeReg = $this->input->post('typeReg'); /*0-alojamiento, 1-producto*/
-                                        
-                    /*$dateIn = new DateTime($this->input->post('checkin')); 
-                    $checkIN = $dateIn->format('Y-m-d H:i:s'); */
-                    
-                    /*$dateOut = new DateTime($this->input->post('checkout')); 
-                    $checkOUT = $dateOut->format('Y-m-d H:i:s');*/
                     
                     if ($this->jasr->validaTipoString($cantidad,2)){
                         
@@ -1197,6 +1189,16 @@ class CSale extends CI_Controller {
                                                 
                         if ($validateProduct){
                         
+                            if ($typeReg == 0){ /*alojamiento*/
+                                
+                                $valueTotal = $valueProducto;
+                                
+                            } else { /*producto*/
+                                
+                                $valueTotal = $valueProducto*$cantidad;
+                                
+                            }
+                            
                             /*Envia datos al modelo para el registro*/
                             $registerData = $this->MSale->add_product($idProducto,$valueTotal,$valueEmpleado,$idempleado,$cantidad);
 
