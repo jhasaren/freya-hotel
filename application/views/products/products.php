@@ -107,6 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="x_content">
                                 <table id="datatable-buttons" class="table table-striped table-bordered">
                                     <thead>
+                                        <th>ID Tarifa</th>
                                         <th>Nombre</th>
                                         <th>Costo</th>
                                         <th>Venta</th>
@@ -123,6 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             foreach ($list_products as $row_list){
                                                 ?>
                                                 <tr style="background-color: #FFF;">
+                                                    <td class="center"><?php echo $row_list['idProducto']; ?></td>
                                                     <td class="center green"><?php echo $row_list['descProducto']; ?></td>
                                                     <td class="center blue">$<?php echo number_format($row_list['costoProducto'],0,',','.'); ?></td>
                                                     <td class="center red">$<?php echo number_format($row_list['valorProducto'],0,',','.'); ?></td>
