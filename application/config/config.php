@@ -616,7 +616,9 @@ $config['edad_perm_nino'] = 3;
 /*
 |--------------------------------------------------------------------------
 | Calcular tarifa basado en la cantidad de huespedes adultos
-| tarifa_huespedes -> 0-NO, 1-SI
+| tarifa_huespedes -> 
+ *  0-NO: aplica cobro por tarifa fija asociada a la habitacion
+ *  1-SI
 |--------------------------------------------------------------------------
 */
 $config['tarifa_huespedes'] = 1;
