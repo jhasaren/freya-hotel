@@ -83,7 +83,7 @@ class CReservas extends CI_Controller {
             $nombreSede = $dataSede[1];
             $periodo = $this->input->post('periodo');
             $adultosCount = $this->input->post('cantadult');
-            $ninoCount = $this->input->post('cantkid');
+            $ninoCount = $this->input->post('cantkid');         
 
             $dataFecha = explode("|", $periodo);
             $dateIN = new DateTime($dataFecha[0]); 
@@ -94,9 +94,35 @@ class CReservas extends CI_Controller {
             /*cantidad de dias*/
             $diff = strtotime($checkout) - strtotime($checkin);
             $days = floor($diff / (60*60*24) );
+            
+            /*****************************************************************/
+            /*Calcular tarifa basado en la cantidad de huespedes adultos*/
+            /*****************************************************************/
+            if ($this->config->item('tarifa_huespedes') == 1){
+                
+                /*evaluacion de edad en niños para generar cobro de huesped adulto*/
+                if ($ninoCount != 0){
+                    $adultCantAdc = 0;
+                    for ($i = 1; $i <= $ninoCount; $i++){
+
+                        $edadNino = $this->input->post('edadn'.$i);
+
+                        if ($edadNino > $this->config->item('edad_perm_nino')){
+
+                            $adultCantAdc = $adultCantAdc + 1;
+
+                        }
+
+                    }
+
+                }
+                
+            }
+            $adultosCountTotal = $adultosCount + $adultCantAdc;
+            /*****************************************************************/
 
             /*Recupera habitaciones activas en la sede con la capacidad*/
-            $habitaciones = $this->MCalendar->list_board_calendar($adultosCount,$ninoCount,$sede);
+            $habitaciones = $this->MCalendar->list_board_calendar($adultosCount,$ninoCount,$sede,$adultosCountTotal);
 
             if ($habitaciones != FALSE){
 
@@ -109,6 +135,7 @@ class CReservas extends CI_Controller {
                     $info['nombreSede'] = $nombreSede;
                     $info['adultoCount'] = $adultosCount;
                     $info['ninoCount'] = $ninoCount;
+                    $info['totalHuespedCobro'] = $adultosCountTotal;
                     $info['periodo_desde'] = $checkin;
                     $info['periodo_hasta'] = $checkout;
                     $info['cantidadNoches'] = $days;
@@ -151,7 +178,7 @@ class CReservas extends CI_Controller {
      * Nombre del Metodo: addevent
      * Descripcion: Agrega un evento (reservacion de habitacion)
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 06/02/2019, Ultima modificacion: 
+     * Fecha Creacion: 06/02/2019, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function addevent() {
                     
@@ -177,6 +204,7 @@ class CReservas extends CI_Controller {
             $empleado = $this->session->userdata('userid');
             $countAdult = $this->input->post('adultos');
             $countNino = $this->input->post('ninos');
+            $totalHuespedCobro = $this->input->post('totalHuespedCobro');
 
             if ($this->jasr->validaTipoString($nombres,1) && $this->jasr->validaTipoString($apellidos,1)){
 
@@ -185,11 +213,11 @@ class CReservas extends CI_Controller {
                     if ($this->jasr->validaTipoString($email,6)){
 
                         /*Envia al Modelo para registrar la reserva*/
-                        $calendarRegistro = $this->MCalendar->add_event($idHabitacion,$typeDoc,$identificacion,$nombres,$apellidos,$telefono,$email,$nochesReserva,$valorTotalReserva,$periodo_desde,$periodo_hasta,$empleado,$sede,$countAdult,$countNino);
+                        $calendarRegistro = $this->MCalendar->add_event($idHabitacion,$typeDoc,$identificacion,$nombres,$apellidos,$telefono,$email,$nochesReserva,$valorTotalReserva,$periodo_desde,$periodo_hasta,$empleado,$sede,$countAdult,$countNino,$totalHuespedCobro);
 
                         if ($calendarRegistro != FALSE) {
 
-                            $mail = $this->notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro);
+                            $mail = $this->notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro,$valorTotalReserva,$totalHuespedCobro);
                             
                             if ($mail){
                                 
@@ -256,7 +284,7 @@ class CReservas extends CI_Controller {
      * Autor: jhonalexander90@gmai.xom
      * Fecha Creacion: 07/02/2019, Ultima modificacion: 
      **************************************************************************/
-    public function notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro) {
+    public function notificamail($email,$nombres,$apellidos,$nochesReserva,$periodo_desde,$periodo_hasta,$countAdult,$countNino,$calendarRegistro,$valorTotalReserva,$totalHuespedCobro) {
         
         /*Notifica al correo electronico*/
         $notificationMail = new PHPMailer();
@@ -290,7 +318,9 @@ class CReservas extends CI_Controller {
                     Entrada: ".$periodo_desde."<br />
                     Salida: ".$periodo_hasta."<br />
                     Número de noches: ".$nochesReserva."<br />
-                    Huéspedes: Adultos: ".$countAdult.", Niños: ".$countNino."<br /><br />"
+                    Huéspedes: Adultos: ".$countAdult.", Niños: ".$countNino."<br />
+                    Huéspedes a Cobrar: ".$totalHuespedCobro."<br />
+                    Valor a Pagar: $".number_format($valorTotalReserva,0,",",".")."<br /><br />"
                 . "El check in es a las ".$this->config->item('checkin')." y el check out a las ".$this->config->item('checkout').". Estamos ubicados en La Tulia a 15 minutos del municipio de "
                 . "Roldanillo-Valle, te podemos enviar ubicación exacta antes de tu estadía. Puedes disfrutar de servicio adicional "
                 . "de restaurante, vinos, cocteles, ademas puedes rentar caballos y practicar parapente. "

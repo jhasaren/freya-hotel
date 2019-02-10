@@ -126,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <td class="center red" style="color: #FFF"><?php echo $row_list['nombreMesa']."<br />Tipo: ".$row_list['descTipoMesa']; ?></td>
                                                     <td class="center red" style="color: #FFF"><?php echo $row_list['descDocumento']." ".$row_list['idCliente']."<br />".$row_list['nombreCliente']." ".$row_list['apellidoCliente']; ?></td>
                                                     <td class="center red" style="color: #FFF"><?php echo "Tel: ".$row_list['telefonoCliente']."<br />".$row_list['emailCliente']; ?></td>
-                                                    <td class="center red" style="color: #FFF"><?php echo "Adultos: ".$row_list['adultos']."<br />Niños: ".$row_list['ninos']; ?></td>
+                                                    <td class="center red" style="color: #FFF"><?php echo "Adultos: ".$row_list['adultos']."<br />Niños: ".$row_list['ninos']."<br />A Cobrar: ".$row_list['totalHuespedCobro']; ?></td>
                                                     <?php if ($row_list['idEstadoReserva'] == 1){ ?>
                                                     <td class="center red" style="font-weight: bold"><?php echo $row_list['descEstadoReserva']; ?></td>
                                                     <?php } else { ?>

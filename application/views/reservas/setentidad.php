@@ -21,6 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url().'public/gentelella/vendors/nprogress/nprogress.css'; ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url().'public/gentelella/build/css/custom.res.css'; ?>" rel="stylesheet">
+    <!-- Form Style -->
+    <link href="<?php echo base_url().'public/contactform/css/main.css'; ?>" rel="stylesheet">
     
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url().'public/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>" rel="stylesheet">
@@ -107,42 +109,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="x_content">
                                 <form role="form" name="form_entidad" action="<?php echo base_url().'index.php/CReservas/servicesede'; ?>" method="post">
                                     <div class="modal-body">
-                                        <label class="control-label" style="color: #000" for="selectSede">HOTEL</label>
-                                        <div class="controls">
-                                            <select class="select2_single form-control" id="idsede" name="idsede" data-rel="chosen">
-                                                <?php
-                                                foreach ($list_sede as $row_sede){
-                                                    ?>
-                                                    <option value="<?php echo $row_sede['idSede']."|".$row_sede['nombreSede']; ?>"><?php echo $row_sede['nombreSede']; ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
+                                        <?php
+                                        foreach ($list_sede as $row_sede){
+                                            $idSede = $row_sede['idSede'];
+                                            $nameSede = $row_sede['nombreSede'];
+                                        }
+                                        ?>
+                                        <div class="col-md-3 col-sm-12 col-xs-12">
+                                            <label class="control-label" style="color: #000" for="selectSede">HOTEL</label>
+                                            <fieldset>
+                                                <div class="wrap-input1 validate-input" data-validate = "">
+                                                    <input type="text" class="form-control input1" id="namesede" name="namesede" value="<?php echo $nameSede; ?>" readonly="">
+                                                    <input type="hidden" id="idsede" name="idsede" value="<?php echo $idSede."|".$nameSede; ?>">
+                                                    <span class="shadow-input1"></span>
+                                                </div>
+                                            </fieldset>
                                         </div>
-                                        <br />
-                                        <label class="control-label" style="color: #000" for="selectSede">CHECKIN-CHECKOUT</label>
-                                        <fieldset>
-                                            <input class="daterangepicker-field form-control" name="periodo"></input>
-                                        </fieldset>
-                                        <br />
-                                        <label class="control-label" style="color: #000" for="selectSede">ADULTOS</label>
-                                        <fieldset>
-                                            <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantadult" name="cantadult" placeholder="Cantidad" min="1" max="10" value="1" required="">
-                                        </fieldset>
-                                        <br />
-                                        <label class="control-label" style="color: #000" for="selectSede">NIÑOS</label>
-                                        <fieldset>
-                                            <input type="number" class="form-control" onblur="this.value = this.value.toUpperCase()" id="cantkid" name="cantkid" placeholder="Cantidad" min="0" max="10" value="0"  required="">
-                                        </fieldset>
-                                        <br />
-                                        <center>
-                                            <button type="submit" class="btn btn-success btn-lg">Siguiente
-                                                <i class="glyphicon glyphicon-forward glyphicon-white"></i>
-                                            </button>
-                                        </center>
+                                        <div class="col-md-3 col-sm-12 col-xs-12">
+                                            <label class="control-label" style="color: #000" for="selectSede">CHECKIN-CHECKOUT</label>
+                                            <fieldset>
+                                                <div class="wrap-input1 validate-input" data-validate = "">
+                                                    <input class="daterangepicker-field form-control input1" name="periodo"></input>
+                                                    <span class="shadow-input1"></span>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12 col-xs-12">
+                                            <label class="control-label" style="color: #000" for="selectSede">ADULTOS</label>
+                                            <fieldset>
+                                                <div class="wrap-input1 validate-input" data-validate = "">
+                                                    <input type="number" class="form-control input1" onblur="this.value = this.value.toUpperCase()" id="cantadult" name="cantadult" placeholder="Cantidad" min="1" max="10" value="1" required="">
+                                                    <span class="shadow-input1"></span>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12 col-xs-12">
+                                            <label class="control-label" style="color: #000" for="selectSede">NIÑOS</label>
+                                            <fieldset>
+                                                <div class="wrap-input1 validate-input" data-validate = "">
+                                                    <input type="number" class="form-control input1" onblur="this.value = this.value.toUpperCase()" id="cantkid" name="cantkid" placeholder="Cantidad" min="0" max="10" value="0"  required="">
+                                                    <span class="shadow-input1"></span>
+                                                    <span id="edadnino"></span>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <br />
+                                            <center>
+                                                <button type="submit" class="btn btn-success btn-lg">Buscar
+                                                    <i class="glyphicon glyphicon-search glyphicon-white"></i>
+                                                </button>
+                                            </center>
+                                        </div>
                                     </div>
                                     
                                 </form> 
+                            </div>
+                        </div>
+                        <div class="x_panel" style="opacity: 0.8">
+                            <div class="x_content">
+                                <div class="col-md-3 col-sm-12 col-xs-12" style="text-align: center">
+                                    <center>
+                                    <img alt="Freya" class="img-fluid img-thumbnail" src="<?php echo base_url().'public/img/relaxicon.png'; ?>" />
+                                    </center>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12" style="text-align: center">
+                                    <center>
+                                    <img alt="Freya" class="img-fluid img-thumbnail" src="<?php echo base_url().'public/img/parapenticon.png'; ?>" />
+                                    </center>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12" style="text-align: center">
+                                    <center>
+                                    <img alt="Freya" class="img-fluid img-thumbnail" src="<?php echo base_url().'public/img/cofeeicon.png'; ?>" />
+                                    </center>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12" style="text-align: center">
+                                    <center>
+                                    <img alt="Freya" class="img-fluid img-thumbnail" src="<?php echo base_url().'public/img/horseicon.png'; ?>" />
+                                    </center>
+                                </div>
                             </div>
                         </div>
                     </div>

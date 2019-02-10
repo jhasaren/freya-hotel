@@ -89,8 +89,8 @@ class MCalendar extends CI_Model {
                                         (fechaInicioEvento <= '".$checkout." ".$this->config->item('checkout')."')))
                                         ");
                 
-                if ($query->num_rows() == 0) { /*si hay disponibilidad, muestra la habitacion al usuario*/
-                                        
+                if ($query->num_rows() == 0) { /*si hay disponibilidad, muestra la habitacion al usuario*/          
+                    
                     /*esta disponible*/
                     $dataDisponibles[$count] = array(
                         'idMesa' => $row_list['idMesa'],
@@ -139,39 +139,71 @@ class MCalendar extends CI_Model {
      * Nombre del Metodo: list_board_calendar
      * Descripcion: Obtiene la disponibilidad de las mesas en la sede
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/01/2019, Ultima modificacion: 
+     * Fecha Creacion: 25/01/2019, Ultima modificacion: 10/02/2019
      **************************************************************************/
-    public function list_board_calendar($adult,$nino,$sede) {
+    public function list_board_calendar($adult,$nino,$sede,$adultosCountTotal) {
                 
         /*Recupera la disponibilidad de habitaciones en la sede que cumplen con la capacidad*/
         /*TODAS*/
-        $query = $this->db->query("SELECT
-                                m.idMesa,
-                                m.nombreMesa,
-                                m.activo,
-                                m.idTipoMesa,
-                                t.descTipoMesa,
-                                m.idVenta,
-                                v.idEstadoRecibo,
-                                DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
-                                m.caracteristicas,
-                                m.idEstadoMesa,
-                                te.descEstadoMesa,
-                                m.cantAdulto,
-                                m.cantNino,
-                                m.idTarifa,
-                                p.valorProducto
-                                FROM mesas m
-                                JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
-                                JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
-                                LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
-                                LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
-                                WHERE
-                                m.activo = 'S'
-                                AND m.idSede = ".$sede."
-                                AND m.cantAdulto >= ".$adult."
-                                AND m.cantNino >= ".$nino."");
-
+        if ($this->config->item('tarifa_huespedes') == 1){ /*si la tarifa se calcula basada en los huespedes*/
+            
+            $query = $this->db->query("SELECT
+                                    m.idMesa,
+                                    m.nombreMesa,
+                                    m.activo,
+                                    m.idTipoMesa,
+                                    t.descTipoMesa,
+                                    m.idVenta,
+                                    v.idEstadoRecibo,
+                                    DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
+                                    m.caracteristicas,
+                                    m.idEstadoMesa,
+                                    te.descEstadoMesa,
+                                    m.cantAdulto,
+                                    m.cantNino,
+                                    m.idTarifa,
+                                    (p.valorProducto * ".$adultosCountTotal.") as valorProducto
+                                    FROM mesas m
+                                    JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                    JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
+                                    LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
+                                    LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
+                                    WHERE
+                                    m.activo = 'S'
+                                    AND m.idSede = ".$sede."
+                                    AND m.cantAdulto >= ".$adult."
+                                    AND m.cantNino >= ".$nino."");
+        
+        } else {
+            
+            $query = $this->db->query("SELECT
+                                    m.idMesa,
+                                    m.nombreMesa,
+                                    m.activo,
+                                    m.idTipoMesa,
+                                    t.descTipoMesa,
+                                    m.idVenta,
+                                    v.idEstadoRecibo,
+                                    DATE_FORMAT(v.fechaLiquida, '%H:%i %p') as time,
+                                    m.caracteristicas,
+                                    m.idEstadoMesa,
+                                    te.descEstadoMesa,
+                                    m.cantAdulto,
+                                    m.cantNino,
+                                    m.idTarifa,
+                                    p.valorProducto
+                                    FROM mesas m
+                                    JOIN tipo_mesa t ON t.idTipoMesa = m.idTipoMesa
+                                    JOIN tipo_estado_mesa te ON te.idEstadoMesa = m.idEstadoMesa
+                                    LEFT JOIN venta_maestro v ON v.idVenta = m.idVenta
+                                    LEFT JOIN productos p ON p.idProducto = m.idTarifa AND p.activo = 'S' AND idTipoProducto = 1
+                                    WHERE
+                                    m.activo = 'S'
+                                    AND m.idSede = ".$sede."
+                                    AND m.cantAdulto >= ".$adult."
+                                    AND m.cantNino >= ".$nino."");
+            
+        }
         if ($query->num_rows() == 0) {
 
             return false;
@@ -190,9 +222,9 @@ class MCalendar extends CI_Model {
      * Nombre del Metodo: add_event
      * Descripcion: Registra un Evento para la agenda de un Empleado
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 25/01/2019, Ultima modificacion: 
+     * Fecha Creacion: 25/01/2019, Ultima modificacion: 10/02/2019
      **************************************************************************/
-    public function add_event($mesa,$tipoDoc,$idcliente,$nombre,$apellido,$tel,$email,$tiempo,$valorTotal,$desde,$hasta,$empleado,$sede,$adultos,$ninos) {
+    public function add_event($mesa,$tipoDoc,$idcliente,$nombre,$apellido,$tel,$email,$tiempo,$valorTotal,$desde,$hasta,$empleado,$sede,$adultos,$ninos,$totalHuespedCobro) {
                     
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
@@ -214,6 +246,7 @@ class MCalendar extends CI_Model {
                                     idSede,
                                     adultos,
                                     ninos,
+                                    totalHuespedCobro,
                                     idEstadoReserva
                                     ) VALUES (
                                     ".$mesa.",
@@ -232,6 +265,7 @@ class MCalendar extends CI_Model {
                                     ".$sede.",
                                     ".$adultos.",
                                     ".$ninos.",
+                                    ".$totalHuespedCobro.",
                                     1
                                     )");
         $idevento = $this->db->insert_id();
@@ -474,6 +508,7 @@ class MCalendar extends CI_Model {
                                 s.nombreSede,
                                 e.adultos,
                                 e.ninos,
+                                e.totalHuespedCobro,
                                 e.idEstadoReserva,
                                 r.descEstadoReserva
                                 FROM eventos_habitacion e

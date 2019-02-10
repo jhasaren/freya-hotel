@@ -426,6 +426,23 @@ $(document).ready(function () {
         $("#idestado").val(estado); //enviar dato al input de la modal
         $('#myModal-canc').modal('show');
     });
+    /*Control de Edad Niños*/
+    $('#cantkid').keyup(function (e) {
+        var cantidad = document.getElementById("cantkid").value;
+        $('#edadnino').empty();
+        if (cantidad != 0){
+            console.log(cantidad);
+            $('#edadnino').empty();
+            var i;
+            var newtr = "";
+            for (i = 1; i <= cantidad; i++) { 
+                newtr = newtr + "Edad: <input type='number' style='background-color: #EAE2D9' class='form-control' id='"+i+"' name='edadn"+i+"' required='' autocomplete='Off' />";
+            }
+
+            $('#edadnino').append(newtr);
+        }
+        
+    });
     /*Formulario Login - cursor en campo de texto*/
     $('#username').focus();
     /*Formulario Liquidacion Venta - cursor en campo de texto*/
