@@ -1146,7 +1146,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: addproductsale
      * Descripcion: Agregar Producto a la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 24/01/2019
+     * Fecha Creacion: 27/03/2017, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function addproductsale(){
         
@@ -1182,9 +1182,19 @@ class CSale extends CI_Controller {
                     
                     if ($this->jasr->validaTipoString($cantidad,2)){
                         
-                        /*Valida el producto y valor*/
-                        $validateProduct = $this->MSale->validate_select_sale($idProducto,$valueProducto,2);
+                        /*si tarifa dinamica esta habilitado*/
+                        if ($this->config->item('tarifa_dinamica') == 0){
+                            
+                            /*Valida el producto y valor*/
+                            $validateProduct = $this->MSale->validate_select_sale($idProducto,$valueProducto,2);
+                            
+                        } else {
+                            
+                            $validateProduct = TRUE;
+                            
+                        }
                         
+                                                
                         if ($validateProduct){
                         
                             /*Envia datos al modelo para el registro*/
