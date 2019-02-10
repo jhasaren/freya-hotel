@@ -281,7 +281,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <center style="font-size: 12px;">
                                                 <br />
                                                 Gracias por Preferirnos!<br />
-                                                <?php echo date("Y-m-d h:i:s"); ?>
+                                                <?php echo "Freya Hotel ".$this->config->item('version_freya')." | ".date("Y-m-d H:i:s"); ?>
                                                 </center>
                                             </div>
                                             <!--Fin Ticket informacion-->

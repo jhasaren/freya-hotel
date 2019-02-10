@@ -100,13 +100,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php echo "Nro. Factura ".$detalleRecibo['general']->nroRecibo; ?>
                                 </center>
                                 <br />
-                                <table style="width: 100%">
+                                <!--<table style="width: 100%">
                                     <tr>
                                         <td align="center" style="font-size: 20px; font-weight:bold;">
-                                            TURNO <?php echo $turno; ?>
+                                            TURNO <?php //echo $turno; ?>
                                         </td>
                                     </tr>                               
-                                </table>
+                                </table>-->
                                 <table style="width: 100%">
                                     <?php
                                     /*Servicios*/
@@ -148,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td align="right">$<?php echo number_format($detalleRecibo['general']->valorTotalVenta,0,',','.'); ?></td>
                                     </tr>   
                                     <tr style="font-size: 12px;">
-                                        <td align="left">Descuento(<?php echo ($detalleRecibo['general']->porcenDescuento*100); ?>%):</td>
+                                        <td align="left">Descuento Alojamiento(<?php echo ($detalleRecibo['general']->porcenDescuento*100); ?>%):</td>
                                         <td align="right">-$<?php echo number_format(($detalleRecibo['general']->valorTotalVenta-$detalleRecibo['general']->valorLiquida),0,',','.'); ?></td>
                                     </tr>
                                     <tr style="font-size: 12px; font-weight:bold;">
@@ -176,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </table>
                                 <center style="font-size: 12px;">
                                 <br />Gracias por Preferirnos!<br />
-                                <?php echo date("Y-m-d h:i:s"); ?>
+                                <?php echo "Freya Hotel ".$this->config->item('version_freya')." | ".date("Y-m-d H:i:s"); ?>
                                 </center>
                             </div>
                             <!--Fin Ticket informacion-->

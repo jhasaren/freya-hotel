@@ -134,7 +134,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3>Freya Hotel</h3>v1.0.0 [18/01/2019]
+                    <h3>Freya Hotel</h3>v<?php echo $this->config->item('version_freya'); ?> [<?php echo $this->config->item('release_date'); ?>]
                 </div>
                 <div class="modal-body">
                     Software de Administración para Hoteles y Hostales.
