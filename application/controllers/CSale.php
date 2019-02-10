@@ -130,7 +130,7 @@ class CSale extends CI_Controller {
      * Nombre del Metodo: createsale
      * Descripcion: crea la venta
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 27/03/2017, Ultima modificacion: 
+     * Fecha Creacion: 27/03/2017, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function createsale($board,$flagBoard,$reserva) {
         

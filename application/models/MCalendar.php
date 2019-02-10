@@ -682,6 +682,7 @@ class MCalendar extends CI_Model {
                                 s.nombreSede,
                                 e.adultos,
                                 e.ninos,
+                                e.totalHuespedCobro,
                                 e.idEstadoReserva,
                                 r.descEstadoReserva
                                 FROM eventos_habitacion e

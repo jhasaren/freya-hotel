@@ -620,7 +620,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     if ($data_mesa->idTarifa == NULL){
                                         $valueTarifa = NULL;
                                     } else {
-                                        $valueTarifa = $data_mesa->idTarifa .' | '.$data_mesa->valorProducto." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto;
+                                        /*Si forma de cobro es por cantidad huespedes adultos*/
+                                        if ($this->config->item('tarifa_huespedes') == 1){
+                                            /*utiliza el valor calculado al momento de la reserva*/
+                                            $valueTarifa = $data_mesa->idTarifa .' | '.$data_reserva->valorReserva." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto;
+                                        } else {
+                                            /*utiliza el valor configurado en la tarifa fija asociada a la habitacion*/
+                                            $valueTarifa = $data_mesa->idTarifa .' | '.$data_mesa->valorProducto." | ".$data_mesa->descGrupoServicio." | ".$data_mesa->descProducto;
+                                        }
                                     }
                                     ?>
                                     
