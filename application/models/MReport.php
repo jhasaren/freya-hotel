@@ -1278,11 +1278,11 @@ class MReport extends CI_Model {
      * Descripcion: Recupera los primeros 5 servicios con mayor realizacion en
      * la sede.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 08/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 08/04/2017, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function top_services($fechaIni,$fechaFin) {
         
-        $query = $this->db->query("SELECT
+        /*$query = $this->db->query("SELECT
                                 v.idServicio,
                                 g.descGrupoServicio,
                                 s.descServicio,
@@ -1296,6 +1296,25 @@ class MReport extends CI_Model {
                                 AND m.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
                                 AND m.idSede = ".$this->session->userdata('sede')."
                                 GROUP BY v.idServicio
+                                ORDER BY 4 ASC
+                                LIMIT 5");*/
+        
+        /*productos PARA VENTA*/
+        $query = $this->db->query("SELECT
+                                v.idProducto as idServicio,
+                                g.descGrupoServicio,
+                                s.descProducto as descServicio,
+                                count(1) AS cantidad
+                                FROM venta_detalle v
+                                JOIN productos s ON s.idProducto = v.idProducto
+                                JOIN grupo_servicio g ON g.idGrupoServicio = s.idGrupoServicio
+                                JOIN venta_maestro m ON m.idVenta = v.idVenta
+                                WHERE v.idProducto > 0
+                                AND m.idEstadoRecibo IN (5,2)
+                                AND s.idTipoProducto = 2
+                                AND m.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                AND m.idSede = ".$this->session->userdata('sede')."
+                                GROUP BY v.idProducto
                                 ORDER BY 4 ASC
                                 LIMIT 5");
 
@@ -1313,14 +1332,14 @@ class MReport extends CI_Model {
     
     /**************************************************************************
      * Nombre del Metodo: tendencia_diasemana
-     * Descripcion: Recupera la tendencia de pagos/visitas por dia de la semana
+     * Descripcion: Recupera la tendencia de huespedes por dia de la semana
      * en la sede.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 30/04/2017, Ultima modificacion: 
+     * Fecha Creacion: 30/04/2017, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function tendencia_diasemana($fechaIni,$fechaFin) {
         
-        $query = $this->db->query("SELECT
+        /*$query = $this->db->query("SELECT
                                 DAYOFWEEK(date(v.fechaLiquida)) as diasemana,
                                 COUNT(distinct(idUsuarioCliente)) as cantidad
                                 FROM
@@ -1330,6 +1349,19 @@ class MReport extends CI_Model {
                                 AND idEstadoRecibo = 5
                                 AND idSede = ".$this->session->userdata('sede')."
                                 GROUP BY DAYOFWEEK(date(fechaLiquida))
+                                ORDER BY 1 DESC");*/
+        
+        $query = $this->db->query("SELECT
+                                DAYOFWEEK(date(h.fechaRegistra)) as diasemana,
+                                COUNT(distinct(h.idUsuarioHuesped)) as cantidad
+                                FROM
+                                venta_maestro v
+                                JOIN venta_huesped h ON h.idVenta = v.idVenta
+                                WHERE
+                                h.fechaRegistra BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                AND v.idEstadoRecibo = 5
+                                AND v.idSede = ".$this->session->userdata('sede')."
+                                GROUP BY DAYOFWEEK(date(h.fechaRegistra))
                                 ORDER BY 1 DESC");
 
         if ($query->num_rows() == 0) {
@@ -1348,11 +1380,11 @@ class MReport extends CI_Model {
      * Nombre del Metodo: tendencia_venta_cliente
      * Descripcion: Recupera la tendencia general de ventas a los clientes en la sede.
      * Autor: jhonalexander90@gmail.com
-     * Fecha Creacion: 01/05/2017, Ultima modificacion: 
+     * Fecha Creacion: 01/05/2017, Ultima modificacion: 10/02/2019
      **************************************************************************/
     public function tendencia_venta_cliente($fechaIni,$fechaFin) {
         
-        $query = $this->db->query("SELECT
+        /*$query = $this->db->query("SELECT
                                     vd.idVenta,
                                     COUNT(vd.idServicio) as cantServicios,
                                     (SELECT
@@ -1367,6 +1399,42 @@ class MReport extends CI_Model {
                                     venta_detalle
                                     WHERE cargoEspecial IS NOT NULL
                                     AND idVenta = vd.idVenta) as cantAdicional
+                                    FROM
+                                    venta_detalle vd
+                                    JOIN venta_maestro vm ON vm.idVenta = vd.idVenta
+                                    WHERE
+                                    vm.idEstadoRecibo = 5
+                                    AND vm.idSede = ".$this->session->userdata('sede')."
+                                    AND vm.fechaLiquida BETWEEN '".$fechaIni." 00:00:00' AND '".$fechaFin." 23:59:59'
+                                    GROUP BY vd.idVenta");*/
+        
+        $query = $this->db->query("SELECT
+                                    vd.idVenta,
+                                    (SELECT
+                                    COUNT(v.idProducto)
+                                    FROM
+                                    venta_detalle v
+                                    JOIN productos p ON p.idProducto = v.idProducto
+                                    WHERE v.productoInterno = 'N'
+                                    AND p.idTipoProducto = 1
+                                    AND v.idVenta = vd.idVenta) as cantServicios,
+                                    (SELECT
+                                    COUNT(v.idProducto)
+                                    FROM
+                                    venta_detalle v
+                                    JOIN productos p ON p.idProducto = v.idProducto
+                                    WHERE v.productoInterno = 'N'
+                                    AND p.idTipoProducto = 2 
+                                    AND v.idVenta = vd.idVenta) as cantProductos,
+                                    (SELECT
+                                    COUNT(cargoEspecial)
+                                    FROM
+                                    venta_detalle
+                                    WHERE cargoEspecial IS NOT NULL
+                                    AND idVenta = vd.idVenta) as cantAdicional,
+                                    (SELECT count(1) 
+                                    FROM venta_huesped 
+                                    WHERE idVenta = vd.idVenta) as cantHuespedes
                                     FROM
                                     venta_detalle vd
                                     JOIN venta_maestro vm ON vm.idVenta = vd.idVenta
@@ -1391,23 +1459,23 @@ class MReport extends CI_Model {
             $est4 = 0;
             foreach ($data as $rowData){
                 
-                /*ventas con mas de un servicio*/
-                if ($rowData['cantServicios'] > 1){
+                /*alojamientos con hasta 2 huespedes*/
+                if ($rowData['cantHuespedes'] > 0 && $rowData['cantHuespedes'] <= 2){
                     $est1 = $est1 + 1;
                 }
                 
-                /*ventas con mas de dos servicio*/
-                if ($rowData['cantServicios'] > 2){
+                /*alojamientos con hasta 2 huespedes*/
+                if ($rowData['cantHuespedes'] > 2){
                     $est2 = $est2 + 1;
                 }
                 
-                /*ventas con servicio y producto*/
-                if ($rowData['cantServicios'] > 0 && $rowData['cantProductos'] > 0){
+                /*ventas con alojamiento y producto*/
+                if ($rowData['cantProductos'] > 0){
                     $est3 = $est3 + 1;
                 }
                 
                 /*Servicios con cargo adicional*/
-                if ($rowData['cantServicios'] > 0 && $rowData['cantAdicional'] > 0){
+                if ($rowData['cantAdicional'] > 0){
                     $est4 = $est4 + 1;
                 }
                 

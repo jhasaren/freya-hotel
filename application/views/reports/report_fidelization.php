@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Clientes por Día</h2>
+                                <h2>Ingreso Huéspedes por Día</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -148,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Top 5 Servicios</h2>
+                                <h2>Top 5 Productos (Para Venta)</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -180,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="x_panel">
                                         <div class="x_title">
                                             <center>
-                                            Ventas con más de 1 servicio
+                                            Alojamiento hasta 2 huéspesdes
                                             <div class="clearfix"></div>
                                             </center>
                                         </div>
@@ -218,7 +218,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="x_panel">
                                         <div class="x_title">
                                             <center>
-                                            Ventas con más de 2 servicios
+                                            Alojamiento más de 2 huéspesdes
                                             <div class="clearfix"></div>
                                             </center>
                                         </div>
@@ -256,7 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="x_panel">
                                         <div class="x_title">
                                             <center>
-                                            Servicios que llevaron Producto
+                                            Alojamientos que llevaron Producto
                                             <div class="clearfix"></div>
                                             </center>
                                         </div>
@@ -294,7 +294,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="x_panel">
                                         <div class="x_title">
                                             <center>
-                                            Servicios con cobro adicional
+                                            Alojamientos con cobro adicional
                                             <div class="clearfix"></div>
                                             </center>
                                         </div>
@@ -471,7 +471,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         },
         tooltip: { }, 
         series: [{ 
-            name: 'Servicio',
+            name: 'Productos',
             type: 'pie',
             radius : [20, 90],
             center : ['50%', 140],
