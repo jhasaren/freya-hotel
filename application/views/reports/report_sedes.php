@@ -189,7 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <th class="green">Sede</th>
                                                             <th class="blue">Ingreso Caja (+)</th>
                                                             <th class="red">Propinas (-)</th>
-                                                            <th class="red">Impoconsumo (-)</th>
+                                                            <th class="red">Impuestos (-)</th>
                                                             <th class="red">Empleados (-)</th>
                                                             <th class="red">Gastos (-)</th>
                                                             <th>Descuento ($)</th>
@@ -234,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <B>Venta:</B> valor antes de aplicar descuento y propina |
                                                 <B>Liquidado:</B> valor con descuento a servicios |
                                                 <B>Ingreso en Caja:</B> Liquidado + Propina |
-                                                <B>Impoconsumo:</B> Liquidado * %Impoconsumo
+                                                <B>Impuestos:</B> Liquidado * %Impuesto
                                                 <ul class="nav navbar-right panel_toolbox">
                                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                     </li>

@@ -92,13 +92,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="x_content">
                                 <?php 
                                 echo "Estado: ".$general->descEstadoRecibo."<br />";
-                                echo "Fecha Pedido: ".$general->fechaLiquida."<br />"; 
+                                echo "Fecha Ingreso: ".$general->fechaLiquida."<br />"; 
                                 echo "Fecha Pago: ".$general->fechaPideCuenta."<br />"; 
                                 echo "Liquida: ".$general->personaLiquida." [".$general->idUsuarioLiquida."]<br />";
                                 echo "Cliente: ".$general->personaCliente." [CC. ".$general->idUsuarioCliente."]<br />";
-                                echo "Atiende: ".$general->personaAtiende." [CC. ".$general->idEmpleadoAtiende."]<br />";
+                                echo "Recepcionista: ".$general->personaAtiende." [CC. ".$general->idEmpleadoAtiende."]<br />";
                                 echo "Subtotal 1: $".number_format($general->valorTotalVenta,0,',','.')."<br />";
-                                echo "Descuento: ".($general->porcenDescuento*100)."% *Solo aplica a servicios<br />";
+                                echo "Descuento: ".($general->porcenDescuento*100)."% *Solo aplica a Alojamiento<br />";
                                 echo "Subtotal 2: $".number_format($general->valorLiquida,0,',','.')."<br />";
                                 echo "Atención: $".number_format(($general->valorLiquida*$general->porcenServicio),0,',','.')."<br />";
                                 echo "Valor Pagado: $".number_format($general->valorLiquida+($general->valorLiquida*$general->porcenServicio),0,',','.')."<br />";
@@ -119,17 +119,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <hr />
                                 <?php
                                 /*Servicios*/
-                                echo "<h3>Servicios</h3>";
+                                /*echo "<h3>Servicios</h3>";
                                 if ($servicios == NULL){
                                     echo "--";
                                 } else {
                                     foreach ($servicios as $valueServ) {
                                         echo $valueServ['descServicio']." -> Cantidad: ".$valueServ['cantidad']." -> $".number_format($valueServ['valor'],0,',','.')."<br />";
                                     }
-                                }
+                                }*/
 
                                 /*Productos*/
-                                echo "<h3>Productos</h3>";
+                                echo "<h3>Tarifas y Conceptos</h3>";
                                 if ($productos == NULL){
                                     echo "--";
                                 } else {
