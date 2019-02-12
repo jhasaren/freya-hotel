@@ -236,6 +236,59 @@ class MReport extends CI_Model {
     }
     
     /**************************************************************************
+     * Nombre del Metodo: detalle_alojamiento
+     * Descripcion: Recupera el detalle del alojamiento en la sede
+     * Autor: jhonalexander90@gmail.com
+     * Fecha Creacion: 11/02/2019, Ultima modificacion: 
+     **************************************************************************/
+    public function detalle_alojamiento($venta,$reserva) {
+        
+        $queryHuespedes = $this->db->query("SELECT
+                                        t.descDocumento,
+                                        v.idUsuarioHuesped,
+                                        a.nombre,
+                                        a.apellido,
+                                        v.fechaRegistra,
+                                        a.fechaNacimiento
+                                        FROM venta_huesped v
+                                        JOIN app_usuarios a ON a.idUsuario = v.idUsuarioHuesped
+                                        JOIN tipo_identificacion t ON t.idTipoDocumento = a.idTipoDocumento
+                                        WHERE idVenta = ".$venta."");
+        
+        $queryVehiculos = $this->db->query("SELECT
+                                        v.placa,
+                                        v.tipoVehiculo
+                                        FROM venta_vehiculo v
+                                        WHERE v.idVenta = ".$venta."");
+        
+        $queryReserva = $this->db->query("SELECT
+                                        e.idMesa,
+                                        m.nombreMesa,
+                                        e.idCliente,
+                                        e.nombreCliente,
+                                        e.apellidoCliente,
+                                        e.telefonoCliente,
+                                        e.emailCliente,
+                                        e.tiempoAtencion,
+                                        e.valorReserva,
+                                        e.fechaInicioEvento,
+                                        e.fechaFinEvento,
+                                        e.fechaRegistro,
+                                        e.adultos,
+                                        e.ninos
+                                        FROM eventos_habitacion e
+                                        JOIN mesas m ON m.idMesa = e.idMesa
+                                        WHERE e.idEvento = ".$reserva."");
+        
+        $data['huespedes'] = $queryHuespedes->result_array();
+        $data['vehiculos'] = $queryVehiculos->result_array();
+        $data['reservaDetalle'] = $queryReserva->row();
+        
+        return $data;
+        
+    }
+    
+    /**************************************************************************
      * Nombre del Metodo: payment_sedes
      * Descripcion: Recupera los recibos Pagados en un periodo de tiempo por Sede
      * Autor: jhonalexander90@gmail.com

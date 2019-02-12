@@ -55,6 +55,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="title_right">
                         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                             <div class="input-group">
+                                <div></div>
+                                <span class="input-group-btn">
+                                    <a class="btn btn-warning btn-reserva" href="#"><i class="glyphicon glyphicon-calendar"></i> Detalle Alojamiento</a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -201,6 +205,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         <!-- /page content -->
+        
+        <!--Modal - Detalle Reserva-->
+        <div class="modal fade" id="myModal-reser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-reser" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Detalle Alojamiento</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="controls">
+                            <label class="control-label" for="select">Reserva</label>
+                            <br />
+                            <?php 
+                            echo "Fecha Solicitud: ".$alojamiento['reservaDetalle']->fechaRegistro."<br />";
+                            echo "Identificación: ".$alojamiento['reservaDetalle']->idCliente."<br />";
+                            echo "Nombre: ".$alojamiento['reservaDetalle']->nombreCliente." ".$alojamiento['reservaDetalle']->apellidoCliente."<br />";
+                            echo "Telefono: ".$alojamiento['reservaDetalle']->telefonoCliente."<br />";
+                            echo "Email: ".$alojamiento['reservaDetalle']->emailCliente."<br />";
+                            echo "Habitacion: ".$alojamiento['reservaDetalle']->nombreMesa."<br />";
+                            echo "Noches: ".$alojamiento['reservaDetalle']->tiempoAtencion."<br />";
+                            echo "Entrada: ".$alojamiento['reservaDetalle']->fechaInicioEvento."<br />";
+                            echo "Salida: ".$alojamiento['reservaDetalle']->fechaFinEvento."<br />";
+                            echo "Huéspedes: Adultos ".$alojamiento['reservaDetalle']->adultos." Niños ".$alojamiento['reservaDetalle']->ninos."<br />";
+                            echo "Valor Alojamiento: ".$alojamiento['reservaDetalle']->valorReserva."<br />";
+                            ?>
+                            <br />
+                        </div>
+                        <div class="controls">
+                            <label class="control-label" for="select">Huéspedes</label>
+                            <br />
+                            <?php 
+                            if ($alojamiento['huespedes'] != NULL){
+                                foreach ($alojamiento['huespedes'] as $valueHuesped) {
+                                    echo "Identificación: ".$valueHuesped['descDocumento']." ".$valueHuesped['idUsuarioHuesped']."<br />";
+                                    echo "Nombre: ".$valueHuesped['nombre']." ".$valueHuesped['apellido']."<br />";
+                                    echo "Fecha Nacimiento: ".$valueHuesped['fechaNacimiento']."<br /><br />";
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="controls">
+                            <label class="control-label" for="select">Vehículos</label>
+                            <br />
+                            <?php 
+                            if ($alojamiento['vehiculos'] != NULL){
+                                foreach ($alojamiento['vehiculos'] as $valueVehiculo) {
+                                    echo "Placa: ".$valueVehiculo['placa']."<br />";
+                                    echo "Tipo: ".$valueVehiculo['tipoVehiculo']."<br /><br />";
+                                }
+                            }
+                            ?>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                        <button type="submit" id="btn-click-prod" class="btn btn-primary">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Fin modal - detalle reserva-->
 
         <!-- footer content -->
         <?php 

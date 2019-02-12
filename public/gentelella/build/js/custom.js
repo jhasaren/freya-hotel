@@ -426,6 +426,11 @@ $(document).ready(function () {
         $("#idestado").val(estado); //enviar dato al input de la modal
         $('#myModal-canc').modal('show');
     });
+    /*Modal - Detalle Reserva*/
+    $('.btn-reserva').click(function (e) {
+        e.preventDefault();
+        $('#myModal-reser').modal('show');
+    });
     /*Control de Edad Niños*/
     $('#cantkid').keyup(function (e) {
         var cantidad = document.getElementById("cantkid").value;

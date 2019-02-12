@@ -373,9 +373,13 @@ class CReport extends CI_Controller {
             
                 /*Consulta Modelo detalle de Recibo*/
                 $reciboDetalle = $this->MReport->detalle_recibo($venta);
+                
+                /*Consulta Modelo detalle alojamiento*/
+                $reciboAlojamiento = $this->MReport->detalle_alojamiento($venta,$reciboDetalle['general']->nroTurno);
 
                 $reciboDetalle['venta'] = $venta;
                 $reciboDetalle['recibo'] = $recibo;
+                $reciboDetalle['alojamiento'] = $reciboAlojamiento;
 
                 $this->load->view('reports/receipt_detail',$reciboDetalle);
                 
