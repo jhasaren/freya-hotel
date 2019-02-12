@@ -252,7 +252,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <th>Descto.</th>
                                                             <th>Liquidado</th>
                                                             <th>Propina</th>
-                                                            <th>Impoconsumo</th>
+                                                            <th>Impuestos</th>
                                                             <th>Empleado</th>
                                                             <th>Acción</th>
                                                         </tr>

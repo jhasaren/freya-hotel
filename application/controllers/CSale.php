@@ -141,7 +141,7 @@ class CSale extends CI_Controller {
                 if ($flagBoard == 0){ /*mesa libre*/
                     
                     /*Consulta Modelo para crear el id de venta*/
-                    $createSale = $this->MSale->create_sale($this->session->userdata('userid'),$board);
+                    $createSale = $this->MSale->create_sale($this->session->userdata('userid'),$board,$reserva);
                     /*Envia datos al modelo para el registro del Cliente por Default*/
                     //$this->MSale->add_user('999999',$this->session->userdata('idSale'));
                     /*Envia datos al modelo para el registro del empleado Default*/
@@ -351,7 +351,7 @@ class CSale extends CI_Controller {
                                         $detailRecibo = $this->MReport->detalle_recibo($this->session->userdata('idSale'));
 
                                         /*Asignacion de Turno*/
-                                        if ($detailRecibo['general']->nroTurno == NULL){
+                                        /*if ($detailRecibo['general']->nroTurno == NULL){
 
                                             $turno = $this->MSale->consecutivo_turno_sale(1,$this->session->userdata('idSale'));
 
@@ -359,7 +359,8 @@ class CSale extends CI_Controller {
 
                                            $turno = $detailRecibo['general']->nroTurno; 
 
-                                        }
+                                        }*/
+                                        $turno = $detailRecibo['general']->nroTurno; 
 
                                         $info['list_forma_pago'] = $this->MSale->list_forma_pago(); /*lista formas de pago*/
                                         $info['idmessage'] = 1;

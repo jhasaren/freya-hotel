@@ -25,7 +25,7 @@ class MSale extends CI_Model {
      * Autor: jhonalexander90@gmail.com
      * Fecha Creacion: 26/03/2017, Ultima modificacion: 
      **************************************************************************/
-    public function create_sale($idusuario,$board) {
+    public function create_sale($idusuario,$board,$reserva) {
         
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
@@ -39,7 +39,8 @@ class MSale extends CI_Model {
                                     porcenServicio,
                                     idSede,
                                     impoconsumo,
-                                    idMesa
+                                    idMesa,
+                                    nroTurno
                                     ) VALUES (
                                     NOW(),
                                     0,
@@ -49,7 +50,8 @@ class MSale extends CI_Model {
                                     0,
                                     ".$this->session->userdata('sede').",
                                     ".($this->config->item('porcen_consumo')/100).",
-                                    ".$board."
+                                    ".$board.",
+                                    ".$reserva."
                                     )");
         
         $idSale = $this->db->insert_id();
