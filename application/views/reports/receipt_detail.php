@@ -262,7 +262,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                        <button type="submit" id="btn-click-prod" class="btn btn-primary">Agregar</button>
                     </div>
                 </div>
             </div>

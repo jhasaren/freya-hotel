@@ -560,6 +560,9 @@ class CSale extends CI_Controller {
                     /*Actualiza estado de la mesa*/
                     $updMesaEstado = $this->MSale->upd_estado_mesa($this->session->userdata('idMesa'),3); /*Limpieza*/
                     
+                    /*Elimina relacion de la habitacion con la reserva*/
+                    $delMesaReserva = $this->MCalendar->del_hab_reserva($this->session->userdata('idMesa'),$this->session->userdata('idReserva')); /*Elimina*/
+                    
                     $this->session->unset_userdata('sclient');
                     $this->session->unset_userdata('sempleado');
                     $this->session->unset_userdata('idSale'); 
@@ -713,6 +716,7 @@ class CSale extends CI_Controller {
                         $saldopay = $this->input->post('saldopay'); /*valor del saldo que debe pagar*/
                         $porcServiceVenta = $this->input->post('porcServiceVenta'); /*porcentaje del servicio*/
                         $recibo = $this->input->post('recibo'); /*numero de recibo*/
+                        $estadoRecibo = $this->input->post('estado_recibo'); /*estado del recibo*/
                         $formaPago = $this->input->post('formapago'); /*tipo de forma de pago*/
                         $mixpayment = $this->input->post('mixpayment'); /*si el pago es parcial (pago mixto)*/
                         $mesa = $this->input->post('idmesa'); /*id de la ubicacion (habitacion)*/
@@ -732,14 +736,18 @@ class CSale extends CI_Controller {
 
                                 if ($registerPay == TRUE){
 
-                                    /*Actualiza estado de la mesa*/
-                                    $updMesaEstado = $this->MSale->upd_estado_mesa($mesa,3); /*Limpieza*/
-                                    
-                                    /*Actualiza estado de la reserva*/
-                                    $updReservaEstado = $this->MCalendar->event_process($this->session->userdata('idReserva'),6); /*pagada*/
-                                    
-                                    /*Elimina relacion de la habitacion con la reserva*/
-                                    $delMesaReserva = $this->MCalendar->del_hab_reserva($mesa,$this->session->userdata('idReserva')); /*Elimina*/
+                                    if ($estadoRecibo != 8){
+                                        
+                                        /*Actualiza estado de la mesa*/
+                                        $updMesaEstado = $this->MSale->upd_estado_mesa($mesa,3); /*Limpieza*/
+
+                                        /*Actualiza estado de la reserva*/
+                                        $updReservaEstado = $this->MCalendar->event_process($this->session->userdata('idReserva'),6); /*pagada*/
+
+                                        /*Elimina relacion de la habitacion con la reserva*/
+                                        $delMesaReserva = $this->MCalendar->del_hab_reserva($mesa,$this->session->userdata('idReserva')); /*Elimina*/
+                                        
+                                    }
                                     
                                     /*Obtiene datos del cliente*/
                                     $datosCliente = $this->MUser->get_user($this->session->userdata('sclient')); 

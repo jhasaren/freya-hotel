@@ -118,6 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <input type="hidden" class="form-control" id="porcServiceVenta" name="porcServiceVenta" value="<?php echo $this->session->userdata('sservicio'); ?>" >
                                             <input type="hidden" class="form-control" id="recibo" name="recibo" value="<?php echo $nrorecibo; ?>" >
                                             <input type="hidden" class="form-control" id="idmesa" name="idmesa" value="<?php echo $detalleRecibo['general']->idMesa; ?>" >
+                                            <input type="hidden" class="form-control" id="idmesa" name="estado_recibo" value="<?php echo $detalleRecibo['general']->idEstadoRecibo; ?>" >
 
                                             <select class="form-control" name="formapago">
                                                 <?php
@@ -135,10 +136,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <br /><br />
                                             <center>
                                             <p class="center-block download-buttons">
+                                                <?php if ($detalleRecibo['general']->idEstadoRecibo != 8) { ?>
                                                 <a href="<?php echo base_url().'index.php/CSale/waitdatasale'; ?>" class="btn btn-primary btn-lg">
                                                     <i class="glyphicon glyphicon-time glyphicon-white"></i> 
                                                     CxCobrar
                                                 </a>
+                                                <?php } ?>
                                                 <button type="submit" class="btn btn-success btn-lg">
                                                     <i class="glyphicon glyphicon-check glyphicon-white"></i>
                                                     Pagar

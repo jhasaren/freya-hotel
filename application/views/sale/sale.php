@@ -56,26 +56,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="title_left">
                         <h3>Registrar Venta<br />#<?php echo $this->session->userdata('idSale'); ?></h3>
                         <?php
-                        if ($data_mesa->idEstadoMesa == 1){
-                            $label = "label-danger";
-                        }
                         
-                        if ($data_mesa->idEstadoMesa == 2){
-                            $label = "label-success";
-                        }
-                        
-                        if ($data_mesa->idEstadoMesa == 3){
-                            $label = "label-info";
-                        }
-                        ?>
-                        Reserva #<?php echo $this->session->userdata('idReserva'); ?><br />
-                        <span class="label <?php echo $label; ?>">
-                            <?php echo $data_mesa->descEstadoMesa; ?>
-                        </span>
-                        <?php 
                         if ($porcenInList->idEstadoRecibo == 8){
-                            echo "CUENTA X COBRAR";
-                        } 
+                            echo "<span class='label label-danger'>CUENTA X COBRAR</span>";
+                        } else {
+                        
+                            if ($data_mesa->idEstadoMesa == 1){
+                                $label = "label-danger";
+                            }
+
+                            if ($data_mesa->idEstadoMesa == 2){
+                                $label = "label-success";
+                            }
+
+                            if ($data_mesa->idEstadoMesa == 3){
+                                $label = "label-info";
+                            }
+                            ?>
+                            Reserva #<?php echo $this->session->userdata('idReserva'); ?><br />
+                            <span class="label <?php echo $label; ?>">
+                                <?php echo $data_mesa->descEstadoMesa; ?>
+                            </span>
+                            <?php           
+                        }
                         
                         /*Setea los datos como variable de sesion*/
                         $datos_session = array(
