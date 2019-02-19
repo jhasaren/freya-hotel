@@ -1,10 +1,11 @@
-Licencia de Uso de Software FREYA RESTAURANTE
+Licencia de Uso de Software FREYA HOTEL
 
 AUTOR(es):
 John Alexander Sanchez Rengifo
+Juan Fernando Rojas
 Leidy Johana Mendoza Yara
 
-Copyright (c) 2018, Freya Trucks
+Copyright (c) 2019, Freya Hotel
 
 EL USO DEL SOFTWARE INDICA SU ACEPTACIÓN DE LOS TÉRMINOS DE ESTE ACUERDO,
 SI NO ESTÁ DE ACUERDO CON TODOS ESTOS TÉRMINOS, NO INSTALE NI USE EL SOFTWARE,
@@ -28,7 +29,7 @@ Este SOFTWARE tiene licencia para el licenciatario solo para uso interno. El lic
 (y no permitirá que ningún tercero): (i) descompile, desarme, realice ingeniería inversa o intente
 reconstruir, identificar o descubrir cualquier código fuente, ideas subyacentes, interfaz de usuario subyacente
 técnicas o algoritmos del SOFTWARE por cualquier medio, o divulgar cualquiera de los anteriores;
-(ii) proporcionar, arrendar, prestar o usar el SOFTWARE coo o sin fines de lucro (iii) modificar,
+(ii) proporcionar, arrendar, prestar o usar el SOFTWARE con o sin fines de lucro (iii) modificar,
 incorporar en o con otro software, o crear un trabajo derivado de cualquier parte del SOFTWARE; (iv)
 divulgar los resultados de cualquier evaluación comparativa del SOFTWARE, o usar tales resultados para su propio
 competir en actividades de desarrollo de software, sin el permiso previo por escrito al AUTOR; o
