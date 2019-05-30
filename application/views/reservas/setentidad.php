@@ -129,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <label class="control-label" style="color: #000" for="selectSede">CHECKIN-CHECKOUT</label>
                                             <fieldset>
                                                 <div class="wrap-input1 validate-input" data-validate = "">
-                                                    <input class="daterangepicker-field form-control input1" name="periodo"></input>
+                                                    <input type="text" class="daterangepicker-field form-control input1" name="periodo" onfocus="blur();"></input>
                                                     <span class="shadow-input1"></span>
                                                 </div>
                                             </fieldset>

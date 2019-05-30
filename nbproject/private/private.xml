@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/views/reports/report_ganperd.php</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/models/MReport.php</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/public/gentelella/build/js/custom.js</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/controllers/CSale.php</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/views/reports/receipt_detail.php</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/controllers/CReport.php</file>
-            <file>file:/G:/xampp/htdocs/freya-hotel/application/views/sale/sale.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
